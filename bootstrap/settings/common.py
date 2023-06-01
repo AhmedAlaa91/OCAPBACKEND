@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'carpooling.urls'
+ROOT_URLCONF = 'bootstrap.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'carpooling.wsgi.application'
+WSGI_APPLICATION = 'bootstrap.wsgi.application'
 
 
 # Database
