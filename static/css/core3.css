@@ -1,0 +1,61 @@
+/*Base*/
+body{
+    position: relative;
+    min-height: calc(100vh - 0px);
+}
+.o-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+main#content{
+    padding-bottom: 70px;
+}
+
+.btn-group-sm > .btn [class*="icon-"]::before, .btn-sm [class*="icon-"]::before {
+    font-size: 1.4rem;
+}
+.table [class*=" icon-"], .table [class^="icon-"], .table [class^="svg-"], .table img, .table svg {
+    height: 1.2rem;
+}
+
+.btn {
+    border-radius: .25rem;
+}
+
+.modal-dialog {
+    max-width: 1000px;
+}
+.form-signin input{
+    margin:3px 0;
+    width:100%;
+    padding:5px
+}
+.form-signin label{
+    margin:3px 0;
+    width:100%
+}
+.form-signin button{
+    width:100%;
+    margin: 20px 0;
+    padding:10px 5px;
+}
+.capitalize{
+    text-transform: capitalize;
+}
+
+.form-add-user .helptext,
+.form-add-user label,
+.form-add-user #id_password1,
+.form-add-user #id_password2,
+.form-add-user br{
+    display:none;
+}
+
+.form-add-user .helptext:first-of-type,
+.form-add-user label:first-of-type{
+    display:block;
+}
+.form-add-user .helptext{
+    font-size: 0.9rem;
+}

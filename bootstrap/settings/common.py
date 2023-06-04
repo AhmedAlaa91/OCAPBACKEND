@@ -10,10 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import sys
+import os
 from pathlib import Path
+from os.path import abspath, basename, dirname, join, normpath
+
+# fetch Django's project directory
+DJANGO_ROOT = dirname(dirname(abspath(__file__)))
+
+# fetch the project_root
+PROJECT_ROOT = dirname(DJANGO_ROOT)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Set static files config
+STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "apps\pages\static")
+    ]
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pages'
 ]
 
 MIDDLEWARE = [
@@ -49,12 +68,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# add apps/ to the Python path
+sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
+
+# Set URLs root path
 ROOT_URLCONF = 'bootstrap.urls'
+
+# Set templates folder root path
+PROJECT_TEMPLATES = [ join(PROJECT_ROOT , 'templates')]
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': PROJECT_TEMPLATES,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
