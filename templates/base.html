@@ -30,10 +30,12 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-expand-md ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-expand-md ftco_navbar bg-dark ftco-navbar-light"
+        id="ftco-navbar">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="{% static 'images/orange_logo.svg' %}" alt="Back to homepage" title="Back to homepage" width="50" height="50"/>
+                <img src="{% static 'images/orange_logo.svg' %}" alt="Back to homepage" title="Back to homepage"
+                    width="50" height="50" />
                 Car<span class="text-primary">POOL</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +49,21 @@
                     <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
                     <li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <button type="button"
+                            class="nav-link btn btn-link btn-inverse dropdown-toggle d-flex align-items-center mr-0"
+                            data-toggle="dropdown">
+                            <span class="svg-avatar mr-1" aria-hidden="true"></span>
+                            <span>Hello <span class="text-primary capitalize"
+                                    style="background-color: transparent;">dsfs</span></span>
+                        </button>
+                        <ul class="dropdown-menu mt-4" style="left: auto;">
+                            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Administration</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

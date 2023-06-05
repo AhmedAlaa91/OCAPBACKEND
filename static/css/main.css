@@ -446,6 +446,10 @@
     color: #fff !important;
 }
 
+.ftco-navbar-light.scrolled .navbar-nav>.nav-item>.nav-link:hover {
+    color: #ff7900 !important;
+}
+
 .ftco-navbar-light.scrolled .nav-link.active {
     color: #ff7900 !important;
 }
