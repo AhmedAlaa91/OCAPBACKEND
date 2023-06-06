@@ -54,14 +54,20 @@
                             class="nav-link btn btn-link btn-inverse dropdown-toggle d-flex align-items-center mr-0"
                             data-toggle="dropdown">
                             <span class="svg-avatar mr-1" aria-hidden="true"></span>
-                            <span>Hello <span class="text-primary capitalize"
-                                    style="background-color: transparent;">dsfs</span></span>
+                            <span>Hello
+                                {% if user.is_authenticated %}
+                                    <span class="text-primary capitalize" style="background-color: transparent;">{{ user.get_username }}</span>
+                                {% endif %}
+                            </span>
                         </button>
                         <ul class="dropdown-menu mt-4" style="left: auto;">
-                            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Profile</a></li>
-                            <li><a class="dropdown-item" href="{% url 'admin:index' %}">Administration</a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'website.logout' %}">Logout</a></li>
+                            {% else %}
+                                <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
+                            {% endif %}
                         </ul>
                     </li>
                 </ul>

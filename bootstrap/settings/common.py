@@ -32,8 +32,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "apps\pages\static")
     ]
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -55,7 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pages'
+    'pages',
+    'website'
 ]
 
 MIDDLEWARE = [
@@ -106,6 +105,13 @@ DATABASES = {
     }
 }
 
+# Authentication Backend Models
+AUTHENTICATION_BACKENDS = (
+    "website.backends.OrangeAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -149,3 +155,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+########################################################################################
+
+######################
+# Orange Auth Config #
+######################
+ORANGE_AUTH_URL = os.getenv('ORANGE_AUTH_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/token')
+ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
+ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
+ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
