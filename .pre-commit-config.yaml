@@ -1,0 +1,12 @@
+exclude: "docs|static|migrations|.git|.tox|.idea|.svg|.yaml|.img|.png"
+default_stages: [commit]
+fail_fast: true
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+
