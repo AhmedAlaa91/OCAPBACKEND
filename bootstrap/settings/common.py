@@ -9,11 +9,16 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+from __future__ import annotations
 
-import sys
 import os
+import sys
+from os.path import abspath
+from os.path import basename
+from os.path import dirname
+from os.path import join
+from os.path import normpath
 from pathlib import Path
-from os.path import abspath, basename, dirname, join, normpath
 
 # fetch Django's project directory
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
@@ -27,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Set static files config
 STATIC_URL = 'static/'
 STATIC_ROOT = 'staticfiles/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -51,7 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pages',
-    'website'
+    'website',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +76,7 @@ sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
 ROOT_URLCONF = 'bootstrap.urls'
 
 # Set templates folder root path
-PROJECT_TEMPLATES = [ join(PROJECT_ROOT , 'templates')]
+PROJECT_TEMPLATES = [join(PROJECT_ROOT, 'templates')]
 
 TEMPLATES = [
     {
@@ -99,15 +104,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
 }
 
 # Authentication Backend Models
 AUTHENTICATION_BACKENDS = (
-    "website.backends.OrangeAuthBackend",
-    "django.contrib.auth.backends.ModelBackend",
+    'website.backends.OrangeAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
-
 
 
 # Password validation
@@ -157,7 +161,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ######################
 # Orange Auth Config #
 ######################
-ORANGE_AUTH_URL = os.getenv('ORANGE_AUTH_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/token')
+ORANGE_AUTH_URL = os.getenv(
+    'ORANGE_AUTH_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/token',
+)
 ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
 ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
 ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')

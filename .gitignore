@@ -150,6 +150,7 @@ cython_debug/
 # Visual studio
 .vs/
 .vscode/
+.idea/
 
 drf-yasg
 admin

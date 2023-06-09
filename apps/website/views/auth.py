@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.shortcuts import redirect
