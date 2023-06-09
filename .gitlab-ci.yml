@@ -15,7 +15,7 @@ include:
 variables:
   CI_DEBUG_TRACE: "false"
 
-  FF_ENABLE_JOB_CLEANUP: "true" # cleanup workspace
+  #FF_ENABLE_JOB_CLEANUP: "true" # cleanup workspace
   GIT_DEPTH: 1 # last commit only
 
   ### template python
