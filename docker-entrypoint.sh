@@ -45,4 +45,4 @@ manage migrate
 
 header "START SERVER"
 # Use "exec" so the process becomes container's PID 1 and is able to receive signals like SIGTERM
-exec manage runserver ${DJANGO_BIND_HOST} --noreload
+exec gosu ocap4ops poetry run python manage.py runserver 0.0.0.0:8000 --noreload
