@@ -19,6 +19,7 @@ variables:
   GIT_DEPTH: 1 # last commit only
 
   ### template python
+  PYTHON_IMAGE: "dockerproxy.repos.tech.orange/python:3.11-slim-bullseye"
   PYCOMPILE_ENABLED: "false"
   PYTEST_ENABLED: "true"
   BANDIT_ENABLED: "true"
@@ -60,7 +61,7 @@ py-compile:
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
 
 py-pytest:
-  stage: build
+  stage: test
   rules:
     - if: '$PYTEST_ENABLED != "true"'
       when: never
