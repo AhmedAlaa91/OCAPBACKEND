@@ -70,8 +70,7 @@ py-pytest:
 py-bandit:
   allow_failure: true
   variables:
-  #  PYTHON_EXTRA_DEPS: "bandit"
-    BANDIT_ARGS: "-c pyproject.toml -r ."
+    BANDIT_ARGS: "--verbose --recursive . --configfile pyproject.toml --format json --output reports/py-bandit.bandit.json"
     DEFECTDOJO_BANDIT_REPORTS: "true"   # required to produce JSON report
   rules:
     - if: '$BANDIT_ENABLED != "true"'
