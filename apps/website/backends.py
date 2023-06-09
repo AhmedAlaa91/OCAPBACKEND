@@ -128,7 +128,7 @@ class OrangeAuthBackend(BaseBackend):
             logged_user_cuid = json.loads(decoded_string).get('sub')
             request.session['cuid'] = logged_user_cuid
             request.session['user_info'] = cls.get_user_info(request=request)
-            return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
+            return redirect(request.META.get('HTTP_REFERER', 'website.register'))
         else:
             return redirect('pages.home')
 

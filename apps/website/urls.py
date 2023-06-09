@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from django.urls import path
-
-from .views.auth import AuthView
+from apps.website.views import AuthView, ProfileView
 
 urlpatterns = [
-    path('login/', AuthView.login, name='website.login'),
-    path('logout/', AuthView.logout, name='website.logout'),
+    path("register/", AuthView.register, name="website.register"),
+    path("login/", AuthView.login, name="website.login"),
+    path("logout/", AuthView.logout, name="website.logout"),
+    path("profile/", ProfileView.edit_profile, name="website.profile")
 ]

@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'website',
+    'crispy_forms',
+    'crispy_bootstrap4'
 ]
 
 MIDDLEWARE = [
@@ -167,6 +169,15 @@ ORANGE_AUTH_URL = os.getenv(
 ORANGE_AUTH_USER_INFO_URL = os.getenv(
     'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
 )
-ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
-ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
-ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+# ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
+# ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
+# ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+
+ORANGE_AUTH_REDIRECT_URI = "http://carpool.localhost:8000/login/"
+ORANGE_AUTH_HEADER = "Basic OUFkY0tWbWNKaEExa3FSRzFjVXF6NWFYR2l1OGlUcEk6ZlUzTmQ1ZFlsVm9Yc3Bhdg=="
+ORANGE_AUTH_CLIENT_ID = "9AdcKVmcJhA1kqRG1cUqz5aXGiu8iTpI"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'EG'

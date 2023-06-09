@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+{% endblock extra_head %}
+
+{% block content %}
+<div class="container" {% if context == 'create' %}id="regiseration-form"{% endif %}>
+    <div class="row">
+        <h1 id="register-title">Ready to Share a Ride?</h1>
+    </div>
+    <div class="row">
+        {% if context == 'create' %}<h3>Please Fill in Your Info:</h3>{% endif %}
+        {% if context == 'edit' %}<h3>Edit Your Profile:</h3>{% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                {% for field in user_form %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% else %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for field in profile_form %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% else %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                </div>
+                <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <img alt="CarPool" style="width: inherit;" src="{% static 'images/carPooling.jpg' %}">
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
+    function change_areas(){   
+        city_id = $('#cities').val();
+        $('#areas').empty();
+        var $option = $("<option>", {
+            text: "Choose Area",
+            value: "",
+            selected: "selected"
+        });
+        $option.appendTo('#areas');
+        for(index in areas){
+            if(areas[index]["governorate_id"] == city_id){
+                var $option = $("<option>", {
+                    text: areas[index]["city_name_en"],
+                    value: areas[index]["id"]
+                });
+                $option.appendTo('#areas');
+            }
+        }
+    }
+    
+    $(document).ready(function(){
+        change_areas();
+        var user_area_id = {{ user_area_id }};
+        if (user_area_id){
+            $("#areas").val(user_area_id);
+        }
+    });
+</script>
+{% endblock %}

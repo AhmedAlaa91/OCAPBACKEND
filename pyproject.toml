@@ -13,6 +13,10 @@ url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
 python = "^3.10"
 django = ">=4.0.0"
 requests = "^2.31.0"
+django-phonenumber-field = "^7.1.0"
+django-phonenumbers = "^1.0.1"
+django-crispy-forms = "^2.0"
+crispy-bootstrap4 = "^2022.1"
 
 
 [tool.poetry.group.dev.dependencies]
