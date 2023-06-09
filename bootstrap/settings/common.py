@@ -27,10 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # Set static files config
 STATIC_URL = 'static/'
 STATIC_ROOT = 'staticfiles/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "apps\pages\static")
-    ]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
