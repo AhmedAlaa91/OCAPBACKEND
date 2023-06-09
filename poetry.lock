@@ -17,6 +17,11 @@ typing-extensions = {version = ">=4", markers = "python_version < \"3.11\""}
 [package.extras]
 tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "astroid"
 version = "2.15.5"
@@ -35,6 +40,11 @@ wrapt = [
     {version = ">=1.11,<2", markers = "python_version < \"3.11\""},
     {version = ">=1.14,<2", markers = "python_version >= \"3.11\""},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "bandit"
@@ -59,6 +69,11 @@ test = ["beautifulsoup4 (>=4.8.0)", "coverage (>=4.5.4)", "fixtures (>=3.0.0)", 
 toml = ["tomli (>=1.1.0)"]
 yaml = ["PyYAML"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "certifi"
 version = "2023.5.7"
@@ -70,6 +85,11 @@ files = [
     {file = "certifi-2023.5.7.tar.gz", hash = "sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "cfgv"
 version = "3.3.1"
@@ -80,6 +100,11 @@ files = [
     {file = "cfgv-3.3.1-py2.py3-none-any.whl", hash = "sha256:c6a0883f3917a037485059700b9e75da2464e6c27051014ad85ba6aaa5884426"},
     {file = "cfgv-3.3.1.tar.gz", hash = "sha256:f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "charset-normalizer"
@@ -165,6 +190,11 @@ files = [
     {file = "charset_normalizer-3.1.0-py3-none-any.whl", hash = "sha256:3d9098b479e78c85080c98e1e35ff40b4a31d8953102bb0fd7d1b6f8a2111a3d"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "click"
 version = "8.1.3"
@@ -179,6 +209,11 @@ files = [
 [package.dependencies]
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "colorama"
 version = "0.4.6"
@@ -189,6 +224,11 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "coverage"
@@ -265,6 +305,11 @@ tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.1
 [package.extras]
 toml = ["tomli"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "dill"
 version = "0.3.6"
@@ -279,6 +324,11 @@ files = [
 [package.extras]
 graph = ["objgraph (>=1.7.2)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "distlib"
 version = "0.3.6"
@@ -289,6 +339,11 @@ files = [
     {file = "distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
     {file = "distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "django"
@@ -310,6 +365,11 @@ tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "dparse"
 version = "0.6.2"
@@ -329,6 +389,11 @@ toml = "*"
 conda = ["pyyaml"]
 pipenv = ["pipenv"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "exceptiongroup"
 version = "1.1.1"
@@ -342,6 +407,30 @@ files = [
 
 [package.extras]
 test = ["pytest (>=6)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
+[[package]]
+name = "execnet"
+version = "1.9.0"
+description = "execnet: rapid multi-Python deployment"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+files = [
+    {file = "execnet-1.9.0-py2.py3-none-any.whl", hash = "sha256:a295f7cc774947aac58dde7fdc85f4aa00c42adf5d8f5468fc630c1acf30a142"},
+    {file = "execnet-1.9.0.tar.gz", hash = "sha256:8f694f3ba9cc92cab508b152dcfe322153975c29bda272e2fd7f3f00f36e47c5"},
+]
+
+[package.extras]
+testing = ["pre-commit"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "filelock"
@@ -358,6 +447,11 @@ files = [
 docs = ["furo (>=2023.3.27)", "sphinx (>=6.1.3)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "gitdb"
 version = "4.0.10"
@@ -371,6 +465,11 @@ files = [
 
 [package.dependencies]
 smmap = ">=3.0.1,<6"
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "gitpython"
@@ -386,6 +485,11 @@ files = [
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "identify"
 version = "2.5.24"
@@ -400,6 +504,11 @@ files = [
 [package.extras]
 license = ["ukkonen"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "idna"
 version = "3.4"
@@ -411,6 +520,11 @@ files = [
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "iniconfig"
 version = "2.0.0"
@@ -421,6 +535,11 @@ files = [
     {file = "iniconfig-2.0.0-py3-none-any.whl", hash = "sha256:b6a85871a79d2e3b22d2d1b94ac2824226a63c6b741c88f7ae975f18b6778374"},
     {file = "iniconfig-2.0.0.tar.gz", hash = "sha256:2d91e135bf72d31a410b17c16da610a82cb55f6b0477d1a902134b24a455b8b3"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "isort"
@@ -438,6 +557,11 @@ colors = ["colorama (>=0.4.3)"]
 pipfile-deprecated-finder = ["pip-shims (>=0.5.2)", "pipreqs", "requirementslib"]
 plugins = ["setuptools"]
 requirements-deprecated-finder = ["pip-api", "pipreqs"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "lazy-object-proxy"
@@ -484,6 +608,11 @@ files = [
     {file = "lazy_object_proxy-1.9.0-cp39-cp39-win_amd64.whl", hash = "sha256:db1c1722726f47e10e0b5fdbf15ac3b8adb58c091d12b3ab713965795036985f"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "markdown-it-py"
 version = "2.2.0"
@@ -508,6 +637,11 @@ profiling = ["gprof2dot"]
 rtd = ["attrs", "myst-parser", "pyyaml", "sphinx", "sphinx-copybutton", "sphinx-design", "sphinx_book_theme"]
 testing = ["coverage", "pytest", "pytest-cov", "pytest-regressions"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "mccabe"
 version = "0.7.0"
@@ -519,6 +653,11 @@ files = [
     {file = "mccabe-0.7.0.tar.gz", hash = "sha256:348e0240c33b60bbdf4e523192ef919f28cb2c3d7d5c7794f74009290f236325"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "mdurl"
 version = "0.1.2"
@@ -529,6 +668,11 @@ files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
     {file = "mdurl-0.1.2.tar.gz", hash = "sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "nodeenv"
@@ -544,6 +688,11 @@ files = [
 [package.dependencies]
 setuptools = "*"
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "packaging"
 version = "21.3"
@@ -558,6 +707,11 @@ files = [
 [package.dependencies]
 pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pbr"
 version = "5.11.1"
@@ -568,6 +722,11 @@ files = [
     {file = "pbr-5.11.1-py2.py3-none-any.whl", hash = "sha256:567f09558bae2b3ab53cb3c1e2e33e726ff3338e7bae3db5dc954b3a44eef12b"},
     {file = "pbr-5.11.1.tar.gz", hash = "sha256:aefc51675b0b533d56bb5fd1c8c6c0522fe31896679882e1c4c63d5e4a0fccb3"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "platformdirs"
@@ -584,6 +743,11 @@ files = [
 docs = ["furo (>=2023.3.27)", "proselint (>=0.13)", "sphinx (>=6.2.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
 test = ["appdirs (==1.4.4)", "covdefaults (>=2.3)", "pytest (>=7.3.1)", "pytest-cov (>=4)", "pytest-mock (>=3.10)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pluggy"
 version = "1.0.0"
@@ -598,6 +762,11 @@ files = [
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "pre-commit"
@@ -617,6 +786,11 @@ nodeenv = ">=0.11.1"
 pyyaml = ">=5.1"
 virtualenv = ">=20.10.0"
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pygments"
 version = "2.15.1"
@@ -630,6 +804,11 @@ files = [
 
 [package.extras]
 plugins = ["importlib-metadata"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "pylint"
@@ -659,6 +838,11 @@ tomlkit = ">=0.10.1"
 spelling = ["pyenchant (>=3.2,<4.0)"]
 testutils = ["gitpython (>3)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pyparsing"
 version = "3.0.9"
@@ -672,6 +856,11 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "pytest"
@@ -695,6 +884,11 @@ tomli = {version = ">=1.0.0", markers = "python_version < \"3.11\""}
 [package.extras]
 testing = ["argcomplete", "attrs (>=19.2.0)", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pytest-cov"
 version = "4.1.0"
@@ -713,6 +907,11 @@ pytest = ">=4.6"
 [package.extras]
 testing = ["fields", "hunter", "process-tests", "pytest-xdist", "six", "virtualenv"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "pytest-django"
 version = "4.5.2"
@@ -730,6 +929,36 @@ pytest = ">=5.4.0"
 [package.extras]
 docs = ["sphinx", "sphinx-rtd-theme"]
 testing = ["Django", "django-configurations (>=2.0)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
+[[package]]
+name = "pytest-xdist"
+version = "3.3.1"
+description = "pytest xdist plugin for distributed testing, most importantly across multiple CPUs"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pytest-xdist-3.3.1.tar.gz", hash = "sha256:d5ee0520eb1b7bcca50a60a518ab7a7707992812c578198f8b44fdfac78e8c93"},
+    {file = "pytest_xdist-3.3.1-py3-none-any.whl", hash = "sha256:ff9daa7793569e6a68544850fd3927cd257cc03a7ef76c95e86915355e82b5f2"},
+]
+
+[package.dependencies]
+execnet = ">=1.1"
+pytest = ">=6.2.0"
+
+[package.extras]
+psutil = ["psutil (>=3.0)"]
+setproctitle = ["setproctitle"]
+testing = ["filelock"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "pyyaml"
@@ -780,6 +1009,11 @@ files = [
     {file = "PyYAML-6.0.tar.gz", hash = "sha256:68fb519c14306fec9720a2a5b45bc9f0c8d1b9c72adf45c37baedfcd949c35a2"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "requests"
 version = "2.31.0"
@@ -801,6 +1035,11 @@ urllib3 = ">=1.21.1,<3"
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "rich"
 version = "13.4.1"
@@ -818,6 +1057,11 @@ pygments = ">=2.13.0,<3.0.0"
 
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<9)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "ruamel-yaml"
@@ -837,12 +1081,17 @@ files = [
 docs = ["ryd"]
 jinja2 = ["ruamel.yaml.jinja2 (>=0.2)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "ruamel-yaml-clib"
 version = "0.2.7"
 description = "C version of reader, parser and emitter for ruamel.yaml derived from libyaml"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 files = [
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d5859983f26d8cd7bb5c287ef452e8aacc86501487634573d260968f753e1d71"},
     {file = "ruamel.yaml.clib-0.2.7-cp310-cp310-macosx_12_0_arm64.whl", hash = "sha256:debc87a9516b237d0466a711b18b6ebeb17ba9f391eb7f91c649c5c4ec5006c7"},
@@ -883,6 +1132,11 @@ files = [
     {file = "ruamel.yaml.clib-0.2.7.tar.gz", hash = "sha256:1f08fd5a2bea9c4180db71678e850b995d2a5f4537be0e94557668cf0f5f9497"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "safety"
 version = "2.3.5"
@@ -906,6 +1160,11 @@ setuptools = ">=19.3"
 github = ["jinja2 (>=3.1.0)", "pygithub (>=1.43.3)"]
 gitlab = ["python-gitlab (>=1.3.0)"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "setuptools"
 version = "67.8.0"
@@ -922,6 +1181,11 @@ docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "pygments-g
 testing = ["build[virtualenv]", "filelock (>=3.4.0)", "flake8-2020", "ini2toml[lite] (>=0.9)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pip (>=19.1)", "pip-run (>=8.8)", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-mypy (>=0.9.1)", "pytest-perf", "pytest-ruff", "pytest-timeout", "pytest-xdist", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel"]
 testing-integration = ["build[virtualenv]", "filelock (>=3.4.0)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "pytest", "pytest-enabler", "pytest-xdist", "tomli", "virtualenv (>=13.0.0)", "wheel"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "smmap"
 version = "5.0.0"
@@ -932,6 +1196,11 @@ files = [
     {file = "smmap-5.0.0-py3-none-any.whl", hash = "sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94"},
     {file = "smmap-5.0.0.tar.gz", hash = "sha256:c840e62059cd3be204b0c9c9f74be2c09d5648eddd4580d9314c3ecde0b30936"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "sqlparse"
@@ -949,6 +1218,11 @@ dev = ["build", "flake8"]
 doc = ["sphinx"]
 test = ["pytest", "pytest-cov"]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "stevedore"
 version = "5.1.0"
@@ -963,6 +1237,11 @@ files = [
 [package.dependencies]
 pbr = ">=2.0.0,<2.1.0 || >2.1.0"
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "toml"
 version = "0.10.2"
@@ -973,6 +1252,11 @@ files = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "tomli"
@@ -985,6 +1269,11 @@ files = [
     {file = "tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "tomlkit"
 version = "0.11.8"
@@ -995,6 +1284,11 @@ files = [
     {file = "tomlkit-0.11.8-py3-none-any.whl", hash = "sha256:8c726c4c202bdb148667835f68d68780b9a003a9ec34167b6c673b38eff2a171"},
     {file = "tomlkit-0.11.8.tar.gz", hash = "sha256:9330fc7faa1db67b541b28e62018c17d20be733177d290a13b24c62d1614e0c3"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "typing-extensions"
@@ -1007,6 +1301,11 @@ files = [
     {file = "typing_extensions-4.6.2.tar.gz", hash = "sha256:06006244c70ac8ee83fa8282cb188f697b8db25bc8b4df07be1873c43897060c"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [[package]]
 name = "tzdata"
 version = "2023.3"
@@ -1017,6 +1316,11 @@ files = [
     {file = "tzdata-2023.3-py2.py3-none-any.whl", hash = "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda"},
     {file = "tzdata-2023.3.tar.gz", hash = "sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a"},
 ]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "urllib3"
@@ -1034,6 +1338,11 @@ brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
 secure = ["certifi", "cryptography (>=1.9)", "idna (>=2.0.0)", "pyopenssl (>=17.1.0)", "urllib3-secure-extra"]
 socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "virtualenv"
@@ -1054,6 +1363,11 @@ platformdirs = ">=3.2,<4"
 [package.extras]
 docs = ["furo (>=2023.3.27)", "proselint (>=0.13)", "sphinx (>=6.1.3)", "sphinx-argparse (>=0.4)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.12)"]
 test = ["covdefaults (>=2.3)", "coverage (>=7.2.3)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=23.1)", "pytest (>=7.3.1)", "pytest-env (>=0.8.1)", "pytest-freezegun (>=0.4.2)", "pytest-mock (>=3.10)", "pytest-randomly (>=3.12)", "pytest-timeout (>=2.1)", "setuptools (>=67.7.1)", "time-machine (>=2.9)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
 
 [[package]]
 name = "wrapt"
@@ -1139,7 +1453,12 @@ files = [
     {file = "wrapt-1.15.0.tar.gz", hash = "sha256:d06730c6aed78cee4126234cf2d071e01b44b915e725a6cb439a879ec9754a3a"},
 ]
 
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "38a6ed795a333821fff87d7582f4915a9abaca9d7f1664561558d58b367b8ed0"
+content-hash = "2692722fdf3e3843c8cea5d9d36385b642b5689b0835b0337e01db7f23b2c50f"
