@@ -8,6 +8,12 @@ readme = "README.md"
 [[tool.poetry.source]]
 name = "diod_python_proxy"
 url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+priority = "primary"
+
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -23,7 +29,6 @@ pylint = "^2.17.4"
 pytest-cov = "^4.1.0"
 bandit = "^1.7.5"
 safety = "^2.3.5"
-pytest-xdist = "^3.3.1"
 
 [build-system]
 requires = ["poetry-core"]
