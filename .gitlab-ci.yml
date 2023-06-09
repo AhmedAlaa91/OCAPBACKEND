@@ -61,7 +61,7 @@ py-compile:
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
 
 py-pytest:
-  stage: test
+  stage: build
   rules:
     - if: '$PYTEST_ENABLED != "true"'
       when: never

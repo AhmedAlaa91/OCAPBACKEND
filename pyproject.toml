@@ -35,6 +35,9 @@ build-backend = "poetry.core.masonry.api"
 DJANGO_SETTINGS_MODULE = "bootstrap.settings.testing"
 python_files = ["tests_*.py"]
 addopts = "-rA"
+filterwarnings = [
+    "ignore::django.utils.deprecation.RemovedInDjango50Warning",
+]
 
 [tool.bandit]
 exclude_dirs = [".venv",".pytest_cache", "docs", "reports", "static", "tests"]
