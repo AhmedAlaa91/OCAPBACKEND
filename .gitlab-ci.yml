@@ -1,0 +1,144 @@
+# synchronize every day https://gitlab.com/to-be-continuous to https://gitlab.tech.orange/to-be-continuous
+# so push your merge request on https://gitlab.com/to-be-continuous
+
+include:
+  # https://gitlab.tech.orange/to-be-continuous/python/-/blob/master/templates/gitlab-ci-python.yml
+  - project: "to-be-continuous/python"
+    ref: "6.3.0"
+    file: "templates/gitlab-ci-python.yml"
+
+  # https://gitlab.tech.orange/to-be-continuous/docker/-/tree/master/templates/gitlab-ci-docker.yml
+  - project: 'to-be-continuous/docker'
+    ref: '4.0.0'
+    file: '/templates/gitlab-ci-docker.yml'
+
+variables:
+  CI_DEBUG_TRACE: "false"
+
+  #FF_ENABLE_JOB_CLEANUP: "true" # cleanup workspace
+  GIT_DEPTH: 1 # last commit only
+
+  ### template python
+  PYTHON_IMAGE: "dockerproxy.repos.tech.orange/python:3.11-slim-bullseye"
+  PYCOMPILE_ENABLED: "false"
+  PYTEST_ENABLED: "true"
+  BANDIT_ENABLED: "true"
+  SAFETY_ENABLED: "true"
+  SAFETY_ARGS: "--full-report"
+  PYTHON_TRIVY_ENABLED: "true"
+  PYTHON_SBOM_ENABLED: "true"
+  PYPACKAGE_ENABLED: "false"
+  PYTHON_PUBLISH_ENABLED: "false"
+
+  ### template docker
+  DOCKER_SNAPSHOT_IMAGE: "registry.gitlab.tech.orange/${CI_PROJECT_PATH}/${CI_COMMIT_REF_SLUG}:latest"
+  DOCKER_RELEASE_IMAGE: "registry.gitlab.tech.orange/${CI_PROJECT_PATH}/${CI_COMMIT_REF_NAME}:latest"
+  DOCKER_REGISTRY_USER: "$GITLAB_DOCKER_REGISTRY_USER"
+  DOCKER_REGISTRY_PASSWORD: "$GITLAB_DOCKER_REGISTRY_PASSWORD"
+  DOCKER_HADOLINT_ARGS: "--ignore DL3005 --ignore DL3008"
+  DOCKER_HADOLINT_DISABLED: "true"
+  DOCKER_TRIVY_DISABLED: "false"
+  DOCKER_TRIVY_ARGS: "--ignore-unfixed --vuln-type os --skip-files /opt/ocap4ops-portal/webapp/.venv/lib/python3.11/site-packages/autobahn/wamp/cryptosign.py"
+  DOCKER_SBOM_DISABLED: "false"
+  DOCKER_REGISTRY_MIRROR: "https://dockerproxy.repos.tech.orange"
+  DOCKER_BUILD_ARGS: "--cleanup --cache=false --no-push" # by default, no push on registry
+
+# https://to-be-continuous.gitlab.io/doc/understand/#generic-pipeline-stages
+stages:
+  - build
+  - test
+  - package-build
+  - package-test
+  - publish
+
+### template python
+
+py-compile:
+  stage: build
+  rules:
+    - if: '$PYCOMPILE_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+py-pytest:
+  stage: build
+  rules:
+    - if: '$PYTEST_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+py-bandit:
+  allow_failure: true
+  variables:
+    BANDIT_ARGS: "--verbose --recursive . --configfile pyproject.toml --format json --output reports/py-bandit.bandit.json"
+    DEFECTDOJO_BANDIT_REPORTS: "true"   # required to produce JSON report
+  rules:
+    - if: '$BANDIT_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+py-safety:
+  allow_failure: true
+  # variables:
+  #  PYTHON_EXTRA_DEPS: "safety"
+  rules:
+    - if: '$SAFETY_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+py-trivy:
+  allow_failure: true
+  rules:
+    - if: '$PYTHON_TRIVY_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+py-sbom:
+  allow_failure: true
+  rules:
+    - if: '$PYTHON_SBOM_ENABLED != "true"'
+      when: never
+    - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+
+### template docker
+
+.docker-kaniko-base-custom:
+  extends: .docker-kaniko-base
+  before_script:
+    - !reference [.docker-kaniko-base, before_script]
+    - |
+      if [ "${CI_COMMIT_TAG}" != "" ]; then
+        echo "${CI_COMMIT_TAG} (build:${CI_COMMIT_SHORT_SHA})" > ${CI_PROJECT_DIR}/RELEASE
+      else
+        echo "${CI_COMMIT_REF_NAME} (build:${CI_COMMIT_SHORT_SHA})" > ${CI_PROJECT_DIR}/RELEASE
+      fi
+      cat ${CI_PROJECT_DIR}/RELEASE
+
+      # if branch develop or create tag, push on registry
+      if [ "${CI_COMMIT_REF_NAME}" == "$CI_DEFAULT_BRANCH" ] || [ "${CI_COMMIT_REF_NAME}" == "$CI_COMMIT_TAG" ]; then
+        export DOCKER_BUILD_ARGS="--cleanup --cache=false"
+        export DOCKER_SNAPSHOT_IMAGE=${DOCKER_RELEASE_IMAGE}
+      fi
+      echo "DOCKER_BUILD_ARGS=${DOCKER_BUILD_ARGS}"
+      echo "DOCKER_SNAPSHOT_IMAGE=${DOCKER_SNAPSHOT_IMAGE}"
+
+docker-kaniko-build:
+  extends: .docker-kaniko-base-custom
+  rules:
+    - if: '$DOCKER_DIND_BUILD == null || $DOCKER_DIND_BUILD == ""'
+    - if: '$CI_OPEN_MERGE_REQUESTS || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG'
+  dependencies: [] # To disable artifact passing
+
+docker-trivy:
+  allow_failure: true
+  rules:
+    - if: '$DOCKER_TRIVY_DISABLED == "true"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG'
+
+docker-sbom:
+  allow_failure: true
+  rules:
+    - if: '$DOCKER_SBOM_DISABLED == "true"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH || $CI_COMMIT_TAG'

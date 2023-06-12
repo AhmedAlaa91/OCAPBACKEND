@@ -5,6 +5,10 @@ description = ""
 authors = ["Yousab Azmy <yousab.azmy@orange.com>"]
 readme = "README.md"
 
+[[tool.poetry.source]]
+name = "diod_python_proxy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+
 [tool.poetry.dependencies]
 python = "^3.10"
 django = ">=4.0.0"
@@ -13,7 +17,24 @@ requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.3.2"
+pytest-django = "^4.5.2"
+pytest = "^7.3.1"
+pylint = "^2.17.4"
+pytest-cov = "^4.1.0"
+bandit = "^1.7.5"
+safety = "^2.3.5"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "bootstrap.settings.testing"
+python_files = ["tests_*.py"]
+addopts = "-rA"
+filterwarnings = [
+    "ignore::django.utils.deprecation.RemovedInDjango50Warning",
+]
+
+[tool.bandit]
+exclude_dirs = [".venv",".pytest_cache", "docs", "reports", "static", "tests"]
