@@ -27,17 +27,10 @@ class OrangeAuthBackend(BaseBackend):
         """
         try:
             self.logger.debug('orange_auth_backend: start authenticate method')
-            user = request.user
-            if 'cuid' in request.session:
-                if user.is_anonymous == False and user.username == request.session['cuid']:
-                    return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
-                else:
-                    return self.check_user_authentication(request, request.session['cuid'])
-            elif 'cuid' not in request.session:
-                # Check if URL query string contains "code" which means the user authenticated by Orange API
-                return self.handle_auth_code_authorization(request=request)
+            if request.user.is_authenticated:
+                return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
             else:
-                return self.do_authenticate()
+                return self.handle_auth_code_authorization(request=request)
         except Exception as ex:
             self.logger.error(ex)
         finally:
@@ -68,7 +61,7 @@ class OrangeAuthBackend(BaseBackend):
             response = redirect(
                 'https://inside01.api.intraorange/openidconnect/internal/v1/authorize?response_type=code&client_id=' +
                 settings.ORANGE_AUTH_CLIENT_ID + '&redirect_uri=' +
-                settings.ORANGE_AUTH_REDIRECT_URI + '&scope=openid&state=test',
+                settings.ORANGE_AUTH_REDIRECT_URI + '&scope=openid%20profile%20email&state=test',
             )
             return response
             # return (response.headers['Location'] if hasattr(response, 'headers') else response) if response.status_code == 302 else response.text
@@ -134,35 +127,31 @@ class OrangeAuthBackend(BaseBackend):
             )      # "==" added to fix error "Incorrect padding" in decoding
             logged_user_cuid = json.loads(decoded_string).get('sub')
             request.session['cuid'] = logged_user_cuid
-            # Compare sub element with CUID in DB
-            return cls.check_user_authentication(request, logged_user_cuid)
+            request.session['user_info'] = cls.get_user_info(request=request)
+            return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
         else:
             return redirect('pages.home')
 
     @classmethod
-    def check_user_authentication(cls, request: HttpRequest, cuid: str):
-        """Check user authentication to log in django application
+    def get_user_info(cls, request: HttpRequest):
+        """Get user info from Orange Auth
 
         Parameters
         ----------
         request : HttpRequest
             The request object
-        cuid : String
-            Orange cuid
         """
+        def get_request_headers(headers={}):
+            return headers | {
+                'Authorization': f"Bearer {request.session['access_token']}",
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
         try:
-            cls.logger.debug(
-                'orange_auth_backend: start check_user_authentication method',
+            headers = get_request_headers()
+            response = requests.get(
+                settings.ORANGE_AUTH_USER_INFO_URL, headers=headers, verify=False,
             )
-            try:
-                user = User.objects.get(username=cuid)
-                login(request, user, backend='website.backends.OrangeAuthBackend')
-                return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
-            except User.DoesNotExist:
-                return redirect('pages.home')
+            return json.loads(response.text)
         except Exception as ex:
             cls.logger.error(ex)
-        finally:
-            cls.logger.debug(
-                'orange_auth_backend: end check_user_authentication method',
-            )
+            return None

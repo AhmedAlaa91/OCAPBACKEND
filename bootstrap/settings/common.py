@@ -164,6 +164,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ORANGE_AUTH_URL = os.getenv(
     'ORANGE_AUTH_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/token',
 )
+ORANGE_AUTH_USER_INFO_URL = os.getenv(
+    'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
+)
 ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
 ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
 ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
