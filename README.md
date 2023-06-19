@@ -41,10 +41,10 @@ Technical configuration is loaded at startup by reading these environment variab
 
 | Variable                         | Default | Description                                                                             |
 | -------------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| ORANGE_AUTH_API_BYPASS           | `False` | Disable authentication with Orange Connect if True (default is True in dev environment) |
-| ORANGE_CONNECT_API_CLIENT_ID     | `None`  | Orange Connect OIDC Client ID                                                           |
-| ORANGE_CONNECT_API_CLIENT_SECRET | `None`  | Orange Connect OIDC Client Secret                                                       |
-| ORANGE_CONNECT_API_REDIRECT_URI  | `None`  | Orange Connect Redirect URI                                                             |
+| ORANGE_AUTH_API_BYPASS           | `False` | Disable authentication with Orange AUTH if True (default is True in dev environment) |
+| ORANGE_ODI_API_CLIENT_ID     | `None`  | Orange AUTH OIDC Client ID                                                           |
+| ORANGE_ODI_API_AUTH_HEADER| `None`  | Orange AUTH OIDC Client Secret                                                       |
+| ORANGE_ODI_API_REDIRECT_URI  | `None`  | Orange AUTH Redirect URI                                                             |
 
 - MySQL/MariaDB settings (not used in dev environment):
 
@@ -90,6 +90,15 @@ To authorize a user, its CUID must be declared in Django users database (can be 
 
 Authentication and authorization process is bypassed in developement environment (setting `ORANGE_AUTH_API_BYPASS=True`).
 
-# Database
 
-**TODO**
+# Alert
+
+Alert user by sending email through [Orange Mail API](https://developer-inside.sso.infra.ftgroup/apis/mail/getting-started).
+
+| Variable             | Default               Description                                                                                            |
+| -------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------ |
+| DJANGO_ALLOWED_HOSTS | `"*"`                      | Allowed hosts. Refer to https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-ALLOWED_HOSTS  |
+| ORANGE_SEND_EMAIL_CLIENT_ID         | `cli-ocapapp-v1-prd`  | Orange Mail client id.       |
+| ORANGE_SEND_EMAILS_CLIENT_SECRET    | random string              | Orange Mail secret. |
+| SEND_MAILS_ACCESS_TOKENS_URL   | `"https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token"` | OM token endpoint                           |
+| SEND_MAIL_SERVICE_URL      | `"'https://mail2fed.preprod.api.hbx.geo.infra.ftgroup/v1/email/send"` | send mail endpoint|
