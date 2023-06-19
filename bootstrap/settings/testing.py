@@ -12,8 +12,3 @@ DATABASES = {
         'NAME': join(BASE_DIR, 'db.sqlite3'),
     },
 }
-
-
-######################### APPLICATION CONFIGURATION #########################
-
-INSTALLED_APPS = INSTALLED_APPS

@@ -48,3 +48,8 @@ DATABASES = {
         'PORT': os.getenv('MYSQL_PORT', 3306),
     },
 }
+
+
+ORANGE_MAIL_API_CERT = os.path.join(
+    os.getcwd(), 'certs/Groupe_France_Telecom_Root_CA.pem',
+)

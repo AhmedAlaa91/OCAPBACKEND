@@ -9,4 +9,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# TLS/SSL options
+ORANGE_MAIL_API_CERT = os.path.join(
+    BASE_DIR, 'certs\\Groupe_France_Telecom_Root_CA.pem',
+)
