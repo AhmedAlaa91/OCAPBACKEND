@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import base64
-import csv
 import json
 import logging
+from typing import Dict
+from typing import List
 
 import requests
 from django.conf import settings
@@ -47,9 +48,13 @@ def get_mail_access_token():
 
 
 # Send Alertig Email
-def send_alerting_message(email: str, content_message: str):
+def send_alerting_message(email_list: List[Dict[str, str]], content_message: str):
+    """
+   send alerting message to  list of employee
+    """
     try:
         token = get_mail_access_token()
+        emails_json = json.dumps(email_list)
         headers = {
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json',
@@ -57,7 +62,7 @@ def send_alerting_message(email: str, content_message: str):
         context = {
             'content': content_message,
         }
-        logger.info(f'trying to send emails to {email}')
+        logger.info(f'trying to send alert to {len(email_list)} users')
         msg_template = render_to_string(
             'partials/_email-template.html', context=context,
         )
@@ -74,12 +79,7 @@ def send_alerting_message(email: str, content_message: str):
                         'name': 'OCAP',
                     },
                     'subject': '[Car-Pooling] Alerting Message ',
-                    'to': [
-                        {
-                            'email': f'{email}',
-                            'name': 'Car Pooling [OCAP]',
-                        },
-                    ],
+                    'to': emails_json,
                 },
             ],
         }
