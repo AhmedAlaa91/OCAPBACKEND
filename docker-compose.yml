@@ -1,0 +1,28 @@
+services:
+  webapp:
+    build: .
+    depends_on:
+      - mariadb
+    ports:
+      - 8000:8000
+    restart: always
+    environment:
+      - DJANGO_SETTINGS_MODULE=bootstrap.settings.docker
+      - ORANGE_AUTH_API_BYPASS=true
+      - MYSQL_HOST=mariadb
+
+  mariadb:
+    image: "bitnami/mariadb:10.11.3-debian-11-r5"
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb:/bitnami/mariadb
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_DATABASE=ocap-db
+      - MARIADB_USER=ocap-app
+      - MARIADB_PASSWORD=ocap-app
+
+volumes:
+  mariadb:
