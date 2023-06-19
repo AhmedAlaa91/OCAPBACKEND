@@ -170,3 +170,29 @@ ORANGE_AUTH_USER_INFO_URL = os.getenv(
 ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
 ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
 ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+
+
+# ---------------------------------------------------------------------
+# Sending Email Configuration
+ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get(
+    'ORANGE_SEND_EMAIL_CLIENT_ID', 'cli-ocapapp-v1-prd',
+)
+
+ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get(
+    'ORANGE_SEND_EMAILS_CLIENT_SECRET', 'NjA4ODk1ODExZGFlMDg3ZjBhYmZkNzdiMjc1NDE2YTc1MzRkZTc4ZjRkOTM2NDNkZDFiNjY0YjY4MmJkMjlkZGuipaE19T417drEigbHlqwISzzsr1LuOu1XuOBlCAb7',
+)
+
+SEND_MAILS_ACCESS_TOKENS_URL = os.environ.get(
+    'SEND_MAILS_ACCESS_TOKENS_URL', 'https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token',
+)
+
+SEND_MAIL_SERVICE_URL = os.environ.get(
+    'SEND_MAIL_SERVICE_URL', 'https://mail2fed.preprod.api.hbx.geo.infra.ftgroup/v1/email/send',
+)
+
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
+
+
+ORANGE_MAIL_API_CERT = join(
+    BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
+)

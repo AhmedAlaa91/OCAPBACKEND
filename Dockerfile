@@ -17,7 +17,7 @@ RUN echo "" \
     && apt-get update -y \
     && apt-get install -y gosu nginx \
     # Required for mysqlclient python package
-    && apt-get install -y build-essential default-libmysqlclient-dev
+    && apt-get install -y  build-essential default-libmysqlclient-dev
 
 # Install Poetry
 ENV PIP_INDEX_URL="https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
