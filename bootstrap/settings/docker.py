@@ -3,11 +3,6 @@ from __future__ import annotations
 from .common import *
 
 
-ALLOWED_HOSTS = ['*']
-
-DEBUG = False
-
-
 SESSION_COOKIE_AGE = 3600
 
 SESSION_SAVE_EVERY_REQUEST = True

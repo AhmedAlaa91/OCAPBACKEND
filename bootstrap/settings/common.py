@@ -20,6 +20,9 @@ from os.path import join
 from os.path import normpath
 from pathlib import Path
 
+from lib.utils import convert_str_bool
+from lib.utils import getenv
+
 # fetch Django's project directory
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 
@@ -28,6 +31,17 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), False)
+
+ALLOWED_HOSTS = []
+# Add hosts from env variable, default to "*"
+for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
+    v = v.strip()
+    if v:
+        ALLOWED_HOSTS.append(v)
+
 
 # Set static files config
 STATIC_URL = 'static/'

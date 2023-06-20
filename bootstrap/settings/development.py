@@ -1,14 +1,14 @@
+# coding: utf-8
+"""
+Django settings override for development environment
+"""
+# pylint: disable=wildcard-import,unused-wildcard-import
 from __future__ import annotations
 
-from bootstrap.settings.common import *
+from .common import *
+
+DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
 
 
-DEBUG = True
-
-# allow all hosts during development
-ALLOWED_HOSTS = ['*']
-
-
-ORANGE_MAIL_API_CERT = os.path.join(
-    BASE_DIR, 'certs\\Groupe_France_Telecom_Root_CA.pem',
-)
+# Disable authentication
+ORANGE_AUTH_API_BYPASS = True
