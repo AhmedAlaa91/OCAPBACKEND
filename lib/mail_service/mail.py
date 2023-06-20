@@ -54,7 +54,6 @@ def send_alerting_message(email_list: List[Dict[str, str]], content_message: str
     """
     try:
         token = get_mail_access_token()
-        emails_json = json.dumps(email_list)
         headers = {
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json',
@@ -79,7 +78,7 @@ def send_alerting_message(email_list: List[Dict[str, str]], content_message: str
                         'name': 'OCAP',
                     },
                     'subject': '[Car-Pooling] Alerting Message ',
-                    'to': emails_json,
+                    'to': email_list,
                 },
             ],
         }
