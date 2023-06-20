@@ -95,10 +95,9 @@ Authentication and authorization process is bypassed in developement environment
 
 Alert user by sending email through [Orange Mail API](https://developer-inside.sso.infra.ftgroup/apis/mail/getting-started).
 
-| Variable             | Default               Description                                                                                            |
+| Variable             | Default                     |                     Description                                                                        |
 | -------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------ |
-| DJANGO_ALLOWED_HOSTS | `"*"`                      | Allowed hosts. Refer to https://docs.djangoproject.com/en/4.1/ref/settings/#std-setting-ALLOWED_HOSTS  |
-| ORANGE_SEND_EMAIL_CLIENT_ID         | `cli-ocapapp-v1-prd`  | Orange Mail client id.       |
-| ORANGE_SEND_EMAILS_CLIENT_SECRET    | random string              | Orange Mail secret. |
-| SEND_MAILS_ACCESS_TOKENS_URL   | `"https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token"` | OM token endpoint                           |
+| ORANGE_SEND_EMAIL_CLIENT_ID | `cli-ocapapp-v1-prd`  |  Orange Mail client id.                                                                              |
+| ORANGE_SEND_EMAILS_CLIENT_SECRET| random string              | Orange Mail secret. |
+| SEND_MAILS_ACCESS_TOKENS_URL   | `"https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token"`                     | OM token endpoint                           |
 | SEND_MAIL_SERVICE_URL      | `"'https://mail2fed.preprod.api.hbx.geo.infra.ftgroup/v1/email/send"` | send mail endpoint|
