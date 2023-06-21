@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static crispy_forms_tags %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+{% endblock extra_head %}
+
+
+
+{% block content %}
+
+
+<h1>Create Form </h1>
+
+
+</form>
+<div class="hero-wrap ftco-degree-bg" style="background-image: url('../static/images/bg_1.jpg');"
+    data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+            <div class="col-lg-8 ftco-animate">
+                <div class="text w-100 text-center mb-md-5 pb-md-5" >
+                    <h1 class="mb-4">Select Your Next Ride</h1>
+
+                        <div class="overflow-auto" style="height: 400px">
+                          <div class="card m-2" style="max-width: 540px;">
+                              <div class="row g-0">
+                                  <div class="col-md-4">
+                                      <h5 class="card-title" style="position:absolute; left:40px; top:30px;">Ahmed Elkholy</h5>
+                                      <h7 class="card-title" style="position:absolute; left:40px; top:50px;">ahmed.elkholy@orange.com</h7>
+                                      <button class="btn btn-primary" type="submit" id="register-submit" style="position:absolute; left:40px; bottom:30px;">Reserve</button>
+                                  </div>
+                                  <div class="col-md-8">
+                                      <div style="text-align:centre">
+                                          <p style="color:orange">Pickup : Nasr City</p>
+                                          <p style="color:orange">Time : 8:00 am</p>
+                                          <p style="color:orange">Car : Passat</p>
+                                          <p style="color:orange">Seats : 2</p>
+                                          <p class="card-text">
+                                            <img src="../static/images/No_Smoking.png" width="50"  height="50" />
+                                          </p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+
+</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
