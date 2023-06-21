@@ -33,7 +33,7 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), False)
+DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
 
 ALLOWED_HOSTS = []
 # Add hosts from env variable, default to "*"
@@ -53,11 +53,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
