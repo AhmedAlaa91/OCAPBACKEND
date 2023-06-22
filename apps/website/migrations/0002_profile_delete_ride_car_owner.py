@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-
+import uuid
 
 class Migration(migrations.Migration):
 
@@ -13,20 +13,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Profile',
+  
+                    migrations.CreateModel(
+            name='Car',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('phone', models.CharField(max_length=50, unique=True)),
-                ('gender', models.CharField(choices=[('Male', 'Male'), ('Female', 'Female')], default='Male', max_length=6)),
-                ('area', models.CharField(max_length=50)),
-                ('street', models.CharField(max_length=50)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('CarReg_id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, unique=True)),
+                ('No_OF_Seats', models.IntegerField(max_length=10)),
+                ('Car_Pallet_Number', models.IntegerField(max_length=10)),
+                ('Car_Manufacture', models.CharField(max_length=50)),
+                ('Car_Color', models.CharField(max_length=50)),
             ],
         ),
-        migrations.DeleteModel(
-            name='Ride',
-        ),
+           
         migrations.AddField(
             model_name='car',
             name='Owner',
