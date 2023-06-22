@@ -1,9 +1,14 @@
+# coding: utf-8
+"""
+Django settings override for development environment
+"""
+# pylint: disable=wildcard-import,unused-wildcard-import
 from __future__ import annotations
 
-from bootstrap.settings.common import *
+from .common import *
+
+DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
 
 
-DEBUG = True
-
-# allow all hosts during development
-ALLOWED_HOSTS = ['*']
+# Disable authentication
+ORANGE_AUTH_API_BYPASS = True

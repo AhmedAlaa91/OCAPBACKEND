@@ -15,7 +15,9 @@ RUN echo "" \
     && echo "deb https://repos.tech.orange/artifactory/debian-proxy-official-security bullseye-security main" >> /etc/apt/sources.list \
     && echo "deb https://repos.tech.orange/artifactory/debianproxy bullseye-updates main" >> /etc/apt/sources.list \
     && apt-get update -y \
-    && apt-get install -y gosu nginx
+    && apt-get install -y gosu nginx \
+    # Required for mysqlclient python package
+    && apt-get install -y  build-essential default-libmysqlclient-dev
 
 # Install Poetry
 ENV PIP_INDEX_URL="https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"

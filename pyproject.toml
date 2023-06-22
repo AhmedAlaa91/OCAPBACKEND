@@ -2,14 +2,12 @@
 name = "carpooling"
 version = "0.1.0"
 description = ""
-authors = ["Yousab Azmy <yousab.azmy@orange.com>"]
-readme = "README.md"
-
-[[tool.poetry.source]]
-name = "diod_python_proxy"
-url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
-
+authors = [
+"Yousab Azmy <yousab.azmy@orange.com>",
+"Mohamed Ismail <mohamed.g.ismail@orange.com>"
+]
 [tool.poetry.dependencies]
+<<<<<<< pyproject.toml
 python = "^3.10"
 django = ">=4.0.0"
 requests = "^2.31.0"
@@ -17,16 +15,42 @@ django-phonenumber-field = "^7.1.0"
 django-phonenumbers = "^1.0.1"
 django-crispy-forms = "^2.0"
 crispy-bootstrap4 = "^2022.1"
-
+pyyaml = "~6.0"
+django-filter = "~23.2"
+=======
+python = "~3.11"
+Django = "~4.1"
+pyyaml = "~6.0"
+requests = "~2.31"
+django-filter = "~23.2"
+django-crispy-forms = "~2.0"
+>>>>>>> pyproject.toml
 
 [tool.poetry.group.dev.dependencies]
+bandit = "~1.7"
+black = "~23.1"
+pylint = "~2.17"
+pytest = "~7.2"
+pytest-cov = "~4.0"
+pytest-django = "~4.5"
+pytest-mock = "~3.10"
+pytest-xdist = "~3.2"
+safety = "~2.3"
 pre-commit = "^3.3.2"
-pytest-django = "^4.5.2"
-pytest = "^7.3.1"
-pylint = "^2.17.4"
-pytest-cov = "^4.1.0"
-bandit = "^1.7.5"
-safety = "^2.3.5"
+
+[tool.poetry.group.prod]
+optional = true
+
+[tool.poetry.group.prod.dependencies]
+daphne = "~4.0"
+twisted = {version = "~22.10", extras = ["tls", "http2"]}
+mysqlclient = "~2.1"
+
+[[tool.poetry.source]]
+name = "diod_python_proxy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+default = true
+secondary = false
 
 [build-system]
 requires = ["poetry-core"]
@@ -34,11 +58,8 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "bootstrap.settings.testing"
-python_files = ["tests_*.py"]
-addopts = "-rA"
-filterwarnings = [
-    "ignore::django.utils.deprecation.RemovedInDjango50Warning",
-]
+python_files = ["tests/**/test*.py"]
+addopts = "-v"
 
 [tool.bandit]
-exclude_dirs = [".venv",".pytest_cache", "docs", "reports", "static", "tests"]
+exclude_dirs = [".venv", ".cache", ".pytest_cache", "reports", "static", "tests", "nginx"]

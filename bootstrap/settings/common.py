@@ -20,6 +20,9 @@ from os.path import join
 from os.path import normpath
 from pathlib import Path
 
+from lib.utils import convert_str_bool
+from lib.utils import getenv
+
 # fetch Django's project directory
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 
@@ -28,6 +31,17 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
+
+ALLOWED_HOSTS = []
+# Add hosts from env variable, default to "*"
+for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
+    v = v.strip()
+    if v:
+        ALLOWED_HOSTS.append(v)
+
 
 # Set static files config
 STATIC_URL = 'static/'
@@ -39,11 +53,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -154,7 +163,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -171,6 +190,7 @@ ORANGE_AUTH_URL = os.getenv(
 ORANGE_AUTH_USER_INFO_URL = os.getenv(
     'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
 )
+<<<<<<< bootstrap/settings/common.py
 # ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
 # ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
 # ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
@@ -183,3 +203,34 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'EG'
+
+ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
+ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
+ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+
+
+# ---------------------------------------------------------------------
+# Sending Email Configuration
+ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get(
+    'ORANGE_SEND_EMAIL_CLIENT_ID', 'cli-ocapapp-v1-prd',
+)
+
+ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get(
+    'ORANGE_SEND_EMAILS_CLIENT_SECRET', 'NjA4ODk1ODExZGFlMDg3ZjBhYmZkNzdiMjc1NDE2YTc1MzRkZTc4ZjRkOTM2NDNkZDFiNjY0YjY4MmJkMjlkZGuipaE19T417drEigbHlqwISzzsr1LuOu1XuOBlCAb7',
+)
+
+SEND_MAILS_ACCESS_TOKENS_URL = os.environ.get(
+    'SEND_MAILS_ACCESS_TOKENS_URL', 'https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token',
+)
+
+SEND_MAIL_SERVICE_URL = os.environ.get(
+    'SEND_MAIL_SERVICE_URL', 'https://mail2fed.preprod.api.hbx.geo.infra.ftgroup/v1/email/send',
+)
+
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
+
+
+ORANGE_MAIL_API_CERT = join(
+    BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
+)
+
