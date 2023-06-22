@@ -12,5 +12,7 @@ def DisplayRegCars(request):
 
     if carObj:
         context = {'carObj': carObj}
+    else:
+        context = {'carObj': 'carObj'}
 
     return render(request, 'Mycars.html', context)

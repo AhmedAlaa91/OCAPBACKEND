@@ -9,6 +9,7 @@ from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -128,7 +129,20 @@ class OrangeAuthBackend(BaseBackend):
             logged_user_cuid = json.loads(decoded_string).get('sub')
             request.session['cuid'] = logged_user_cuid
             request.session['user_info'] = cls.get_user_info(request=request)
-            return redirect(request.META.get('HTTP_REFERER', 'website.register'))
+            current_user = User.objects.filter(
+                Q(username=request.session['cuid']),
+            ).first()
+            if current_user:
+                if request.user.is_authenticated:
+                    return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
+                else:
+                    login(
+                        request, current_user,
+                        backend='django.contrib.auth.backends.ModelBackend',
+                    )
+                    return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
+            else:
+                return redirect(request.META.get('HTTP_REFERER', 'website.register'))
         else:
             return redirect('pages.home')
 
