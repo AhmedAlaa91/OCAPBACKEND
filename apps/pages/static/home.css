@@ -235,3 +235,19 @@
 .heading-section.heading-section-white p {
     color: rgba(255, 255, 255, 0.9);
 }
+
+#register-title{
+    margin: 40px 0; 
+    color:#ff7900;
+}
+
+#register-submit{
+    margin-bottom:50px;
+}
+
+#regiseration-form{
+    padding-top: 100px;
+}
+.alert{
+    margin-bottom: 0 !important;
+}

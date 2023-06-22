@@ -66,8 +66,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pages',
     'website',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
+ 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -186,6 +190,20 @@ ORANGE_AUTH_URL = os.getenv(
 ORANGE_AUTH_USER_INFO_URL = os.getenv(
     'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
 )
+<<<<<<< bootstrap/settings/common.py
+# ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
+# ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
+# ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+
+ORANGE_AUTH_REDIRECT_URI = 'http://carpool.localhost:8000/login/'
+ORANGE_AUTH_HEADER = 'Basic OUFkY0tWbWNKaEExa3FSRzFjVXF6NWFYR2l1OGlUcEk6ZlUzTmQ1ZFlsVm9Yc3Bhdg=='
+ORANGE_AUTH_CLIENT_ID = '9AdcKVmcJhA1kqRG1cUqz5aXGiu8iTpI'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'EG'
+
 ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
 ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
 ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
@@ -215,3 +233,4 @@ SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
 ORANGE_MAIL_API_CERT = join(
     BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
 )
+

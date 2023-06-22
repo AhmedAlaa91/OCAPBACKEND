@@ -55,17 +55,18 @@
                             <span class="svg-avatar mr-1" aria-hidden="true"></span>
                             <span>Hello
                                 {% if user.is_authenticated %}
-                                    <span class="text-primary capitalize" style="background-color: transparent;">{{ user.get_username }}</span>
+                                    <span class="text-primary capitalize" style="background-color: transparent;">{{ user.first_name }}</span>
                                 {% endif %}
                             </span>
                         </button>
                         <ul class="dropdown-menu mt-4" style="left: auto;">
                             {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url 'website.profile' %}">Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'pages.mycars' %}">My Car</a></li>
+
                                 <li><a class="dropdown-item" href="{% url 'website.logout' %}">Logout</a></li>
                             {% else %}
-                                <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
+                            <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
                             {% endif %}
                         </ul>
                     </li>
@@ -73,6 +74,15 @@
             </div>
         </div>
     </nav>
+    {% if messages %}
+    <div class="messages" style="padding-top: 100px;">
+    {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+            {{ message }}
+        </div>
+    {% endfor %}
+    </div>
+    {% endif %}
 
     {% block content %}
     {% endblock %}
