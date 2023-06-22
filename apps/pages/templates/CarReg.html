@@ -6,48 +6,52 @@
 {% endblock extra_head %}
 
 
-
 {% block content %}
-
-
-<h1>Create Form </h1>
-
-
-</form>
-<div class="hero-wrap ftco-degree-bg" style="background-image: url('../static/images/bg_1.jpg');"
-    data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
-            <div class="col-lg-8 ftco-animate">
-                <div class="text w-100 text-center mb-md-5 pb-md-5" style="width:200px;">
-                    <h1 class="mb-4"> Car Registration</h1>
-                   <form method="POST">
-                   <style>
-.textboxstyle
-{
-margin: 0 auto;
-margin-left: auto;
-margin-right: auto;
-text-align:center;
-}
-</style>
-
-
-    {% csrf_token %}
-    {% for field in form %}
-   <div class ="textboxstyle"  style="width:200px !important;">
-    {{field |as_crispy_field}}
+<div class="container" {% if context == 'create' %}id="regiseration-form"{% endif %}>
+    <div class="row">
+        <h1 id="register-title">Register Your Car</h1>
     </div>
-
-
-    {% endfor %}
-
-    <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
+    <div class="row">
+        {% if context == 'create' %}<h3>Please Fill in Car Info:</h3>{% endif %}
+        {% if context == 'edit' %}<h3>Edit Your Car:</h3>{% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                {% for field in form %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
                 </div>
-            </div>
+                {% else %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                {% for field in profile_form %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% else %}
+                <div class="col-sm-6">
+                    {{ field |as_crispy_field}}
+                </div>
+                {% endif %}
+                {% endfor %}
+                </div>
+                <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
+
+            </form>
+
+        </div>
+        <div class="col-sm-6">
+            <img alt="CarPool" style="width: inherit;" src="{% static '../static/images/orcar.png' %}">
         </div>
     </div>
 </div>
-
-{% endblock content %}
+{% endblock %}

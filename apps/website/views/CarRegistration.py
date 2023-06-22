@@ -18,9 +18,11 @@ def CarRegistration(request):
     # check if form data is valid
         if form.is_valid():
             # save the form data to model
-            form.save()
+            task = form.save(commit=False)
+            task.Owner = request.user.profile
+            task.save()
 
-            return redirect('pages.home')
+            return redirect('pages.mycars')
 
-    context = {'form': form}
+    context = {'form': form, 'context': 'create'}
     return render(request, 'CarReg.html', context)

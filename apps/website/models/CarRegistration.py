@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import uuid
 
+from django.conf import settings
 from django.db import models
 
 from .profile import Profile
@@ -16,5 +17,5 @@ class Car(models.Model):
     Car_Manufacture = models.CharField(max_length=50)
     Car_Color = models.CharField(max_length=50)
     Owner = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, unique=True, null=True,
+        Profile, on_delete=models.CASCADE,
     )
