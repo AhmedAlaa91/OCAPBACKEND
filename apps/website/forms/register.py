@@ -135,6 +135,11 @@ class ProfileForm(ModelForm):
         ),
 
     )
+    def __init__(self, *args, **kwargs):
+
+        super(ModelForm, self).__init__(*args, **kwargs)
+
+        self.fields['phone'].widget.attrs['autocomplete'] = "off"
 
     class Meta:
 
