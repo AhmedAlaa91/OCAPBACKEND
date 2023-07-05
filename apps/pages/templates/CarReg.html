@@ -7,6 +7,10 @@
 
 
 {% block content %}
+<style>.div {
+  height: 20px;
+  width: 50px;
+}</style>
 <div class="container" {% if context == 'create' %}id="regiseration-form"{% endif %}>
     <div class="row">
         <h1 id="register-title">Register Your Car</h1>
@@ -43,7 +47,22 @@
                 </div>
                 {% endif %}
                 {% endfor %}
+				</div>
+				{% if context == 'create' %} <h5>Plate Number</h5> {% endif %}
+				<div class ="row">
+
+				{% for field2 in form2 %}
+				{% if field2.name == 'Number' %}
+                <div >
+                    {{ field2 |as_crispy_field}}
                 </div>
+				{% else %}
+				 <div class="div">
+                    {{ field2 |as_crispy_field}}
+                </div>
+				{% endif %}
+				{% endfor %}
+				</div>
                 <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
 
             </form>

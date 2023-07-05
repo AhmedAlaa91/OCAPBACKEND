@@ -7,24 +7,52 @@
 
 
 {% block content %}
+<style>.wrapper {
+  display: flex
+}
+
+span:empty {
+  width: 1ch
+}
+
+.spacing {
+  padding: 15px;
+}
+</style>
+<script>
+function myFunction(url) {
+
+  if (confirm("Are you sure you want to delete ?!")) {
+     window.location.href = '/DeleteCar/'+url;
+  } else {
+    txt = "You pressed Cancel!";
+  }
+
+}
+</script>
 <div class="container"                       id="regiseration-form">
     <div class="row">
         <h1 id="register-title">Registered  Cars</h1>
     </div>
 
     <div class="row">
-        <div class="col-sm-6">
-            <form method="POST"> {% if carObj != 'carObj' %}
-                                    <ol class="list-group list-group-numbered">
+        <div class="col-sm-5">
+            <form method="POST">
+			{% csrf_token %}
+			{% if carObj != 'carObj' %}
+                                    <ol class="list-group">
                         {% for field in carObj %}
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <li class="d-flex justify-content-between align-items-start">
                           <div class="ms-2 me-auto">
-                            <div class="fw-bold">Car Model :{{field.Car_Manufacture}}</div>
-                            Plate Number : {{field.Car_Pallet_Number}}
+                            <div class="fw-bold">Car Model : {{field.Car_Manufacture}}</div>
+                             <div class="fw-bold">Plate Number : {{field.Car_Pallet_Number}} </div>
                           </div>
-                          <span > <button class="btn btn-primary" type="submit" id="register-submit">Edit</button></span>
-                          <span > <button class="btn btn-primary" type="submit" id="register-submit">Delete</button></span>
-                        </li>
+						  <div class="ms-2 me-auto wrapper" >
+
+                          <span> <button class="btn btn-primary" type="button" id="edit-submit" onclick="location.href = '/UpdateCar/{{ field.CarReg_id }}'" style="margin-right:5px">Edit</button></span>
+                          <span> <button class="btn btn-primary" type="button" id="register-submit" onclick="myFunction('{{ field.CarReg_id }}')">Delete</button></span>
+                          </div>
+						</li>
                         {% endfor %}
                     </ol>
 
@@ -32,6 +60,7 @@
 
             </form>
             <button class="btn btn-primary" type="submit" id="addNewCar"  onclick="location.href = '/carreg'" >Add New Car</button>
+
         </div>
 
         <div class="col-sm-6">
