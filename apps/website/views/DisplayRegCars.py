@@ -15,4 +15,4 @@ def DisplayRegCars(request):
     else:
         context = {'carObj': 'carObj'}
 
-    return render(request, 'Mycars.html', context)
+    return render(request, 'MyCars.html', context)
