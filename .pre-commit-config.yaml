@@ -16,11 +16,6 @@ repos:
       - id: reorder-python-imports
         exclude: ^(pre_commit/resources/|testing/resources/python3_hooks_repo/)
         args: [--py38-plus]
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.4.0
-    hooks:
-      - id: add-trailing-comma
-        args: [--py36-plus]
   - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v2.0.2
     hooks:
