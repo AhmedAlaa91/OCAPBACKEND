@@ -42,9 +42,6 @@ manage migrate
 header "INITIALIZE DATA"
 manage initdata
 
-header "LAUNCH DJANGO Q2 SCHEDULER"
-manage qcluster &
-
 header "START ASGI SERVER"
 # Use "exec" so the process becomes container's PID 1 and is able to receive signals like SIGTERM
 exec gosu ocap4ops poetry run daphne -u /tmp/daphne.sock bootstrap.asgi:application
