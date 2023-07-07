@@ -12,7 +12,7 @@ function header()
 
 function manage()
 {
-    gosu tcs4ops poetry run python manage.py "$@"
+    gosu ocap4ops poetry run python manage.py "$@"
 }
 
 
