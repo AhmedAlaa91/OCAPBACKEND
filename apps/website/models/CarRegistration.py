@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .profile import Profile
+from django.contrib.auth.models import User
 
 
 class CarPlate(models.Model):
@@ -41,5 +41,7 @@ class Car(models.Model):
     Car_Manufacture = models.CharField(max_length=50)
     Car_Color = models.CharField(max_length=50)
     Owner = models.ForeignKey(
-        Profile, on_delete=models.CASCADE,
+        User, on_delete=models.CASCADE,
     )
+
+    def __str__(self): return str(self.Car_Manufacture) + ' - ' + str(self.Car_Color)

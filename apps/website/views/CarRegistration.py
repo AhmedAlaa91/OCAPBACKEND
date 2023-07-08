@@ -26,7 +26,7 @@ def CarRegistration(request):
             form2.save()
 
             task = form.save(commit=False)
-            task.Owner = request.user.profile
+            task.Owner = request.user
             task.Car_Pallet_Number = form2
             task.save()
 

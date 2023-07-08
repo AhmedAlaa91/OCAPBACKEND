@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% load static crispy_forms_tags %}
+
+
+
+
+{% block extra_head %}
+
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+
+{% endblock extra_head %}
+
+
+
+
+{% block content %}
+
+<div class="container" id="regiseration-form">
+
+    <div class="row">
+
+        <h1 id="register-title">Ready to Share a Ride?</h1>
+
+    </div>
+
+    <div class="row">
+
+        {% if context == 'create' %}<h3>Please Fill in Your Ride Details:</h3>{% endif %}
+
+        {% if context == 'edit' %}<h3>Edit Your Ride:</h3>{% endif %}
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="row">
+
+                    {% for field in form %}
+
+                    {% if forloop.counter|divisibleby:2 %}
+
+                    <div class="col-sm-6">
+
+                        {{ field |as_crispy_field}}
+
+                    </div>
+
+                    {% else %}
+
+                    {% if not forloop.last %}
+                    <div class="col-sm-6">
+                    {% else %}
+                    <div class="col-sm-12">
+
+                    {% endif %}
+
+                        {{ field |as_crispy_field}}
+
+                    </div>
+
+                    {% endif %}
+
+                    {% endfor %}
+
+                    <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="col-sm-6">
+
+            <img alt="CarPool" style="width: inherit;" src="{% static 'images/carPooling.jpg' %}">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function () {
+        flatpickr(".datetimefield", {
+            enableTime: true,
+            enableSeconds: true,
+            dateFormat: "Y-m-dTH:i:S",
+        });
+    });
+
+    $(document).ready(function(){
+        $('#div_id_return_date').hide();
+        $('#id_car').find('option').get(0).remove();
+        $("#source").prepend("<option value='0'>City Stars Office</option>");
+        $("#destination").prepend("<option value='0' selected='selected'>City Stars Office</option>");
+
+        $('#is_ride_two_ways').change(function() {
+        if($(this).prop('checked')) {
+            $('#div_id_return_date').show();
+        } else {
+            $('#div_id_return_date').hide();
+        }
+    });
+       
+    });
+</script>
+{% endblock %}

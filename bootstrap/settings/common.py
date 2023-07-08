@@ -203,11 +203,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'EG'
 
-ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
-ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
-ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
-
-
 # ---------------------------------------------------------------------
 # Sending Email Configuration
 ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get(
