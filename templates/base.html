@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
     {% block extra_head %} {% endblock %}
 </head>
@@ -33,7 +35,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-expand-md ftco_navbar bg-dark ftco-navbar-light"
         id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{% url 'pages.home' %}">
                 <img src="{% static 'images/orange_logo.svg' %}" alt="Back to homepage" title="Back to homepage"
                     width="50" height="50" />
                 Car<span class="text-primary">POOL</span></a>
@@ -44,7 +46,7 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item active"><a href="{% url 'pages.home' %}" class="nav-link">Home</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Rides</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Support</a></li>

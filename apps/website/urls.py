@@ -8,6 +8,7 @@ from .views.DisplayRegCars import DisplayRegCars
 from .views.UpdateCar import UpdateCar
 from apps.website.views.auth import AuthView
 from apps.website.views.auth import ProfileView
+from apps.website.views.ride import RideView
 urlpatterns = [
     path('register/', AuthView.register, name='website.register'),
     path('login/', AuthView.login, name='website.login'),
@@ -19,5 +20,7 @@ urlpatterns = [
     path('mycars/', DisplayRegCars, name='pages.mycars'),
     path('UpdateCar/<pk>/', UpdateCar, name='pages.UpdateCar'),
     path('DeleteCar/<pk>/', DeleteCar, name='pages.DeleteCar'),
+
+    path('ride/', RideView.createRide, name='website.ride'),
 
 ]

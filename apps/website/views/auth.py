@@ -90,4 +90,4 @@ class ProfileView(LoginRequiredMixin, View):
                 messages.success(request, 'Edit profile done successfully.')
                 return redirect('/')
             else:
-                return render(request, 'register.html', {'user_form': user_form})
+                return render(request, 'register.html', {'user_form': user_form,'profile_form':profile_form})
