@@ -21,7 +21,7 @@ function manage()
 ########################
 
 echo "================================================"
-echo "STARTING OCAP4OPS PORTAL"
+echo "STARTING OCAP-APP PORTAL"
 echo "================================================"
 
 if [ -n "$DJANGO_SQLITE_PATH" ]; then
@@ -39,10 +39,9 @@ manage check
 header "MIGRATE DATABASE"
 manage migrate
 
-#header "START ASGI SERVER"
-# Use "exec" so the process becomes container's PID 1 and is able to receive signals like SIGTERM
-#exec gosu ocap4ops poetry run daphne -u /tmp/daphne.sock bootstrap.asgi:application
+header "INITIALIZE DATA"
+manage initdata
 
-header "START SERVER"
+header "START ASGI SERVER"
 # Use "exec" so the process becomes container's PID 1 and is able to receive signals like SIGTERM
-exec gosu ocap4ops poetry run python manage.py runserver 0.0.0.0:8000 --noreload
+exec gosu ocap4ops poetry run daphne -u /tmp/daphne.sock bootstrap.asgi:application
