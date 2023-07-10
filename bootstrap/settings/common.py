@@ -46,17 +46,11 @@ for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
         ALLOWED_HOSTS.append(v)
 
 
-# Set static files config
-STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b'
-
 
 # Application definition
 
@@ -73,7 +67,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'phonenumber_field',
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,6 +87,17 @@ ROOT_URLCONF = 'bootstrap.urls'
 # Set templates folder root path
 PROJECT_TEMPLATES = [join(PROJECT_ROOT, 'templates')]
 
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+# Set static files config
+STATIC_URL = 'static/'
+STATIC_ROOT = 'staticfiles/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -112,7 +116,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bootstrap.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -128,7 +131,6 @@ AUTHENTICATION_BACKENDS = (
     'website.backends.OrangeAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -148,7 +150,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -162,21 +163,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
-STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -193,13 +179,9 @@ ORANGE_AUTH_URL = os.getenv(
 ORANGE_AUTH_USER_INFO_URL = os.getenv(
     'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
 )
-# ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
-# ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
-# ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
-
-ORANGE_AUTH_REDIRECT_URI = 'http://carpool.localhost:8000/login/'
-ORANGE_AUTH_HEADER = 'Basic OUFkY0tWbWNKaEExa3FSRzFjVXF6NWFYR2l1OGlUcEk6ZlUzTmQ1ZFlsVm9Yc3Bhdg=='
-ORANGE_AUTH_CLIENT_ID = '9AdcKVmcJhA1kqRG1cUqz5aXGiu8iTpI'
+ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
+ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
+ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -213,7 +195,8 @@ ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get(
 )
 
 ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get(
-    'ORANGE_SEND_EMAILS_CLIENT_SECRET', 'NjA4ODk1ODExZGFlMDg3ZjBhYmZkNzdiMjc1NDE2YTc1MzRkZTc4ZjRkOTM2NDNkZDFiNjY0YjY4MmJkMjlkZGuipaE19T417drEigbHlqwISzzsr1LuOu1XuOBlCAb7',
+    'ORANGE_SEND_EMAILS_CLIENT_SECRET',
+    'NjA4ODk1ODExZGFlMDg3ZjBhYmZkNzdiMjc1NDE2YTc1MzRkZTc4ZjRkOTM2NDNkZDFiNjY0YjY4MmJkMjlkZGuipaE19T417drEigbHlqwISzzsr1LuOu1XuOBlCAb7',
 )
 
 SEND_MAILS_ACCESS_TOKENS_URL = os.environ.get(
@@ -225,7 +208,6 @@ SEND_MAIL_SERVICE_URL = os.environ.get(
 )
 
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
-
 
 ORANGE_MAIL_API_CERT = join(
     BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
