@@ -56,6 +56,9 @@ stages:
 py-compile:
   stage: build
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$PYCOMPILE_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -63,6 +66,9 @@ py-compile:
 py-pytest:
   stage: build
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$PYTEST_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -73,6 +79,9 @@ py-bandit:
     BANDIT_ARGS: "--verbose --recursive . --configfile pyproject.toml --format json --output reports/py-bandit.bandit.json"
     DEFECTDOJO_BANDIT_REPORTS: "true"   # required to produce JSON report
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$BANDIT_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -82,6 +91,9 @@ py-safety:
   # variables:
   #  PYTHON_EXTRA_DEPS: "safety"
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$SAFETY_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -89,6 +101,9 @@ py-safety:
 py-trivy:
   allow_failure: true
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$PYTHON_TRIVY_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
@@ -96,6 +111,9 @@ py-trivy:
 py-sbom:
   allow_failure: true
   rules:
+    # exclude merge requests
+    - if: $CI_MERGE_REQUEST_ID
+      when: never
     - if: '$PYTHON_SBOM_ENABLED != "true"'
       when: never
     - if: '$CI_MERGE_REQUEST_ID || $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'

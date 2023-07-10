@@ -32,6 +32,9 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# Update Login URL config
+LOGIN_URL = '/login/'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
 
