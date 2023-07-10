@@ -12,4 +12,4 @@ class HomeTestCase(TestCase):
     def test_home(self):
         url = reverse('pages.home')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, (200, 302))
+        self.assertIn(response.status_code, [200, 302])
