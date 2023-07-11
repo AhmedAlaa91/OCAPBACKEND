@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-
+from .widgets import DateTimePickerInput
 from website.models import Ride
 from django import forms
 from django.forms import CharField, Select, TextInput, BooleanField, CheckboxInput, ModelChoiceField, DateTimeInput, NumberInput
@@ -46,8 +46,8 @@ class RideForm(forms.ModelForm):
         return areas
     
     start_date =  CharField(initial=get_initial_start_time(),widget=DateTimeInput(format='%Y-%m-%dT%H:%M:%S', attrs={'class':'datetimefield'}))
+    return_date = CharField(initial=get_initial_return_time(), widget=DateTimePickerInput(format='%Y-%m-%dT%H:%M:%S', attrs={'class':'datetimefield'}))
     is_ride_two_ways = BooleanField(required=False, label = 'Is your ride 2 ways?', widget=CheckboxInput(attrs={'id': 'is_ride_two_ways'}))
-    return_date = CharField(initial=get_initial_return_time(), required=False, widget=DateTimeInput(format='%Y-%m-%dT%H:%M:%S', attrs={'class':'datetimefield','id':'return_datetimefield'}))
     no_of_seats = CharField(initial=3,widget=NumberInput( attrs={'min':'1','max':'3'}))
 
     def __init__(self, *args, request=None, **kwargs):

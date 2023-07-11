@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
                 ('source', models.CharField(max_length=50)),
                 ('destination', models.CharField(max_length=50)),
                 ('start_date', models.DateTimeField()),
-                ('return_date', models.CharField(max_length=50, blank=True)),
+                ('return_date', models.DateTimeField(null=True, blank=True)),
                 ('no_of_seats', models.IntegerField(default='3')),
                 ('car', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='website.car')),
                 ('creator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.user')),
