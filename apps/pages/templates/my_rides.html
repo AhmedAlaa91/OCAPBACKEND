@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static crispy_forms_tags %}
+
+
+
+
+{% block extra_head %}
+
+<link rel="stylesheet" href="{% static 'home.css' %}" />
+
+{% endblock extra_head %}
+
+
+
+
+{% block content %}
+
+<div class="container" {% if not messages %}id="regiseration-form"{% endif %}>
+
+    <div class="row">
+
+        <h1 id="register-title">My Planned Rides:</h1>
+
+    </div>
+
+        {% if object_list %}
+        <table id="my_rides_table" class="table tablesorter display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Start Date</th>
+                    <th>Return Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="table_body">
+                {% for ride in object_list %}
+                <tr>
+                    <td>{{ ride.id }}</td>
+                    <td>{{ ride.source }}</td>
+                    <td>{{ ride.destination }}</td>
+                    <td>{{ ride.start_date }}</td>
+                    <td>{{ ride.return_date }}</td>
+                    <td>
+                        <a class="btn btn-success" href="#">Edit</a>
+                        <a class="btn btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            No rides yet.
+        {% endif %}
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#my_rides_table").dataTable();
+});
+</script>
+{% endblock %}

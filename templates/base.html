@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}" />
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
     {% block extra_head %} {% endblock %}
@@ -65,7 +66,7 @@
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'website.profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'pages.mycars' %}">My Car</a></li>
-
+                                <li><a class="dropdown-item" href="{% url 'website.myrides' %}">My Rides</a></li>
                                 <li><a class="dropdown-item" href="{% url 'website.logout' %}">Logout</a></li>
                             {% else %}
                             <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
@@ -171,6 +172,8 @@
     <script src="{% static 'js/scrollax.min.js' %}"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
     <!-- <script src="{% static 'js/google-map.js' %}"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha384-QnFIXbEfAgO7z63b/aNzTSdSNLoNiNX/mk/Ok+NpUNMnvriWLo5cOtB0OUCAdKNu" crossorigin="anonymous"></script>    
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" integrity="sha384-XnTxmviuqUy3cHBf+lkYWuTSDlhxCDxd9RgSo5zvzsCq93P9xNa6eENuAITCwxNh" crossorigin="anonymous"></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% endblock %}
 

@@ -108,13 +108,28 @@
         $("#destination").prepend("<option value='0' selected='selected'>City Stars Office</option>");
 
         $('#is_ride_two_ways').change(function() {
-        if($(this).prop('checked')) {
-            $('#div_id_return_date').show();
-        } else {
-            $('#div_id_return_date').hide();
-        }
-    });
+            if($(this).prop('checked')) {
+                $('#div_id_return_date').show();
+            } else {
+                $('#div_id_return_date').hide();
+            }
+        });
        
+        $("#source").change(function () {
+            source_value = $('#source option:selected').text();
+            dest_value = $('#destination option:selected').text();
+            if(source_value == dest_value){
+                alert("Source and destination can't be the same.");
+            }
+        });
+
+        $("#destination").change(function () {
+            source_value = $('#source option:selected').text();
+            dest_value = $('#destination option:selected').text();
+            if(source_value == dest_value){
+                alert("Source and destination can't be the same.");
+            }
+        });
     });
 </script>
 {% endblock %}
