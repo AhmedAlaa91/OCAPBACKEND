@@ -110,22 +110,13 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
-       $(document).ready(function(){
-
-
+    $(document).ready(function(){
+        var user_area = "{{ user_area }}";
+        var user_city = "{{ user_city }}";
+        $("#cities option:contains("+user_city+")").prop("selected","selected")
         change_areas();
-
-        var user_area_id = "{{ user_area_id }}";
-
-        if (user_area_id){
-
-            $("#areas").val(user_area_id);
-
-        }
-
+        $("#areas option:contains("+user_area+")").prop("selected","selected")
     });
-
-
 
     var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
 

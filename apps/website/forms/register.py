@@ -94,23 +94,23 @@ class ProfileForm(ModelForm):
 
         current_dir = Path.cwd()
 
-        citys_file_loc = 'static/json/cities.json'
+        cities_file_loc = 'static/json/cities.json'
 
-        f = open(current_dir.joinpath(citys_file_loc), encoding='utf8')
+        f = open(current_dir.joinpath(cities_file_loc), encoding='utf8')
 
         cities_json = json.load(f)
 
         f.close()
 
-        citys = []
+        cities = []
 
         for city in cities_json['data']:
 
             city_tuple = tuple([city['id'], city['governorate_name_en']])
 
-            citys.append(city_tuple)
+            cities.append(city_tuple)
 
-        return citys
+        return cities
 
     phone = PhoneNumberField()
 

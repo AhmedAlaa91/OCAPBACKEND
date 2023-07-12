@@ -29,10 +29,12 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Source</th>
-                    <th>Destination</th>
-                    <th>Start Date</th>
-                    <th>Return Date</th>
+                    <th>Type</th>
+                    <th>City</th>
+                    <th>Area</th>
+                    <th>Date</th>
+                    <th>Leave Time</th>
+                    <th>Return Time</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -40,10 +42,12 @@
                 {% for ride in object_list %}
                 <tr>
                     <td>{{ ride.id }}</td>
-                    <td>{{ ride.source }}</td>
-                    <td>{{ ride.destination }}</td>
-                    <td>{{ ride.start_date }}</td>
-                    <td>{{ ride.return_date }}</td>
+                    <td>{{ ride.type }}</td>
+                    <td>{{ ride.city }}</td>
+                    <td>{{ ride.area }}</td>
+                    <td>{{ ride.date }}</td>
+                    <td>{{ ride.leave_time }}</td>
+                    <td>{{ ride.return_time }}</td>
                     <td>
                         <a class="btn btn-success" href="#">Edit</a>
                         <a class="btn btn-danger" href="#">Delete</a>

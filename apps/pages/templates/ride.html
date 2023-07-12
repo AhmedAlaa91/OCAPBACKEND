@@ -54,12 +54,11 @@
 
                     {% else %}
 
-                    {% if not forloop.last %}
+                     
                     <div class="col-sm-6">
-                    {% else %}
-                    <div class="col-sm-12">
+                   
 
-                    {% endif %}
+                   
 
                         {{ field |as_crispy_field}}
 
@@ -68,9 +67,9 @@
                     {% endif %}
 
                     {% endfor %}
-
-                    <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
                 </div>
+                    <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
+             
 
             </form>
 
@@ -88,48 +87,81 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
 <script>
-    window.addEventListener("DOMContentLoaded", function () {
-        flatpickr(".datetimefield", {
-            enableTime: true,
-            enableSeconds: true,
-            dateFormat: "Y-m-dTH:i:S",
-        });
-    });
-
     $(document).ready(function(){
-        $('#div_id_return_date').hide();
+        var user_area = "{{ user_area }}";
+        var user_city = "{{ user_city }}";
+        $("#city option:contains("+user_city+")").prop("selected","selected")
+        change_areas();
+        $("#area option:contains("+user_area+")").prop("selected","selected")
+
+
+        $('#div_id_return_time').hide();
         $('#id_car').find('option').get(0).remove();
-        $("#source").prepend("<option value='0'>City Stars Office</option>");
-        $("#destination").prepend("<option value='0' selected='selected'>City Stars Office</option>");
+        $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
+        $("#div_id_city").find("label[for=city]").text("Pick up City");
+        $("#div_id_area").find("label[for=area]").text("Pick up Area");
 
-        $('#is_ride_two_ways').change(function() {
-            if($(this).prop('checked')) {
-                $('#div_id_return_date').show();
-            } else {
-                $('#div_id_return_date').hide();
-            }
-        });
-       
-        $("#source").change(function () {
-            source_value = $('#source option:selected').text();
-            dest_value = $('#destination option:selected').text();
-            if(source_value == dest_value){
-                alert("Source and destination can't be the same.");
-            }
-        });
-
-        $("#destination").change(function () {
-            source_value = $('#source option:selected').text();
-            dest_value = $('#destination option:selected').text();
-            if(source_value == dest_value){
-                alert("Source and destination can't be the same.");
+        $('#id_ride_type').on('change', function (e) {
+            if($('#id_ride_type').find(":selected").text() == "To Office"){
+                $('#div_id_return_time').hide();
+                $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
+                $("#div_id_city").find("label[for=city]").text("Pick up City");
+                $("#div_id_area").find("label[for=area]").text("Pick up Area");
+            }else if($('#id_ride_type').find(":selected").text() == "From Office"){
+                $('#div_id_return_time').hide();
+                $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Drop off Point");
+                $("#div_id_city").find("label[for=city]").text("Drop off City");
+                $("#div_id_area").find("label[for=area]").text("Drop off Area");
+                }else if($('#id_ride_type').find(":selected").text() == "2-Way Ride"){
+                $('#div_id_return_time').show();
+                $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
+                $("#div_id_city").find("label[for=city]").text("Pick up City");
+                $("#div_id_area").find("label[for=area]").text("Pick up Area");            
             }
         });
     });
-</script>
+
+    var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
+
+    function change_areas(){
+
+        city_id = $('#city').val();
+
+        $('#area').empty();
+
+        var $option = $("<option>", {
+
+            text: "Choose Area",
+
+            value: "",
+
+            selected: "selected"
+
+        });
+
+        $option.appendTo('#area');
+
+        for(index in areas){
+
+            if(areas[index]["governorate_id"] == city_id){
+
+                var $option = $("<option>", {
+
+                    text: areas[index]["city_name_en"],
+
+                    value: areas[index]["id"]
+
+                });
+
+                $option.appendTo('#area');
+
+            }
+
+        }
+
+    }
+
+ </script>
 {% endblock %}

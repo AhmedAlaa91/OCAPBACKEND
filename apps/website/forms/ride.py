@@ -2,24 +2,17 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from .widgets import DateTimePickerInput
+from .widgets import DatePickerInput, TimePickerInput
 from website.models import Ride
 from django import forms
-from django.forms import CharField, Select, TextInput, BooleanField, CheckboxInput, ModelChoiceField, DateTimeInput, NumberInput
+from django.forms import CharField, Select, TextInput, ModelChoiceField, NumberInput
 from website.models import Car
 from datetime import datetime, timedelta, time
 
 class RideForm(forms.ModelForm):
 
-    def get_initial_start_time():
-        tommorow = datetime.today() + timedelta(days=1)
-        hour = time(hour=8, minute=0)
-        return datetime.combine(tommorow, hour)
-    
-    def get_initial_return_time():
-        tommorow = datetime.today() + timedelta(days=1)
-        hour = time(hour=18, minute=0)
-        return datetime.combine(tommorow, hour)
+    def get_initial_date():
+        return datetime.today() + timedelta(days=1)
 
     def get_user_areas(self, user_city):
 
@@ -45,11 +38,35 @@ class RideForm(forms.ModelForm):
 
         return areas
     
-    start_date =  CharField(initial=get_initial_start_time(),widget=DateTimeInput(format='%Y-%m-%dT%H:%M:%S', attrs={'class':'datetimefield'}))
-    return_date = CharField(initial=get_initial_return_time(), widget=DateTimePickerInput(format='%Y-%m-%dT%H:%M:%S', attrs={'class':'datetimefield'}))
-    is_ride_two_ways = BooleanField(required=False, label = 'Is your ride 2 ways?', widget=CheckboxInput(attrs={'id': 'is_ride_two_ways'}))
-    no_of_seats = CharField(initial=3,widget=NumberInput( attrs={'min':'1','max':'3'}))
+ 
+    def get_cities():
 
+        current_dir = Path.cwd()
+
+        cities_file_loc = 'static/json/cities.json'
+
+        f = open(current_dir.joinpath(cities_file_loc), encoding='utf8')
+
+        cities_json = json.load(f)
+
+        f.close()
+
+        cities = []
+
+        for city in cities_json['data']:
+
+            city_tuple = tuple([city['id'], city['governorate_name_en']])
+
+            cities.append(city_tuple)
+
+        return cities
+
+    date =  CharField(initial=get_initial_date(),widget=DatePickerInput(format='%Y-%m-%d'))
+    leave_time =  CharField(initial= time(8), widget=TimePickerInput(format='%H:%M'))
+    return_time =  CharField(initial= time(18), required=False, widget=TimePickerInput(format='%H:%M'))
+    ride_type = CharField(widget=Select(choices=Ride.RIDE_TYPES))
+    no_of_seats = CharField(initial=3,widget=NumberInput( attrs={'min':'1','max':'3'}))
+ 
     def __init__(self, *args, request=None, **kwargs):
         super(RideForm, self).__init__(*args, **kwargs)
         self.request = request
@@ -61,19 +78,17 @@ class RideForm(forms.ModelForm):
                 )
             self.fields['restrictions'] = CharField(required=False, widget=TextInput(attrs={'placeholder': 'Ex: No Smoking, ...'}))    
         
-            self.fields['source'] = CharField(initial=self.request.user.profile.area,
+            self.fields['area'] = CharField(initial=self.request.user.profile.area,
                 widget=Select(choices=self.get_user_areas(self.request.user.profile.city),
-                                                            attrs={'id': 'source'}))
-            self.fields['destination'] = CharField(
-                widget=Select(choices=self.get_user_areas(self.request.user.profile.city),
-                                                            attrs={'id': 'destination'}))
-
+                                                            attrs={'id': 'area'}))
+            self.fields['city'] = CharField(initial=self.request.user.profile.city,
+                widget=Select(choices=RideForm.get_cities(), attrs={'onchange': 'change_areas();','id': 'city'}))
     
     class Meta:
         model = Ride
         fields = [
-            'source', 'destination', 'no_of_seats',
-            'restrictions', 'start_date', 'return_date','car'
+            'ride_type', 'area', 'no_of_seats','city',
+            'restrictions', 'date','car', 'meeting_point', 'leave_time' , 'return_time'
         ]
-    field_order = ['source', 'destination', 'no_of_seats', 'start_date',
-                    'is_ride_two_ways', 'return_date', 'car', 'restrictions']
+    field_order = ['ride_type', 'car', 'city', 'area', 'date',
+                   'no_of_seats','leave_time', 'return_time', 'meeting_point', 'restrictions']

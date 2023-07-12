@@ -16,6 +16,27 @@ from website.forms.register import RegisterForm
 
 class AuthView(View):
     context = {}
+    def get_area_name(area_id):
+        area_name = ""
+        current_dir = Path.cwd()
+        areas_file_loc = 'static/json/areas.json'
+        f = open(current_dir.joinpath(areas_file_loc), encoding='utf8')
+        areas = json.load(f)['data']
+        for area in areas:
+            if area["id"] == area_id:
+                area_name = area["city_name_en"]
+                return area_name
+
+    def get_city_name(city_id):
+        city_name = ""
+        current_dir = Path.cwd()
+        cities_file_loc = 'static/json/cities.json'
+        f = open(current_dir.joinpath(cities_file_loc), encoding='utf8')
+        cities = json.load(f)['data']
+        for city in cities:
+            if city["id"] == city_id:
+                city_name = city["governorate_name_en"]
+                return city_name
 
     def get_areas():
         current_dir = Path.cwd()
@@ -42,6 +63,8 @@ class AuthView(View):
                 user.save()
                 profile = profile_form.save(commit=False)
                 profile.user = user
+                profile.area = AuthView.get_area_name(request.POST.get('area'))
+                profile.city = AuthView.get_city_name(request.POST.get('city'))
                 profile.save()
                 messages.success(request, 'You have registered successfully.')
                 login(
@@ -84,7 +107,8 @@ class ProfileView(LoginRequiredMixin, View):
             context['profile_form'] = profile_form
             context['context'] = 'edit'
             context['areas'] = AuthView.get_areas()
-            context['user_area_id'] = request.user.profile.area
+            context['user_area'] = request.user.profile.area
+            context['user_city'] = request.user.profile.city
             return render(request, 'register.html', context)
 
         if request.method == 'POST':
@@ -97,6 +121,8 @@ class ProfileView(LoginRequiredMixin, View):
                 user.save()
                 profile = profile_form.save(commit=False)
                 profile.user = user
+                profile.area = AuthView.get_area_name(request.POST.get('area'))
+                profile.city = AuthView.get_city_name(request.POST.get('city'))
                 profile.save()
                 messages.success(request, 'Edit profile done successfully.')
                 return redirect('/')

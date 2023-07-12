@@ -3,14 +3,23 @@ from django.db import models
 from .CarRegistration import Car
 
 class Ride(models.Model):
-    source = models.CharField(max_length=50)
-    destination = models.CharField(max_length=50)
-    start_date = models.DateTimeField()
-    return_date = models.DateTimeField(null=True, blank=True)
+    RIDE_TYPES = [
+                    ('To Office', 'To Office'),
+                    ('From Office', 'From Office'),
+                    ('2-Way Ride', '2-Way Ride')
+                ]
+
+    city = models.CharField(max_length=50)
+    area = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, choices=RIDE_TYPES, default='To Office')
+    date = models.DateField()
+    leave_time = models.TimeField()
+    return_time = models.TimeField(null=True, blank=True)
     no_of_seats = models.IntegerField(default='3')
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    restrictions = models.CharField(blank=True, max_length=100)
+    restrictions = models.CharField(null=True, blank=True, max_length=100)
+    meeting_point = models.CharField(null=True, blank=True, max_length=300)
 
     class Meta:
         app_label = "website"
