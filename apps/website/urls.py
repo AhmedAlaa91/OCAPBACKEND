@@ -10,6 +10,7 @@ from apps.website.views.auth import AuthView
 from apps.website.views.auth import ProfileView
 from apps.website.views.ride import RideView
 from apps.website.views.myRides import MyRidesListView
+from .views.DisplayRides import DisplayRides
 urlpatterns = [
     path('register/', AuthView.register, name='website.register'),
     path('login/', AuthView.login, name='website.login'),
@@ -24,5 +25,6 @@ urlpatterns = [
 
     path('ride/', RideView.createRide, name='website.ride'),
     path('myrides/', MyRidesListView.as_view(), name='website.myrides'),
+    path('rides/', DisplayRides, name='pages.rides'),
 
 ]

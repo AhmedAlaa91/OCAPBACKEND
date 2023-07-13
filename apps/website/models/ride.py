@@ -16,10 +16,12 @@ class Ride(models.Model):
     leave_time = models.TimeField()
     return_time = models.TimeField(null=True, blank=True)
     no_of_seats = models.IntegerField(default='3')
-    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE , related_name='car')
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     restrictions = models.CharField(null=True, blank=True, max_length=100)
     meeting_point = models.CharField(null=True, blank=True, max_length=300)
+   
+    Car_Pallet_Number = models.CharField(max_length=50, blank=True)
 
     class Meta:
         app_label = "website"

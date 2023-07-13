@@ -9,50 +9,165 @@
 
 {% block content %}
 
+<style>body{
+background:#E6E6FA    
+}
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+
+.avatar-md {
+    height: 5rem;
+    width: 5rem;
+}
+
+.fs-19 {
+    font-size: 19px;
+}
+
+.primary-link {
+    color: #314047;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+a {
+    color: #02af74;
+    text-decoration: none;
+}
+
+.bookmark-post .favorite-icon a, .job-box.bookmark-post .favorite-icon a {
+    background-color: #da3746;
+    color: #fff;
+    border-color: danger;
+}
+.favorite-icon a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #eff0f2;
+    border-radius: 6px;
+    color: rgba(173,181,189,.55);
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+}
+
+
+.candidate-list-box .favorite-icon {
+    position: absolute;
+    right: 22px;
+    top: 22px;
+}
+.fs-14 {
+    font-size: 14px;
+}
+.bg-soft-secondary {
+    background-color: rgba(116,120,141,.15)!important;
+    color: #74788d!important;
+}
+
+.mt-1 {
+    margin-top: 0.25rem!important;
+}
+</style>
+
 
 <h1>Create Form </h1>
 
-
-</form>
-<div class="hero-wrap ftco-degree-bg" style="background-image: url('../static/images/bg_1.jpg');"
-    data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<section class="section">
+     <form method="POST">
+	 
     <div class="container">
-        <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
-            <div class="col-lg-8 ftco-animate">
-                <div class="text w-100 text-center mb-md-5 pb-md-5" >
-                    <h1 class="mb-4">Select Your Next Ride</h1>
+	
+	
+	                                 <div class="filler-job-form" style=" position: absolute;bottom: 0">
+                                    <i class="uil uil-location-point"></i>
+                                    <select class="form-select selectForm__inner" data-trigger="true" name="choices-single-location" id="choices-single-location" aria-label="Default select example">
+                                        <option value="AF">Afghanistan</option>
+                                        <option value="AX">Åland Islands</option>
+                                        <option value="AL">Albania</option>
 
-                        <div class="overflow-auto" style="height: 400px">
-                          <div class="card m-2" style="max-width: 540px;">
-                              <div class="row g-0">
-                                  <div class="col-md-4">
-                                      <h5 class="card-title" style="position:absolute; left:40px; top:30px;">Ahmed Elkholy</h5>
-                                      <h7 class="card-title" style="position:absolute; left:40px; top:50px;">ahmed.elkholy@orange.com</h7>
-                                      <button class="btn btn-primary" type="submit" id="register-submit" style="position:absolute; left:40px; bottom:30px;">Reserve</button>
-                                  </div>
-                                  <div class="col-md-8">
-                                      <div style="text-align:centre">
-                                          <p style="color:orange">Pickup : Nasr City</p>
-                                          <p style="color:orange">Time : 8:00 am</p>
-                                          <p style="color:orange">Car : Passat</p>
-                                          <p style="color:orange">Seats : 2</p>
-                                          <p class="card-text">
-                                            <img src="../static/images/No_Smoking.png" width="50"  height="50" />
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                        </div>
-
-</div>
+                                    </select>
+                                </div>
+        <div class="justify-content-center row">
+            <div class="col-lg-12">
+                <div class="candidate-list-widgets mb-4">
 
 
                 </div>
+				
             </div>
         </div>
+        <div class="row">
+		            
+
+            <div class="col-lg-12">
+                <div class="align-items-center row">
+                    
+                </div>
+				
+                <div class="candidate-list">
+				
+				{% csrf_token %}
+				                
+                           
+				
+					 {% for field in RideObj %}
+
+                    <div class="candidate-list-box bookmark-post card mt-4">
+                        <div class="p-4 card-body">
+                            <div class="align-items-center row">
+                                <div class="col-auto">
+                                    <div class="candidate-list-images">
+                                         <a href="#"><img src="{% static '../static/images/carsmall.jpg' %}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="candidate-list-content mt-3 mt-lg-0">
+                                        <h5 class="fs-19 mb-0">
+                                            <a class="primary-link" href="#">{{field.creator.first_name}} {{field.creator.last_name}}</a>
+                                        </h5>
+                                     
+                                        <ul class="list-inline mb-0 text-muted">
+                                            <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.source}}</li>
+                                        </ul>
+										<ul class="list-inline mb-0 text-muted">
+										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Departure : {{field.start_date}} </li>
+										 </ul>
+										 <ul class="list-inline mb-0 text-muted">
+										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Return : {{field.return_date}} </li>
+										 </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                                                       <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
+                                        <span class="badge bg-soft-secondary fs-14 mt-1">Car : {{field.car}} {{field.Car_Pallet_Number}}</span><span class="badge bg-soft-secondary fs-14 mt-1">Seats : {{field.no_of_seats}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="favorite-icon">
+                                <span> <button class="btn btn-primary" type="button" id="register-submit" onclick="myFunction('{{ field.CarReg_id }}')">Book now</button></span>
+                            </div>
+                        </div>
+                    </div>
+					
+					{% endfor %}
+					
+					
+					
+
+					
+                </div>
+            </div>
+        </div>
+      
     </div>
-</div>
+	</form>
+</section>
 
 {% endblock content %}
