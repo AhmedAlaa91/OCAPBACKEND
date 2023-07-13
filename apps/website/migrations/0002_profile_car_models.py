@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('Car_Pallet_Number', models.IntegerField(max_length=10)),
                 ('Car_Manufacture', models.CharField(max_length=50)),
                 ('Car_Color', models.CharField(max_length=50)),
-                ('Owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='website.profile')),
+                ('Owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='auth.user')),
             ],
         ),
     ]

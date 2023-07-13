@@ -35,6 +35,7 @@
                     <th>Date</th>
                     <th>Leave Time</th>
                     <th>Return Time</th>
+                    <th>Car</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -48,6 +49,7 @@
                     <td>{{ ride.date }}</td>
                     <td>{{ ride.leave_time }}</td>
                     <td>{{ ride.return_time }}</td>
+                    <td>{{ ride.car.Car_Manufacture }} - {{ ride.car.Car_Color }}</td>
                     <td>
                         <a class="btn btn-success" href="#">Edit</a>
                         <a class="btn btn-danger" href="#">Delete</a>
