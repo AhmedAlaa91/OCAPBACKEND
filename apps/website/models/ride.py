@@ -9,8 +9,8 @@ class Ride(models.Model):
                     ('2-Way Ride', '2-Way Ride')
                 ]
 
-    city = models.CharField(max_length=50)
-    area = models.CharField(max_length=50)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    area = models.CharField(max_length=50, null=True, blank=True)
     type = models.CharField(max_length=50, choices=RIDE_TYPES, default='To Office')
     date = models.DateField()
     leave_time = models.TimeField()

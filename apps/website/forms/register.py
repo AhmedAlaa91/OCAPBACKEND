@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
-
+from apps.website.jsonData import JsonData
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -89,43 +87,21 @@ class ChangeUserForm(UserChangeForm):
 
 
 class ProfileForm(ModelForm):
-
-    def get_cities():
-
-        current_dir = Path.cwd()
-
-        cities_file_loc = 'static/json/cities.json'
-
-        f = open(current_dir.joinpath(cities_file_loc), encoding='utf8')
-
-        cities_json = json.load(f)
-
-        f.close()
-
-        cities = []
-
-        for city in cities_json['data']:
-
-            city_tuple = tuple([city['id'], city['governorate_name_en']])
-
-            cities.append(city_tuple)
-
-        return cities
-
+ 
     phone = PhoneNumberField()
 
     gender = CharField(widget=Select(choices=Profile.UserGender))
 
-    city = CharField(
+    city = CharField(required=False,
 
         widget=Select(
-            choices=get_cities(),
+            choices=JsonData.get_cities(),
 
             attrs={'onchange': 'change_areas();', 'id': 'cities'},
         ),
     )
 
-    area = CharField(
+    area = CharField(required=False,
 
         widget=Select(
 
