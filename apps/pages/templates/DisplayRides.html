@@ -134,19 +134,26 @@ a {
                                         </h5>
                                      
                                         <ul class="list-inline mb-0 text-muted">
-                                            <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.source}}</li>
+                                            <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.city}} , {{field.area}}</li>
                                         </ul>
 										<ul class="list-inline mb-0 text-muted">
-										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Departure : {{field.start_date}} </li>
+										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Departure : {{field.date}} at {{field.leave_time}} </li>
+										 <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
 										 </ul>
+										 {% if field.return_time %}
 										 <ul class="list-inline mb-0 text-muted">
-										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Return : {{field.return_date}} </li>
+										 <li class="list-inline-item"><i class="mdi mdi-calendar-clock"></i> Return : </li>
 										 </ul>
+										  {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                                                        <div class="mt-2 mt-lg-0 d-flex flex-wrap align-items-start gap-1">
-                                        <span class="badge bg-soft-secondary fs-14 mt-1">Car : {{field.car}} {{field.Car_Pallet_Number}}</span><span class="badge bg-soft-secondary fs-14 mt-1">Seats : {{field.no_of_seats}}</span>
+                                        <span class="badge bg-soft-secondary fs-14 mt-1">Car : {{field.car}} {{field.Car_Pallet_Number}}</span>
+										<span class="badge bg-soft-secondary fs-14 mt-1">Available Seats : {{field.no_of_seats}}</span>
+										  {% if field.restrictions %}
+										<span class="badge bg-soft-secondary fs-14 mt-1">Important: {{field.restrictions}}</span>
+										 {% endif %}
                                     </div>
                                 </div>
                             </div>
