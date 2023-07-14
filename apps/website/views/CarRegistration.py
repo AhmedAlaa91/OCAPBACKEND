@@ -1,11 +1,15 @@
 from __future__ import annotations
 
+import logging
+
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
 
 from ..forms.CarRegistration import CarPlateForm
 from ..forms.CarRegistration import CarRegistrationForm
+
+log = logging.getLogger(__name__)
 
 
 def CarRegistration(request):
@@ -29,7 +33,7 @@ def CarRegistration(request):
             task.Owner = request.user
             task.Car_Pallet_Number = form2
             task.save()
-
+            log.info(f'a car had been Updated , CAR:{task.Car_Pallet_Number}')
             return redirect('pages.mycars')
 
     context = {'form': form, 'form2': form2, 'context': 'create'}
