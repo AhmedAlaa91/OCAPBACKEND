@@ -1,0 +1,25 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  basic:
+    format: "%(asctime)s %(levelname)s [%(name)s.%(funcName)s] %(message)s"
+  verbose:
+    format: "%(asctime)s %(levelname)s [%(processName)s] [%(threadName)s] [%(name)s.%(funcName)s] %(message)s"
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: basic
+    level: DEBUG
+root:
+  handlers: ['console']
+  level: WARNING
+loggers:
+  django:
+    level: INFO   # overriden in settings
+    propagate: True
+  apps.website:
+    level: INFO   # overriden in settings
+    propagate: True
+  lib:
+    level: INFO   # overriden in settings
+    propagate: True

@@ -20,6 +20,8 @@ from os.path import join
 from os.path import normpath
 from pathlib import Path
 
+import yaml
+
 from lib.utils import convert_str_bool
 from lib.utils import getenv
 
@@ -212,3 +214,12 @@ SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
 ORANGE_MAIL_API_CERT = join(
     BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
 )
+
+
+# Logging
+with open(Path(__file__).parent.joinpath('logging.yml'), encoding='utf-8') as f:
+    log_settings = yaml.safe_load(f.read())
+    for logger in log_settings['loggers'].values():
+        logger['level'] = getenv('LOG_LEVEL', 'INFO')
+
+LOGGING = log_settings
