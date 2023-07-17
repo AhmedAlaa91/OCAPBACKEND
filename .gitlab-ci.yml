@@ -169,8 +169,8 @@ deployment-k8s-integ-apply:
   stage: publish
   variables:
     DEPLOY_PROJECT_ID: 294034  # https://gitlab.tech.orange/orange-cap-portal/ocap-deploy
-  image:
-    name: dockerproxy.repos.tech.orange/alpine
+  # image:
+  #   name: dockerproxy.repos.tech.orange/alpine
   script:
     - apk update
     - apk add --no-cache curl jq
