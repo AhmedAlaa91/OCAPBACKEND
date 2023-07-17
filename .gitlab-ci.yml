@@ -177,7 +177,7 @@ deployment-k8s-integ-apply:
     # https://docs.gitlab.com/ee/ci/triggers/#making-use-of-trigger-variables
     # - echo "DEPLOY_TOKEN=$DEPLOY_TOKEN"
     # - echo "DEPLOY_PROJECT_ID=$DEPLOY_PROJECT_ID"
-    - JOB=`curl -X POST --fail -v -F token=$OCAP_DEPLOY_TOKEN -F "ref=develop" https://gitlab.tech.orange/api/v4/projects/${DEPLOY_PROJECT_ID}/trigger/pipeline`
+    - JOB=`curl -X POST -v -F token=$OCAP_DEPLOY_TOKEN -F "ref=develop" https://gitlab.tech.orange/api/v4/projects/${DEPLOY_PROJECT_ID}/trigger/pipeline`
     - echo $JOB | jq
   rules:
     # only on develop and not on tags
