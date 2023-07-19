@@ -8,6 +8,8 @@ from website.forms.ride import RideForm
 from website.models import Car
 
 from apps.website.jsonData import JsonData
+from website.models import ride
+from django.db.models import F
 
 log = logging.getLogger(__name__)
 
@@ -45,3 +47,16 @@ class RideView(View):
                 return redirect('/myrides')
             else:
                 return render(request, 'ride.html', {'form': form})
+            
+
+    def RequestRide(request,rideid):
+        ride.RidesBooked.objects.create(RideRequested=rideid, Requestor=request.user)
+        ride.Ride.objects.filter(id=rideid).update(no_of_seats=F('no_of_seats')-1)
+        return redirect('/rides')
+    
+
+    def CancelRide(request,rideid):
+        ride.RidesBooked.objects.filter(RideRequested=rideid, Requestor=request.user).delete()
+        ride.Ride.objects.filter(id=rideid).update(no_of_seats=F('no_of_seats')+1)
+        
+        return redirect('/rides')

@@ -26,3 +26,9 @@ class Ride(models.Model):
     class Meta:
         app_label = "website"
 
+
+
+class RidesBooked(models.Model):
+    
+    RideRequested = models.IntegerField()
+    Requestor = models.ForeignKey(User, on_delete=models.CASCADE)
