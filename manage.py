@@ -27,6 +27,8 @@ def main():
         execute_from_command_line([sys.argv[0], 'migrate'])
         execute_from_command_line([sys.argv[0], 'initdata'])
 
+    execute_from_command_line(sys.argv)
+
 
 if __name__ == '__main__':
     main()
