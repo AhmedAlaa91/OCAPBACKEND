@@ -21,10 +21,11 @@ def main():
             'available on your PYTHONPATH environment variable? Did you '
             'forget to activate a virtual environment?',
         ) from exc
-    if sys.argv[1] == 'runserver':
+    # Development server specific
+    # Check RUN_MAIN env to prevent duplicate execution when running development server with auto-reload feature
+    if len(sys.argv) > 1 and sys.argv[1] == 'runserver':
         execute_from_command_line([sys.argv[0], 'migrate'])
-
-    execute_from_command_line(sys.argv)
+        execute_from_command_line([sys.argv[0], 'initdata'])
 
 
 if __name__ == '__main__':
