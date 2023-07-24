@@ -120,8 +120,8 @@ class RideView(View):
             driver_receiptants =[{"email":driver_email,"name":driver_fullname}]
 
 
-        # send_alerting_message (passenger_receiptants ,passenger_msg )
-        # send_alerting_message (driver_receiptants ,driver_msg )
+            send_alerting_message (passenger_receiptants ,passenger_msg )
+            send_alerting_message (driver_receiptants ,driver_msg )
 
 
 
