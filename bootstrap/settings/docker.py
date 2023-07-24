@@ -36,7 +36,7 @@ if SECURE_SSL_REDIRECT:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE', 'ocap-db'),
+        'NAME': os.getenv('MYSQL_DATABASE', 'ocapdb'),
         'USER': os.getenv('MYSQL_USER', 'ocap'),
         'PASSWORD': os.getenv('MYSQL_PASSWORD', 'ocap-app'),
         'HOST': os.getenv('MYSQL_HOST', 'localhost'),
