@@ -267,3 +267,19 @@
     border: 6px solid transparent;
     background-clip: content-box;
     }
+
+
+.myrides-tab{
+    width: 50%;
+    text-align: center;
+    font-size: larger;
+}
+
+#planned_rides{
+    margin-left: 0px;
+}
+
+#create_ride_btn{
+    width: 15%;
+    margin-bottom: 20px;
+}
