@@ -60,7 +60,6 @@ def get_context_data(request, *args, **kwargs):
 
     context['BookedRides']=BookedRides
 
-    print(context['BookedRides'])
 
   
     return render(request, 'DisplayRides.html', context)
