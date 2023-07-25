@@ -30,5 +30,6 @@ class Ride(models.Model):
 
 class RidesBooked(models.Model):
     
-    RideRequested = models.IntegerField()
+    # RideRequested = models.IntegerField()
     Requestor = models.ForeignKey(User, on_delete=models.CASCADE)
+    RideRequested = models.ForeignKey(Ride, on_delete=models.CASCADE)
