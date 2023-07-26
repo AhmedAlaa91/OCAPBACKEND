@@ -20,19 +20,6 @@ log = logging.getLogger(__name__)
 
 class RideView(View):
 
-    def CheckRide( user , rideId):
-
-        RideChecked=ride.RidesBooked.objects.filter( Requestor=user).values()
-
-        if  RideChecked :
-            RideFound=RideChecked[0]['RideRequested']
-            RideFoundObj=ride.Ride.objects.filter(id=RideFound).values()
-            found_date = RideFoundObj
-
-
-        receiptants =[{"email":"ahmed.elkholy@oramge.com","name":"Ahmed el kholy"}]
-
-      # send_alerting_message (receiptants ,"Test mail " )
 
 
     def createRide(request):
@@ -74,8 +61,9 @@ class RideView(View):
         RideChecked=ride.RidesBooked.objects.filter( Requestor=request.user).values()
         found_date=''
         found_type=''
+     
         if  RideChecked :
-            RideFound=RideChecked[0]['RideRequested']
+            RideFound=RideChecked[0]['RideRequested_id']
             RideFoundObj=ride.Ride.objects.filter(id=RideFound).values()
             found_date = RideFoundObj[0]['date']
             found_type = RideFoundObj[0]['type']
@@ -97,7 +85,7 @@ class RideView(View):
         rideCreator = rideFields[0]['creator_id']
 
         if (found_date != leaveDate) and (found_type !=  typeRide) :
-            ride.RidesBooked.objects.create(RideRequested=rideid, Requestor=request.user)
+            ride.RidesBooked.objects.create(RideRequested=rideObj[0], Requestor=request.user)
 
             rideObj.update(no_of_seats=F('no_of_seats')-1)
 
@@ -121,8 +109,8 @@ class RideView(View):
             driver_receiptants =[{"email":driver_email,"name":driver_fullname}]
 
 
-            send_alerting_message (passenger_receiptants ,passenger_msg )
-            send_alerting_message (driver_receiptants ,driver_msg )
+            #send_alerting_message (passenger_receiptants ,passenger_msg )
+            #send_alerting_message (driver_receiptants ,driver_msg )
 
 
 
@@ -165,8 +153,8 @@ class RideView(View):
         driver_receiptants =[{"email":driver_email,"name":driver_fullname}]
 
 
-        send_alerting_message (passenger_receiptants ,passenger_msg )
-        send_alerting_message (driver_receiptants ,driver_msg )
+       # send_alerting_message (passenger_receiptants ,passenger_msg )
+       # send_alerting_message (driver_receiptants ,driver_msg )
 
 
 

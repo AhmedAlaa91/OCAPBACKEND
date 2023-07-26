@@ -83,7 +83,7 @@ a {
  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
   <script>
   $( function() {
     $( "#datepicker" ).datepicker();
@@ -106,26 +106,28 @@ $( document ).ready(function() {  $(".btn").hide();	$("#nrides").hide();
                                              
 											   
 											   
-											       let a = 1;
+											      
 											   		$('.candidate-list-box').each(function() {
 														let fieldName = $(this).find('.rideid');
 														let fieldVal = $(fieldName)[0].textContent;
+															
 														
-													    $("#"+a).show();
+													    $("#"+ fieldVal).show();
 														
-														a=a+1 ;
-														
+													
+											
 												{% for fieldbooked in BookedRides %}	
+											
 													
 											   {% for f in fieldbooked %}
 											
-	                                             
-											   var riderequested="{{f.RideRequested}}"
+                                   
+											   var riderequested="{{f.RideRequested_id}}"
 												
-														 
+														  
 														if (riderequested == fieldVal ) {
-															$("#hidden{{f.RideRequested}}").show();
-														    $("#{{f.RideRequested}}").hide();
+															$("#hidden{{f.RideRequested_id}}").show();
+														    $("#{{f.RideRequested_id}}").hide();
 														}
 														
 														
@@ -138,7 +140,10 @@ $( document ).ready(function() {  $(".btn").hide();	$("#nrides").hide();
 														  {% endfor %}
 														   {% endfor %}
 														   
+													
 														   
+														   
+														
 														   
 														
 													});
@@ -204,7 +209,8 @@ function onChangeDate() {
 			});
 			
 			
-			if (!$('.candidate-list-box:visible').length) { ;
+			if (!$('.candidate-list-box:visible').length) {
+                $("#nrides2").hide();
 			$("#nrides").show();}
 			
 			else {$("#nrides").hide();}
@@ -313,6 +319,19 @@ $(document).ready(function(){
         });
 
         $option.appendTo('#areas');
+		
+		
+		        var $option = $("<option>", {
+
+text: "All",
+
+value: "All",
+
+selected: ""
+
+});
+
+$option.appendTo('#areas');
 
         for(index in areas){
 
@@ -331,6 +350,10 @@ $(document).ready(function(){
             }
 
         }
+
+
+
+
 
     };
 
@@ -451,7 +474,7 @@ $(document).ready(function(){
 					
                 </div>
 				 {% else  %}
-				<div class="norides" style="padding-top: 50px;padding-bottom: 150px;"> <h1>No Available Rides ! </h1> </div>
+				<div class="norides"  id="nrides2" style="padding-top: 50px;padding-bottom: 150px;"> <h1>No Available Rides ! </h1> </div>
 				 {% endif %}
 				 
 				 <div class="norides"  id="nrides" style="padding-top: 50px;padding-bottom: 150px;"> <h1>No Available Rides ! </h1> </div>
