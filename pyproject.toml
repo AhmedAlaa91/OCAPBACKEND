@@ -16,6 +16,7 @@ django-crispy-forms = "~2.0"
 crispy-bootstrap4 = "^2022.1"
 django-phonenumber-field = "^7.1.0"
 django-phonenumbers = "^1.0.1"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "~1.7"
@@ -29,6 +30,7 @@ pytest-xdist = "~3.2"
 safety = "~2.3"
 pre-commit = "^3.3.2"
 autopep8 = "^2.0.2"
+django-silk = "^5.0.3"
 
 [tool.poetry.group.prod]
 optional = true
