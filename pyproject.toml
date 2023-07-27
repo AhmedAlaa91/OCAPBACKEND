@@ -30,7 +30,6 @@ pytest-xdist = "~3.2"
 safety = "~2.3"
 pre-commit = "^3.3.2"
 autopep8 = "^2.0.2"
-django-silk = "^5.0.3"
 
 [tool.poetry.group.prod]
 optional = true

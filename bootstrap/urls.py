@@ -34,7 +34,6 @@ if settings.DEBUG:
     from django.views import defaults as default_views
 
     urlpatterns += [
-        path('silk/', include('silk.urls', namespace='silk')),
         path(
             "400/",
             default_views.bad_request,
