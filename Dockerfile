@@ -39,7 +39,7 @@ RUN rm /etc/nginx/sites-enabled/default \
 
 # Installation
 WORKDIR "${APP_HOME}"
-RUN gosu ocap4ops poetry install --only main,prod \
+RUN gosu ocap4ops poetry install --only main,prod,dev \
     && gosu ocap4ops poetry run python manage.py collectstatic -c -l --no-input \
     && chmod 755 docker-entrypoint.sh \
     && cat RELEASE

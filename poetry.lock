@@ -777,6 +777,28 @@ url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
 reference = "diod_python_proxy"
 
 [[package]]
+name = "django-silk"
+version = "5.0.3"
+description = "Silky smooth profiling for the Django Framework"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-silk-5.0.3.tar.gz", hash = "sha256:2f1fcaaf21192011147537fe1ca72dc9f552f32d7043ebd82aeeda370f194469"},
+    {file = "django_silk-5.0.3-py3-none-any.whl", hash = "sha256:50552f06d9306d06517fbeab9a2c74856355e06304f03ed16b6dd353f7c77e7a"},
+]
+
+[package.dependencies]
+autopep8 = "*"
+Django = ">=3.2"
+gprof2dot = ">=2017.09.19"
+sqlparse = "*"
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
+[[package]]
 name = "dparse"
 version = "0.6.2"
 description = "A parser for Python dependency files"
@@ -871,6 +893,22 @@ files = [
 
 [package.dependencies]
 gitdb = ">=4.0.1,<5"
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
+[[package]]
+name = "gprof2dot"
+version = "2022.7.29"
+description = "Generate a dot graph from the output of several profilers."
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "gprof2dot-2022.7.29-py2.py3-none-any.whl", hash = "sha256:f165b3851d3c52ee4915eb1bd6cca571e5759823c2cd0f71a79bda93c2dc85d6"},
+    {file = "gprof2dot-2022.7.29.tar.gz", hash = "sha256:45b4d298bd36608fccf9511c3fd88a773f7a1abc04d6cd39445b11ba43133ec5"},
+]
 
 [package.source]
 type = "legacy"
@@ -1609,6 +1647,25 @@ url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
 reference = "diod_python_proxy"
 
 [[package]]
+name = "python-dotenv"
+version = "1.0.0"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "python-dotenv-1.0.0.tar.gz", hash = "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"},
+    {file = "python_dotenv-1.0.0-py3-none-any.whl", hash = "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"},
+]
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[package.source]
+type = "legacy"
+url = "https://repos.tech.orange/artifactory/api/pypi/pythonproxy/simple"
+reference = "diod_python_proxy"
+
+[[package]]
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
@@ -2289,4 +2346,4 @@ reference = "diod_python_proxy"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.11"
-content-hash = "5c02b5431187549bf16475298cf491d11ca4fcd8db56bcb1d642ce8c546bc294"
+content-hash = "404a4705fec34d8647706e1bf0fe87befc6f5c18da856df88600b1017bdea7f8"

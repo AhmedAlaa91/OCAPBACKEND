@@ -8,7 +8,10 @@ from __future__ import annotations
 from .common import *
 
 DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
-
+INSTALLED_APPS += ['silk', ]
+MIDDLEWARE += [
+    'silk.middleware.SilkyMiddleware',
+]
 
 # Disable authentication
 ORANGE_AUTH_API_BYPASS = True

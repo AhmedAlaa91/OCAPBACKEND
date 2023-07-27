@@ -9,22 +9,20 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-from __future__ import annotations
 
 import os
 import sys
 from os.path import abspath
-from os.path import basename
 from os.path import dirname
 from os.path import join
 from os.path import normpath
 from pathlib import Path
-
+from dotenv import load_dotenv
 import yaml
-
 from lib.utils import convert_str_bool
 from lib.utils import getenv
 
+load_dotenv()
 # fetch Django's project directory
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 
@@ -46,7 +44,6 @@ for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
     v = v.strip()
     if v:
         ALLOWED_HOSTS.append(v)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -165,7 +162,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -192,32 +188,26 @@ PHONENUMBER_DEFAULT_REGION = 'EG'
 
 # ---------------------------------------------------------------------
 # Sending Email Configuration
-ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get(
-    'ORANGE_SEND_EMAIL_CLIENT_ID', 'cli-ocapapp-v1-prd',
-)
+ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get('ORANGE_SEND_EMAIL_CLIENT_ID')
 
-ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get(
-    'ORANGE_SEND_EMAILS_CLIENT_SECRET',
-    'NjA4ODk1ODExZGFlMDg3ZjBhYmZkNzdiMjc1NDE2YTc1MzRkZTc4ZjRkOTM2NDNkZDFiNjY0YjY4MmJkMjlkZGuipaE19T417drEigbHlqwISzzsr1LuOu1XuOBlCAb7',
-)
+ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get('ORANGE_SEND_EMAILS_CLIENT_SECRET')
 
 SEND_MAILS_ACCESS_TOKENS_URL = os.environ.get(
-    'SEND_MAILS_ACCESS_TOKENS_URL', 'https://okapi-v2.api.hbx.geo.infra.ftgroup/v2/token',
+    'SEND_MAILS_ACCESS_TOKENS_URL',
 )
 
 SEND_MAIL_SERVICE_URL = os.environ.get(
-    'SEND_MAIL_SERVICE_URL', 'https://mail2fed.preprod.api.hbx.geo.infra.ftgroup/v1/email/send',
+    'SEND_MAIL_SERVICE_URL',
 )
 
-SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'webex.monitor@orange.com')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
 
 ORANGE_MAIL_API_CERT = join(
     BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
 )
 
-
 # Logging
-with open(Path(__file__).parent.joinpath('logging.yml'), encoding='utf-8') as f:
+with open(os.path.join(BASE_DIR, 'logging.yml'), encoding='utf-8') as f:
     log_settings = yaml.safe_load(f.read())
     for logger in log_settings['loggers'].values():
         logger['level'] = getenv('LOG_LEVEL', 'INFO')
