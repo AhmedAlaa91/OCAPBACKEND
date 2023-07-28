@@ -9,7 +9,7 @@ from django.forms import HiddenInput
 from django.forms import ModelForm
 from django.forms import Select
 from phonenumber_field.formfields import PhoneNumberField
-from website.models import Profile
+from apps.website.models import Profile
 
 
 class RegisterForm(UserCreationForm):

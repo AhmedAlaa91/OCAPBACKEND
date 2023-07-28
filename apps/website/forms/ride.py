@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 from .widgets import DatePickerInput, TimePickerInput
-from website.models import Ride
+from apps.website.models import Ride
 from django import forms
 from django.forms import CharField, Select, TextInput, ModelChoiceField, NumberInput
-from website.models import Car
+from apps.website.models import Car
 from datetime import datetime, timedelta, time
 from apps.website.jsonData import JsonData
 

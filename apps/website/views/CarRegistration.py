@@ -1,13 +1,8 @@
-from __future__ import annotations
-
 import logging
-
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import render
-
-from ..forms.CarRegistration import CarPlateForm
-from ..forms.CarRegistration import CarRegistrationForm
+from apps.website.forms.CarRegistration import CarPlateForm
+from apps.website.forms.CarRegistration import CarRegistrationForm
 
 log = logging.getLogger(__name__)
 
@@ -18,7 +13,7 @@ def CarRegistration(request):
     # create object of form
     form = CarRegistrationForm()
     form2 = CarPlateForm()
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         form2 = CarPlateForm(request.POST)
         form = CarRegistrationForm(request.POST)
         # save the form data to model

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from django import forms
-from website.models import Car
-from website.models import CarPlate
+from apps.website.models import Car
+from apps.website.models import CarPlate
 # import  from models.py
 
 # create a ModelForm

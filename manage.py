@@ -25,7 +25,6 @@ def main():
     # Check RUN_MAIN env to prevent duplicate execution when running development server with auto-reload feature
     if len(sys.argv) > 1 and sys.argv[1] == 'runserver':
         execute_from_command_line([sys.argv[0], 'migrate'])
-        execute_from_command_line([sys.argv[0], 'initdata'])
 
     execute_from_command_line(sys.argv)
 
