@@ -7,9 +7,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import View
-from website.forms.register import ChangeUserForm
-from website.forms.register import ProfileForm
-from website.forms.register import RegisterForm
+from apps.website.forms.register import ChangeUserForm
+from apps.website.forms.register import ProfileForm
+from apps.website.forms.register import RegisterForm
 
 
 class AuthView(View):

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import uuid
-import website.models.CarRegistration
+import apps.website.models.CarRegistration
 
 
 class Migration(migrations.Migration):
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                     "Number",
                     models.IntegerField(
                         validators=[
-                            website.models.CarRegistration.CarPlate.validate_length
+                            apps.website.models.CarRegistration.CarPlate.validate_length
                         ]
                     ),
                 ),

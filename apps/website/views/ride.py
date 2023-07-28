@@ -4,23 +4,21 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import View
-from website.forms.ride import RideForm
-from website.models import Car
+from apps.website.forms.ride import RideForm
+from apps.website.models import Car
 
 from django.contrib.auth.models import User
 
 from apps.website.jsonData import JsonData
-from website.models import ride
+from apps.website.models import ride
 from django.db.models import F
 
-
 from lib.mail_service.mail import send_alerting_message
+
 log = logging.getLogger(__name__)
 
 
 class RideView(View):
-
-
 
     def createRide(request):
         context = {}
@@ -54,29 +52,26 @@ class RideView(View):
                 return redirect('/myrides')
             else:
                 return render(request, 'ride.html', {'form': form})
-            
 
-    def RequestRide(request,rideid):
-       
-        RideChecked=ride.RidesBooked.objects.filter( Requestor=request.user).values()
-        found_date=''
-        found_type=''
-     
-        if  RideChecked :
-            RideFound=RideChecked[0]['RideRequested_id']
-            RideFoundObj=ride.Ride.objects.filter(id=RideFound).values()
+    def RequestRide(request, rideid):
+
+        RideChecked = ride.RidesBooked.objects.filter(Requestor=request.user).values()
+        found_date = ''
+        found_type = ''
+
+        if RideChecked:
+            RideFound = RideChecked[0]['RideRequested_id']
+            RideFoundObj = ride.Ride.objects.filter(id=RideFound).values()
             found_date = RideFoundObj[0]['date']
             found_type = RideFoundObj[0]['type']
 
             print(RideFoundObj[0]['date'])
 
-      
+        #
 
-       # 
-       
-        rideObj=ride.Ride.objects.filter(id=rideid)
+        rideObj = ride.Ride.objects.filter(id=rideid)
 
-        rideFields=rideObj.values()
+        rideFields = rideObj.values()
 
         source = rideFields[0]['area']
         typeRide = rideFields[0]['type']
@@ -84,46 +79,38 @@ class RideView(View):
         leaveDate = rideFields[0]['date']
         rideCreator = rideFields[0]['creator_id']
 
-        if (found_date != leaveDate) and (found_type !=  typeRide) :
+        if (found_date != leaveDate) and (found_type != typeRide):
             ride.RidesBooked.objects.create(RideRequested=rideObj[0], Requestor=request.user)
 
-            rideObj.update(no_of_seats=F('no_of_seats')-1)
+            rideObj.update(no_of_seats=F('no_of_seats') - 1)
 
-            passenger = User.objects.filter (username=request.user).values()
-            passenger_email=passenger[0]['email']
-            passenger_fullname=passenger[0]['first_name'] + ' ' + passenger[0]['last_name']
+            passenger = User.objects.filter(username=request.user).values()
+            passenger_email = passenger[0]['email']
+            passenger_fullname = passenger[0]['first_name'] + ' ' + passenger[0]['last_name']
             passenger_msg = f"""Your Ride {typeRide} from {source} on {leaveDate} at {leaveTime} is Confirmed.
             
             """
-            passenger_receiptants =[{"email":passenger_email,"name":passenger_fullname}]
+            passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
 
-
-
-            driver = User.objects.filter (id=rideCreator).values()
-            driver_email=driver[0]['email']
-            driver_fullname=driver[0]['first_name'] + ' ' + driver[0]['last_name']
+            driver = User.objects.filter(id=rideCreator).values()
+            driver_email = driver[0]['email']
+            driver_fullname = driver[0]['first_name'] + ' ' + driver[0]['last_name']
             driver_msg = f""" Hello {driver_fullname} ,   {passenger_fullname} has joined Your Ride {typeRide} from {source} on {leaveDate} at {leaveTime} .
             
             """
-            passenger_receiptants =[{"email":passenger_email,"name":passenger_fullname}]
-            driver_receiptants =[{"email":driver_email,"name":driver_fullname}]
+            passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
+            driver_receiptants = [{"email": driver_email, "name": driver_fullname}]
 
+            # send_alerting_message (passenger_receiptants ,passenger_msg )
+            # send_alerting_message (driver_receiptants ,driver_msg )
 
-            #send_alerting_message (passenger_receiptants ,passenger_msg )
-            #send_alerting_message (driver_receiptants ,driver_msg )
-
-
-
-
-        
         return redirect('/rides')
-    
 
-    def CancelRide(request,rideid):
+    def CancelRide(request, rideid):
         ride.RidesBooked.objects.filter(RideRequested=rideid, Requestor=request.user).delete()
-        rideObj=ride.Ride.objects.filter(id=rideid)
-        rideObj.update(no_of_seats=F('no_of_seats')+1)
-        rideFields=rideObj.values()
+        rideObj = ride.Ride.objects.filter(id=rideid)
+        rideObj.update(no_of_seats=F('no_of_seats') + 1)
+        rideFields = rideObj.values()
 
         source = rideFields[0]['area']
         typeRide = rideFields[0]['type']
@@ -131,32 +118,24 @@ class RideView(View):
         leaveDate = rideFields[0]['date']
         rideCreator = rideFields[0]['creator_id']
 
-       
-
-        passenger = User.objects.filter (username=request.user).values()
-        passenger_email=passenger[0]['email']
-        passenger_fullname=passenger[0]['first_name'] + ' ' + passenger[0]['last_name']
+        passenger = User.objects.filter(username=request.user).values()
+        passenger_email = passenger[0]['email']
+        passenger_fullname = passenger[0]['first_name'] + ' ' + passenger[0]['last_name']
         passenger_msg = f"""Your Ride {typeRide} from {source} on {leaveDate} at {leaveTime} is Cancelled.
         
         """
-        passenger_receiptants =[{"email":passenger_email,"name":passenger_fullname}]
+        passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
 
-
-
-        driver = User.objects.filter (id=rideCreator).values()
-        driver_email=driver[0]['email']
-        driver_fullname=driver[0]['first_name'] + ' ' + driver[0]['last_name']
+        driver = User.objects.filter(id=rideCreator).values()
+        driver_email = driver[0]['email']
+        driver_fullname = driver[0]['first_name'] + ' ' + driver[0]['last_name']
         driver_msg = f""" Hello {driver_fullname} ,   {passenger_fullname} has Cancelled his ride {typeRide} from {source} on {leaveDate} at {leaveTime} .
         
         """
-        passenger_receiptants =[{"email":passenger_email,"name":passenger_fullname}]
-        driver_receiptants =[{"email":driver_email,"name":driver_fullname}]
+        passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
+        driver_receiptants = [{"email": driver_email, "name": driver_fullname}]
 
+        # send_alerting_message (passenger_receiptants ,passenger_msg )
+        # send_alerting_message (driver_receiptants ,driver_msg )
 
-       # send_alerting_message (passenger_receiptants ,passenger_msg )
-       # send_alerting_message (driver_receiptants ,driver_msg )
-
-
-
-        
         return redirect('/rides')

@@ -1,8 +1,9 @@
 import json
 from pathlib import Path
 
+
 class JsonData():
-    
+
     def get_area_name(area_id):
         area_name = None
         if area_id == "0":
@@ -39,7 +40,6 @@ class JsonData():
         f.close()
         return areas
 
-
     def get_user_areas(user_city):
 
         current_dir = Path.cwd()
@@ -56,15 +56,13 @@ class JsonData():
 
         for area in areas_json['data']:
 
-            if  area['governorate_id'] == user_city:
-
+            if area['governorate_id'] == user_city:
                 area_tuple = tuple([area['id'], area['city_name_en']])
 
                 areas.append(area_tuple)
 
         return areas
-    
- 
+
     def get_cities():
 
         current_dir = Path.cwd()
@@ -80,7 +78,6 @@ class JsonData():
         cities = []
 
         for city in cities_json['data']:
-
             city_tuple = tuple([city['id'], city['governorate_name_en']])
 
             cities.append(city_tuple)
