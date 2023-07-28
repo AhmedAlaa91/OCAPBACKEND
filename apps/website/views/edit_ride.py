@@ -47,7 +47,7 @@ class EditRideView(UpdateView):
             messages.success(self.request, 'Ride updated successfully.')
             log.info(f'Ride updated successfully NO:{form.pk}')
         except Exception as ex:
-            log.info(f'Ride updated successfully NO:{form.pk}')
+            log.info(f'Error : {str(ex)}')
             messages.error(self.request, f'Error{str(ex)}')
         finally:
             return super().form_valid(form)
