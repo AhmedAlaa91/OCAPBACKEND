@@ -6,7 +6,7 @@ from apps.website.forms.ride import RideForm
 from apps.website.jsonData import JsonData
 import logging
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.urls import reverse
 
 log = logging.getLogger(__name__)
 
@@ -22,7 +22,8 @@ class EditRideView(UpdateView):
     def get_context_data(self, **kwargs):
         ctx = super(EditRideView, self).get_context_data(**kwargs)
         # Add data needed to Update Rider
-        ctx['context'] = 'create'
+        ctx['form'] = RideForm(request=self.request, instance=self.object)
+        ctx['context'] = 'edit'
         ctx['areas'] = JsonData.get_areas()
         ctx['user_area'] = self.request.user.profile.area
         ctx['user_city'] = self.request.user.profile.city
@@ -43,13 +44,13 @@ class EditRideView(UpdateView):
             form.creator = self.request.user
             form.save()
             RidesBooked.objects.create(RideRequested=form, Requestor=self.request.user)
-            messages.success(self.request, 'Ride created successfully.')
-            log.info(f'Ride created successfully NO:{form.pk}')
+            messages.success(self.request, 'Ride updated successfully.')
+            log.info(f'Ride updated successfully NO:{form.pk}')
         except Exception as ex:
-            log.info(f'Ride created successfully NO:{form.pk}')
+            log.info(f'Ride updated successfully NO:{form.pk}')
             messages.error(self.request, f'Error{str(ex)}')
         finally:
             return super().form_valid(form)
 
     def get_success_url(self):
-        return redirect('pages.rides')
+        return reverse('website.myrides')
