@@ -177,9 +177,11 @@ $( document ).ready(function() {  $(".btn").hide();	$("#nrides").hide();
 
 function val() {
     d = document.getElementById("areas");
+    c = document.getElementById("cities");
 	
+    ctext = c.options[c.selectedIndex].text;
 	text = d.options[d.selectedIndex].text;
-	window.location.href = '/rides/?area='+text
+	window.location.href = '/rides/?city='+ctext+'&area='+text
 
     //alert(d);
 };
@@ -304,6 +306,8 @@ $(document).ready(function(){
 
     function change_areas(){
 
+        
+
         city_id = $('#cities').val();
 
         $('#areas').empty();
@@ -312,7 +316,7 @@ $(document).ready(function(){
 
             text: "Choose Area",
 
-            value: "",
+            value: "Choose Area",
 
             selected: "selected"
 
@@ -351,7 +355,9 @@ $option.appendTo('#areas');
 
         }
 
+      
 
+        $('#areas').val("Choose Area")
 
 
 
@@ -379,10 +385,10 @@ $option.appendTo('#areas');
 			   <i class="uil uil-location-point"></i>
                                  
 									
-							<select name="city" onchange="change_areas();" id="cities" class="select form-control" style="width: 150px;display:inline-block;">
+							<select name="city" onchange="change_areas()" id="cities" class="select form-control" style="width: 150px;display:inline-block;">
 
 </select>		
-							<select name="city"  id="areas" class="select form-control" onchange="val()" style="width: 150px;display:inline-block;">
+							<select name="area"  id="areas" class="select form-control" onchange="val()" style="width: 150px;display:inline-block;">
 
 </select>	
   
