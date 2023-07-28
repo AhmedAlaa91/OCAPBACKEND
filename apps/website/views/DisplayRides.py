@@ -3,42 +3,51 @@ from apps.website.models.ride import Ride, RidesBooked
 from apps.website.jsonData import JsonData
 
 
+
+
+from datetime import date
+
 def get_context_data(request, *args, **kwargs):
     area_r = request.GET.get('area')
-    city_r = request.GET.get('city')
-
-    if area_r and city_r:
-        if area_r == 'All':
-            RideObj = Ride.objects.filter(city=city_r).select_related("car")
+    city_r= request.GET.get('city')
 
 
-        else:
-            RideObj = Ride.objects.filter(area=area_r, city=city_r).select_related("car")
+    today=date.today()
 
+    if area_r and city_r :
+         if area_r=='All':
+            RideObj =Ride.objects.filter(city=city_r).select_related("car")
+         elif city_r=='All':
+             RideObj =Ride.objects.all().select_related("car")
+        
+         else :
+            RideObj =Ride.objects.filter(area=area_r , city=city_r).select_related("car")
 
+    elif area_r :
+        if area_r=='All':
+              RideObj =Ride.objects.filter(city=city_r).select_related("car")
+        
+        else :
+              RideObj =Ride.objects.filter(area=area_r).select_related("car")
 
-    elif area_r:
-        if area_r == 'All':
-            RideObj = Ride.objects.all().select_related("car")
+  # elif city_r :
+     #   if city_r=='All':
+      #        RideObj =Ride.objects.all().select_related("car")
+        
+    #    else :
+ #           RideObj =Ride.objects.filter(city=city_r).select_related("car")
+     
+    else :
+        RideObj =Ride.objects.all()
 
-        else:
-            RideObj = Ride.objects.filter(area=area_r).select_related("car")
-
-
-
-    elif city_r:
-        RideObj = Ride.objects.filter(city=city_r).select_related("car")
-
-    else:
-        RideObj = Ride.objects.all()
-
+    RideObj=RideObj.filter(date__gte= today ).exclude(creator = request.user)
+    
     if RideObj:
         context = {'RideObj': RideObj}
     else:
         context = {'RideObj': None}
 
-    context['areas'] = JsonData.get_areas()
-
+    context['areas'] =sorted(JsonData.get_areas(),key = lambda x: x['city_name_en'])
     context['cities'] = JsonData.get_cities()
 
     context['user_area'] = request.user.profile.area
@@ -57,6 +66,7 @@ def get_context_data(request, *args, **kwargs):
 
     context['BookedRides'] = BookedRides
 
-    print(context['BookedRides'])
+
+   
 
     return render(request, 'DisplayRides.html', context)

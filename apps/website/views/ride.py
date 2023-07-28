@@ -104,6 +104,13 @@ class RideView(View):
             # send_alerting_message (passenger_receiptants ,passenger_msg )
             # send_alerting_message (driver_receiptants ,driver_msg )
 
+            send_alerting_message (passenger_receiptants ,passenger_msg )
+            send_alerting_message (driver_receiptants ,driver_msg )
+
+
+
+
+        
         return redirect('/rides')
 
     def CancelRide(request, rideid):
@@ -138,4 +145,10 @@ class RideView(View):
         # send_alerting_message (passenger_receiptants ,passenger_msg )
         # send_alerting_message (driver_receiptants ,driver_msg )
 
+        send_alerting_message (passenger_receiptants ,passenger_msg )
+        send_alerting_message (driver_receiptants ,driver_msg )
+
+
+
+        
         return redirect('/rides')
