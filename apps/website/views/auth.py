@@ -17,12 +17,12 @@ class AuthView(View):
 
     def register(request):
         context = {}
+        context['areas'] = JsonData.get_areas()
+        context['cities'] = JsonData.get_cities_json()
+        context['context'] = 'create'
         if request.method == 'GET':
             context['user_form'] = RegisterForm(request=request)
             context['profile_form'] = ProfileForm()
-            context['context'] = 'create'
-            context['areas'] = JsonData.get_areas()
-            context['cities'] = JsonData.get_cities_json()
             return render(request, 'register.html', context)
 
         if request.method == 'POST':
@@ -43,7 +43,12 @@ class AuthView(View):
                 )
                 return redirect('/')
             else:
-                return render(request, 'register.html', {'user_form': user_form, 'profile_form': profile_form})
+                return render(request, 'register.html', {'user_form': user_form,
+                                                          'profile_form': profile_form,
+                                                            'areas':context['areas'],
+                                                            'cities':context['cities'],
+                                                             'context':context['context']
+                                                            })
 
     def login(request):
         """Implement customized django auth backend with Orange Auth. You can refer to AUTHENTICATION_BACKENDS in django settings.
@@ -70,16 +75,16 @@ class AuthView(View):
 class ProfileView(LoginRequiredMixin, View):
     def edit_profile(request):
         context = {}
+        context['context'] = 'edit'
+        context['areas'] = JsonData.get_areas()
+        context['cities'] = JsonData.get_cities_json()
+        context['user_area'] = request.user.profile.area
+        context['user_city'] = request.user.profile.city
         if request.method == 'GET':
             context['user_form'] = ChangeUserForm(instance=request.user)
             profile_form = ProfileForm(instance=request.user.profile)
             profile_form.user = request.user
             context['profile_form'] = profile_form
-            context['context'] = 'edit'
-            context['areas'] = JsonData.get_areas()
-            context['cities'] = JsonData.get_cities_json()
-            context['user_area'] = request.user.profile.area
-            context['user_city'] = request.user.profile.city
             return render(request, 'register.html', context)
 
         if request.method == 'POST':
@@ -98,4 +103,11 @@ class ProfileView(LoginRequiredMixin, View):
                 messages.success(request, 'Edit profile done successfully.')
                 return redirect('/')
             else:
-                return render(request, 'register.html', {'user_form': user_form,'profile_form':profile_form})
+                return render(request, 'register.html', {'user_form': user_form,
+                                                         'profile_form':profile_form,
+                                                            'areas':context['areas'],
+                                                            'cities':context['cities'],
+                                                             'context':context['context'],
+                                                             'user_city':context['user_city'],
+                                                             'user_area':context['user_area'] 
+                                                         })
