@@ -1,10 +1,5 @@
 { "data":
     [{
-        "id": "0",
-        "governorate_name_ar": "اختر مدينة",
-        "governorate_name_en": "Choose City"
-    },
-        {
     "id": "1",
     "governorate_name_ar": "القاهرة",
     "governorate_name_en": "Cairo"

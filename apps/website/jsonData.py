@@ -63,6 +63,21 @@ class JsonData():
 
         return areas
 
+    def get_cities_json():
+
+        current_dir = Path.cwd()
+
+        cities_file_loc = 'static/json/cities.json'
+
+        f = open(current_dir.joinpath(cities_file_loc), encoding='utf8')
+
+        cities = json.load(f)['data']
+
+        f.close()
+
+        return cities
+    
+
     def get_cities():
 
         current_dir = Path.cwd()

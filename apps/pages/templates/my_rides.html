@@ -34,30 +34,28 @@
             <table id="planned_rides_table" class="table tablesorter display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Type</th>
-                        <th>City</th>
                         <th>Area</th>
                         <th>Date</th>
                         <th>Leave Time</th>
                         <th>Return Time</th>
-                        <th>Creator</th>
                         <th>Car</th>
+                        <th>No. of Seats</th>
+                        <th>Creator</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
                     {% for ride in object_list %}
                     <tr>
-                        <td>{{ ride.RideRequested.id }}</td>
                         <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.city }}</td>
                         <td>{{ ride.RideRequested.area }}</td>
                         <td>{{ ride.RideRequested.date }}</td>
                         <td>{{ ride.RideRequested.leave_time }}</td>
                         <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
                         <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
+                        <td>{{ ride.RideRequested.no_of_seats }}</td>
+                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
                         <td>{% if ride.RideRequested.creator.first_name == user.first_name %}
                             <a class="btn btn-success" href="{% url 'pages.update_ride' ride.pk %}">Edit</a>
                             <a class="btn btn-danger" href="#">Cancel Ride</a>
@@ -80,29 +78,27 @@
             <table id="historical_rides_table" class="table tablesorter display" style="width:100%">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Type</th>
-                        <th>City</th>
                         <th>Area</th>
                         <th>Date</th>
                         <th>Leave Time</th>
                         <th>Return Time</th>
-                        <th>Creator</th>
                         <th>Car</th>
+                        <th>No. of Seats</th>
+                        <th>Creator</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">
                     {% for ride in historical_rides %}
                     <tr>
-                        <td>{{ ride.RideRequested.id }}</td>
                         <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.city }}</td>
                         <td>{{ ride.RideRequested.area }}</td>
                         <td>{{ ride.RideRequested.date }}</td>
                         <td>{{ ride.RideRequested.leave_time }}</td>
                         <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
                         <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
+                        <td>{{ ride.RideRequested.no_of_seats }}</td>
+                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
