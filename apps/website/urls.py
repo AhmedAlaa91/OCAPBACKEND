@@ -27,6 +27,6 @@ urlpatterns = [
     path('cancelrides/<rideid>/', RideView.CancelRide, name='pages.cancelride'),
     path('rides/', get_context_data, name='pages.rides'),
     re_path('rides/(?P<city>)/(?P<area>)$', get_context_data, name='pages.rides'),
-    path('rides/update/<int:pk>', EditRideView.as_view(), name='pages.update_ride'),
+    path('rides/update/<pk>', EditRideView.as_view(), name='pages.update_ride'),
 
 ]
