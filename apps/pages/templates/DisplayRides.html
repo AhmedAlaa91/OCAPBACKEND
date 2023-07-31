@@ -443,7 +443,12 @@ $option.appendTo('#areas');
                                         </ul>
 										<ul class="list-inline mb-0 text-muted">
 										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date}} </span> at {{field.leave_time}} </li>
-										 <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
+										 
+                                         {% if field.type != 'From Office' %} 
+                                         <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
+                                         {% else  %}
+                                         <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Drop :  {{field.meeting_point}}</li>
+                                         {% endif %}
 										 </ul>
 										 {% if field.return_time %}
 										 <ul class="list-inline mb-0 text-muted">
