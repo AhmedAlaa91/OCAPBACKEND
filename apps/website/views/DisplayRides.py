@@ -40,7 +40,7 @@ def get_context_data(request, *args, **kwargs):
     else :
         RideObj =Ride.objects.all()
 
-    RideObj=RideObj.filter(date__gte= today ).exclude(creator = request.user)
+    RideObj=RideObj.filter(date__gte= today )
     
     if RideObj:
         context = {'RideObj': RideObj}
@@ -50,8 +50,8 @@ def get_context_data(request, *args, **kwargs):
     context['areas'] =sorted(JsonData.get_areas(),key = lambda x: x['city_name_en'])
     context['cities'] = JsonData.get_cities()
 
-    context['user_area'] = request.user.profile.area
-    context['user_city'] = request.user.profile.city
+    context['user_area'] = 'Choose Area'
+    context['user_city'] = 'Choose City'
 
     if area_r:   context['user_area'] = area_r
     if city_r:   context['user_city'] = city_r

@@ -47,7 +47,7 @@ class RideView(View):
                 form.car = car
                 form.creator = request.user
                 form.save()
-                ride.RidesBooked.objects.create(RideRequested=form, Requestor=request.user)
+               
                 messages.success(request, 'Ride created successfully.')
                 log.info(f'Ride created successfully NO:{form.pk}')
                 return redirect('/myrides')
@@ -66,7 +66,7 @@ class RideView(View):
             found_date = RideFoundObj[0]['date']
             found_type = RideFoundObj[0]['type']
 
-            print(RideFoundObj[0]['date'])
+   
 
         #
 
@@ -102,8 +102,9 @@ class RideView(View):
             passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
             driver_receiptants = [{"email": driver_email, "name": driver_fullname}]
 
-            # send_alerting_message (passenger_receiptants ,passenger_msg )
-            # send_alerting_message (driver_receiptants ,driver_msg )
+
+        
+
 
             send_alerting_message (passenger_receiptants ,passenger_msg )
             send_alerting_message (driver_receiptants ,driver_msg )
@@ -143,8 +144,7 @@ class RideView(View):
         passenger_receiptants = [{"email": passenger_email, "name": passenger_fullname}]
         driver_receiptants = [{"email": driver_email, "name": driver_fullname}]
 
-        # send_alerting_message (passenger_receiptants ,passenger_msg )
-        # send_alerting_message (driver_receiptants ,driver_msg )
+   
 
         send_alerting_message (passenger_receiptants ,passenger_msg )
         send_alerting_message (driver_receiptants ,driver_msg )
