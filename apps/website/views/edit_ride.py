@@ -24,8 +24,8 @@ class EditRideView(UpdateView):
     current_object = None
 
     def get_object(self, queryset=None):
-        obj = Ride.objects.filter(pk=self.kwargs['pk']).first()
-        return obj
+        queryset = Ride.objects.filter(pk=self.kwargs['pk']).first()
+        return queryset
 
     def get_context_data(self, **kwargs):
         ctx = super(EditRideView, self).get_context_data(**kwargs)
@@ -39,11 +39,14 @@ class EditRideView(UpdateView):
         return ctx
 
     def form_valid(self, form, **kwargs):
+        print('hello')
         try:
             ride = self.object
             ride_booked = RidesBooked.objects.filter(RideRequested=ride, Requestor=self.request.user).first()
-            ride.city = JsonData.get_city_name(self.request.POST.get('city'))
-            ride.area = JsonData.get_area_name(self.request.POST.get('area'))
+            ride.city = JsonData.get_city_name(self.request.POST.get('city')) if self.request.POST.get(
+                'city') else self.object.city
+            ride.area = JsonData.get_area_name(self.request.POST.get('area')) if self.request.POST.get(
+                'area') else self.object.area
             ride_type = self.request.POST.get('ride_type')
             ride.type = ride_type
             if ride_type == 'To Office' or ride_type == 'From Office':
@@ -66,7 +69,7 @@ class EditRideView(UpdateView):
 
     def get_success_url(self, **kwargs):
         try:
-            rideObj = Ride.objects.filter(id=self.kwargs['pk']).first()
+            rideObj = Ride.objects.filter(pk=self.kwargs['pk']).first()
             source = rideObj.area
             typeRide = rideObj.type
             leaveTime = rideObj.leave_time
@@ -87,4 +90,3 @@ class EditRideView(UpdateView):
             messages.error(self.request, f'Error in sending alerts{str(ex)}')
         finally:
             return reverse('website.myrides')
-

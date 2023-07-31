@@ -57,8 +57,8 @@
                         <td>{{ ride.RideRequested.no_of_seats }}</td>
                         <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
                         <td>{% if ride.RideRequested.creator.first_name == user.first_name %}
-                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.pk %}">Edit</a>
-                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.id }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Ride</button></span>
+                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.RideRequested.pk %}">Edit</a>
+                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Ride</button></span>
                             {% else %} 
                             <a class="btn btn-danger" href="#">Cancel Request</a>
                             {% endif %}
