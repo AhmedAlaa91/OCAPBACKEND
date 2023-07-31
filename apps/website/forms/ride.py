@@ -30,11 +30,10 @@ class RideForm(forms.ModelForm):
                 )
             self.fields['restrictions'] = CharField(required=False, widget=TextInput(attrs={'placeholder': 'Ex: No Smoking, ...'}))    
         
-            self.fields['area'] = CharField(required=False,initial=self.request.user.profile.area,
-                widget=Select(choices=JsonData.get_user_areas(self.request.user.profile.city),
-                                                            attrs={'id': 'area'}))
-            self.fields['city'] = CharField(required=False,initial=self.request.user.profile.city,
-                widget=Select(choices=JsonData.get_cities(), attrs={'onchange': 'change_areas();','id': 'city'}))
+            self.fields['area'] = CharField(required=True,
+                widget=Select(choices=[('', 'Choose Area')],attrs={'id': 'areas'}))
+            self.fields['city'] = CharField(required=True,
+                widget=Select(choices=[('', 'Choose City')], attrs={'onchange': 'change_areas();','id': 'cities'}))
     
     class Meta:
         model = Ride

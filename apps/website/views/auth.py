@@ -22,6 +22,7 @@ class AuthView(View):
             context['profile_form'] = ProfileForm()
             context['context'] = 'create'
             context['areas'] = JsonData.get_areas()
+            context['cities'] = JsonData.get_cities_json()
             return render(request, 'register.html', context)
 
         if request.method == 'POST':
@@ -76,6 +77,7 @@ class ProfileView(LoginRequiredMixin, View):
             context['profile_form'] = profile_form
             context['context'] = 'edit'
             context['areas'] = JsonData.get_areas()
+            context['cities'] = JsonData.get_cities_json()
             context['user_area'] = request.user.profile.area
             context['user_city'] = request.user.profile.city
             return render(request, 'register.html', context)

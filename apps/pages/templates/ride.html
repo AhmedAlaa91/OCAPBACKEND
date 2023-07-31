@@ -90,35 +90,61 @@
 
 <script>
     $(document).ready(function(){
+        var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
+        var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
         var user_area = "{{ user_area }}";
         var user_city = "{{ user_city }}";
-        $("#city option:contains("+user_city+")").prop("selected","selected")
+      
+        $('#cities').empty();
+
+        for(index in cities){
+
+            var $option = $("<option>", {
+
+                text: cities[index]["governorate_name_en"] ,
+
+                value: cities[index]["id"]
+
+            });
+
+
+            $option.appendTo('#cities');
+
+        }
+
+        $("#cities").html($("#cities option").sort(function (a, b) {
+            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+        }));
+
+        $("#cities").prepend("<option value=''>Choose City</option>").val('');
+
+        $("#cities option:contains("+user_city+")").prop("selected","selected");
         change_areas();
-        $("#area option:contains("+user_area+")").prop("selected","selected")
+        $("#areas option:contains("+user_area+")").prop("selected","selected");
 
 
         $('#div_id_return_time').hide();
         $('#id_car').find('option').get(0).remove();
         $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
-        $("#div_id_city").find("label[for=city]").text("Pick up City");
-        $("#div_id_area").find("label[for=area]").text("Pick up Area");
+        $("#div_id_city").find("label[for=cities]").text("Pick up City");
+        $("#div_id_area").find("label[for=areas]").text("Pick up Area");
 
         $('#id_ride_type').on('change', function (e) {
             if($('#id_ride_type').find(":selected").text() == "To Office"){
                 $('#div_id_return_time').hide();
                 $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
-                $("#div_id_city").find("label[for=city]").text("Pick up City");
-                $("#div_id_area").find("label[for=area]").text("Pick up Area");
+                $("#div_id_city").find("label[for=cities]").text("Pick up City");
+                $("#div_id_area").find("label[for=areas]").text("Pick up Area");
             }else if($('#id_ride_type').find(":selected").text() == "From Office"){
                 $('#div_id_return_time').hide();
                 $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Drop off Point");
-                $("#div_id_city").find("label[for=city]").text("Drop off City");
-                $("#div_id_area").find("label[for=area]").text("Drop off Area");
+                $("#div_id_city").find("label[for=cities]").text("Drop off City");
+                $("#div_id_area").find("label[for=areas]").text("Drop off Area");
                 }else if($('#id_ride_type').find(":selected").text() == "2-Way Ride"){
                 $('#div_id_return_time').show();
                 $("#div_id_meeting_point").find("label[for=id_meeting_point]").text("Pick up Point");
-                $("#div_id_city").find("label[for=city]").text("Pick up City");
-                $("#div_id_area").find("label[for=area]").text("Pick up Area");            
+                $("#div_id_city").find("label[for=cities]").text("Pick up City");
+                $("#div_id_area").find("label[for=areas]").text("Pick up Area");            
             }
         });
     });
@@ -127,21 +153,10 @@
 
     function change_areas(){
 
-        city_id = $('#city').val();
 
-        $('#area').empty();
+        city_id = $('#cities').val();
 
-        var $option = $("<option>", {
-
-            text: "Choose Area",
-
-            value: "",
-
-            selected: "selected"
-
-        });
-
-        $option.appendTo('#area');
+        $('#areas').empty();
 
         for(index in areas){
 
@@ -155,11 +170,18 @@
 
                 });
 
-                $option.appendTo('#area');
+                $option.appendTo('#areas');
 
             }
 
         }
+
+
+        $("#areas").html($("#areas option").sort(function (a, b) {
+                return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+            }));
+
+        $("#areas").prepend("<option value=''>Choose Area</option>").val('');
 
     }
 
