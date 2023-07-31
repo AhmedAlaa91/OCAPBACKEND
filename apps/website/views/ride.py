@@ -27,6 +27,7 @@ class RideView(View):
             context['form'] = RideForm(request=request)
             context['context'] = 'create'
             context['areas'] = JsonData.get_areas()
+            context['cities'] = JsonData.get_cities_json()
             context['user_area'] = request.user.profile.area
             context['user_city'] = request.user.profile.city
             return render(request, 'ride.html', context)

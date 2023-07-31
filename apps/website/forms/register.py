@@ -92,20 +92,20 @@ class ProfileForm(ModelForm):
 
     gender = CharField(widget=Select(choices=Profile.UserGender))
 
-    city = CharField(required=False,
+    city = CharField(required=True,
 
         widget=Select(
-            choices=JsonData.get_cities(),
+            choices=[('', 'Choose City')],
 
             attrs={'onchange': 'change_areas();', 'id': 'cities'},
         ),
     )
 
-    area = CharField(required=False,
+    area = CharField(required=True,
 
         widget=Select(
 
-            choices=[('0', 'Choose Area')],
+            choices=[('', 'Choose Area')],
 
             attrs={'id': 'areas'},
         ),
