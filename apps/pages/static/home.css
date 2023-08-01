@@ -283,3 +283,16 @@
     width: 15%;
     margin-bottom: 20px;
 }
+
+
+#planned_rides_table td, th  {
+    padding: 3px 10px;
+    width: 1px;
+    white-space: nowrap;
+}
+
+#historical_rides_table td, th {
+    padding: 3px 10px;
+    width: 1px;
+    white-space: nowrap;
+}

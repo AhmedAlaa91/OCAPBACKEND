@@ -47,7 +47,7 @@ class RideView(View):
                 form.car = car
                 form.creator = request.user
                 form.save()
-               
+                ride.RidesBooked.objects.create(RideRequested=form, Requestor=request.user)
                 messages.success(request, 'Ride created successfully.')
                 log.info(f'Ride created successfully NO:{form.pk}')
                 return redirect('/myrides')
