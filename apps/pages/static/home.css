@@ -286,13 +286,18 @@
 
 
 #planned_rides_table td, th  {
-    padding: 3px 10px;
     width: 1px;
     white-space: nowrap;
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 #historical_rides_table td, th {
-    padding: 3px 10px;
     width: 1px;
     white-space: nowrap;
+    vertical-align: middle;
+    font-weight: bold;
+    padding: 15px 8px;
+    font-size: 16px;
 }

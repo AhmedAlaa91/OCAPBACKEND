@@ -152,4 +152,5 @@ class RideView(View):
 
 
         
-        return redirect('/rides')
+        return redirect(request.META.get('HTTP_REFERER'))
+
