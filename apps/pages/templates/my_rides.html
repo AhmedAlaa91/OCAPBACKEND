@@ -28,7 +28,7 @@
             <a class="nav-link" data-toggle="tab" href="#historical" role="tab">Historical Rides</a>
         </li>
     </ul><!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" style="border: none;">
         <div class="tab-pane active" id="planned" role="tabpanel">
             {% if object_list %}
             <table id="planned_rides_table" class="table tablesorter display" style="width:100%">
@@ -41,7 +41,7 @@
                         <th>Return Time</th>
                         <th>Car</th>
                         <th>Seats</th>
-                        <th>Creator</th>
+                        <th>Ride Owner</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -85,7 +85,7 @@
                         <th>Return Time</th>
                         <th>Car</th>
                         <th>Seats</th>
-                        <th>Creator</th>
+                        <th>Ride Owner</th>
                     </tr>
                 </thead>
                 <tbody id="table_body">

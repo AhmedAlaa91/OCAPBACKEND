@@ -290,7 +290,6 @@
     white-space: nowrap;
     vertical-align: middle;
     font-weight: bold;
-    font-size: 16px;
 }
 
 #historical_rides_table td, th {
@@ -299,5 +298,4 @@
     vertical-align: middle;
     font-weight: bold;
     padding: 15px 8px;
-    font-size: 16px;
 }
