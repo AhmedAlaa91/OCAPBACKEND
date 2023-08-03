@@ -84,10 +84,7 @@ a {
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
-  <script>
-  $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
+  <script> 
   </script>
   
   
@@ -188,8 +185,6 @@ function val() {
 
 function onChangeDate() {
 
-
-
     d = document.getElementById("departure_date");
 	
 
@@ -201,12 +196,17 @@ function onChangeDate() {
 		         $(this).show();
 				let fieldName = $(this).find('#form_Date');
 				let fieldVal = $(fieldName)[0].textContent;
-				console.log(fieldVal)
-				var mydate = new Date(fieldVal);
+                console.log(selected_date)
+				console.log(fieldVal.trim())
+
+
 				var new_Date =  moment(mydate).format('YYYY-MM-DD'); 
+             
 				
-				if (new_Date != selected_date) { $(this).hide()}
-				
+				if (fieldVal.trim() != selected_date) { $(this).hide()}
+
+
+				if (! selected_date)  { $(this).show()}
 				
 			});
 			
@@ -222,7 +222,6 @@ function onChangeDate() {
 		d = document.getElementById("form_Date");
 	    var mydate = new Date(d.textContent);
         var str =  moment(mydate).format('YYYY-MM-DD');
-		
 		
 		
 
@@ -266,16 +265,23 @@ $(document).ready(function(){
 
 		var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
 		
-		var $option = $("<option>", {
+        var $option = $("<option>", {
 
-            text: "Choose City",
+text: "Choose City",
 
-            value: ""
+value: "Choose City",
 
-        });
+selected: "selected"
+
+});
+
+$option.appendTo('#cities');
+
 
 		 for(index in cities){
-		
+         
+
+
 
            
 
@@ -297,32 +303,23 @@ $(document).ready(function(){
 		
 		
 		$("#cities option:contains("+user_city+")").prop("selected","selected")
-        change_areas();
+        change_areas_first_reload();
         $("#areas option:contains("+user_area+")").prop("selected","selected")
     });
 
     var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
 	var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
 
-    function change_areas(){
 
-        
+       function change_areas_first_reload(){
 
-        city_id = $('#cities').val();
+        city_id = parseInt($('#cities').val())  + parseInt(1);
+
+    
 
         $('#areas').empty();
 
-        var $option = $("<option>", {
-
-            text: "Choose Area",
-
-            value: "Choose Area",
-
-            selected: "selected"
-
-        });
-
-        $option.appendTo('#areas');
+       
 		
 		
 		        var $option = $("<option>", {
@@ -337,9 +334,24 @@ selected: ""
 
 $option.appendTo('#areas');
 
+ var $option = $("<option>", {
+
+            text: "Choose Area",
+
+            value: "Choose Area",
+
+            selected: "selected"
+
+        });
+
+        $option.appendTo('#areas');
+
         for(index in areas){
 
-            if(areas[index]["governorate_id"] == city_id){
+     
+            if(areas[index]["governorate_id"] == city_id ){
+
+                
 
                 var $option = $("<option>", {
 
@@ -347,8 +359,10 @@ $option.appendTo('#areas');
 
                     value: areas[index]["id"]
 
-                });
+                 
 
+                });
+         
                 $option.appendTo('#areas');
 
             }
@@ -357,7 +371,166 @@ $option.appendTo('#areas');
 
       
 
-        $('#areas').val("Choose Area")
+     
+
+
+
+    };
+
+    function change_areas(){
+
+
+
+      
+c = document.getElementById("cities");
+
+ctext = c.options[c.selectedIndex].text;
+if ( ctext != 'Choose City')
+{
+window.location.href = '/rides/?city='+ctext
+}
+
+
+
+city_id = parseInt($('#cities').val())  + parseInt(1);
+
+
+
+$('#areas').empty();
+
+
+
+
+        var $option = $("<option>", {
+
+text: "All",
+
+value: "All",
+
+selected: ""
+
+});
+
+$option.appendTo('#areas');
+
+var $option = $("<option>", {
+
+    text: "Choose Area",
+
+    value: "Choose Area",
+
+    selected: "selected"
+
+});
+
+$option.appendTo('#areas');
+
+for(index in areas){
+
+
+    if(areas[index]["governorate_id"] == city_id ){
+
+        
+
+        var $option = $("<option>", {
+
+            text: areas[index]["city_name_en"],
+
+            value: areas[index]["id"]
+
+         
+
+        });
+ 
+        $option.appendTo('#areas');
+
+    }
+
+}
+
+
+
+
+
+
+
+};
+
+
+    function change_areas(){
+
+
+
+      
+        c = document.getElementById("cities");
+        
+        ctext = c.options[c.selectedIndex].text;
+        if ( ctext != 'Choose City')
+        {
+        window.location.href = '/rides/?city='+ctext
+        }
+
+        
+
+        city_id = parseInt($('#cities').val())  + parseInt(1);
+
+    
+
+        $('#areas').empty();
+
+       
+		
+		
+		        var $option = $("<option>", {
+
+text: "All",
+
+value: "All",
+
+selected: ""
+
+});
+
+$option.appendTo('#areas');
+
+ var $option = $("<option>", {
+
+            text: "Choose Area",
+
+            value: "Choose Area",
+
+            selected: "selected"
+
+        });
+
+        $option.appendTo('#areas');
+
+        for(index in areas){
+
+     
+            if(areas[index]["governorate_id"] == city_id ){
+
+                
+
+                var $option = $("<option>", {
+
+                    text: areas[index]["city_name_en"],
+
+                    value: areas[index]["id"]
+
+                 
+
+                });
+         
+                $option.appendTo('#areas');
+
+            }
+
+        }
+
+      
+
+     
 
 
 
@@ -442,7 +615,7 @@ $option.appendTo('#areas');
                                             <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.city}} , {{field.area}}</li>
                                         </ul>
 										<ul class="list-inline mb-0 text-muted">
-										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date}} </span> at {{field.leave_time}} </li>
+										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date |date:'Y-m-d'}} </span> at {{field.leave_time}} </li>
 										 
                                          {% if field.type != 'From Office' %} 
                                          <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
