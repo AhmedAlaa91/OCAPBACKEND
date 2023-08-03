@@ -27,19 +27,17 @@ def get_context_data(request, *args, **kwargs):
         else:
             RideObj = Ride.objects.filter(area=area_r).select_related("car")
 
-    # elif city_r :
-    #   if city_r=='All':
-    #        RideObj =Ride.objects.all().select_related("car")
+    elif city_r :
+        if city_r=='All':
+             RideObj =Ride.objects.all().select_related("car")
+        
+        else :
+            RideObj =Ride.objects.filter(city=city_r).select_related("car")
+     
+    else :
+        RideObj =Ride.objects.all()
 
-    #    else :
-    #           RideObj =Ride.objects.filter(city=city_r).select_related("car")
-
-    else:
-        RideObj = Ride.objects.all()
-
-    RideObj = RideObj.filter(date__gte=today).exclude(creator=request.user)
-
-    RideObj=RideObj.filter(date__gte= today )
+    RideObj=RideObj.filter(date__gte= today ).exclude(creator=request.user)
     
     if RideObj:
         context = {'RideObj': RideObj}
