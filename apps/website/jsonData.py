@@ -98,3 +98,33 @@ class JsonData():
             cities.append(city_tuple)
 
         return cities
+    
+    
+    def get_carbrand():
+        current_dir = Path.cwd()
+        carbrands_file_loc = 'static/json/carbrands.json'
+        f = open(current_dir.joinpath(carbrands_file_loc), encoding='utf8')
+        carbrands = json.load(f)
+        brands = [("","Choose Brand")]
+
+        for brand in carbrands['data']:
+            brand_tuple = tuple([brand['name'], brand['name']])
+            brands.append(brand_tuple)
+
+        f.close()
+        return brands
+    
+
+    def get_carcolor():
+        current_dir = Path.cwd()
+        carcolor_file_loc = 'static/json/colors.json'
+        f = open(current_dir.joinpath(carcolor_file_loc), encoding='utf8')
+        carcolors = json.load(f)
+        colors = [("","Choose Color")]
+
+        for color in carcolors['data']:
+            color_tuple = tuple([color['name'], color['name']])
+            colors.append(color_tuple)
+
+        f.close()
+        return colors
