@@ -48,7 +48,7 @@ def get_mail_access_token():
 
 
 # Send Alertig Email
-def send_alerting_message(email_list: List[Dict[str, str]], content_message: str):
+def send_alerting_message(email_list: List[Dict[str, str]], **kwargs):
     """
    send alerting message to  list of employee
     """
@@ -59,11 +59,11 @@ def send_alerting_message(email_list: List[Dict[str, str]], content_message: str
             'Content-Type': 'application/json',
         }
         context = {
-            'content': content_message,
+            'content': kwargs['content'],
         }
         logger.info(f'trying to send alert to {len(email_list)} users')
         msg_template = render_to_string(
-            'partials/_email-template.html', context=context,
+            'partials/email_template.html', context=context,
         )
         payload = {
             'messages': [
@@ -71,13 +71,13 @@ def send_alerting_message(email_list: List[Dict[str, str]], content_message: str
                     'html': msg_template,
                     'from': {
                         'email': f'{settings.SENDER_EMAIL}',
-                        'name': 'OCAP',
+                        'name': 'Orange CarPooling',
                     },
                     'replyTo': {
                         'email': f'{settings.SENDER_EMAIL}',
                         'name': 'OCAP',
                     },
-                    'subject': '[Car-Pooling] Alerting Message ',
+                    'subject': kwargs['subject'],
                     'to': email_list,
                 },
             ],

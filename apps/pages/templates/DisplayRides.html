@@ -249,7 +249,7 @@ function cancelFunction(url,seats) {
   
   else {
 
-  if (confirm("Are you sure you want to Cancel This Ride ?!")) {
+  if (confirm("Are you sure you want to cancel this ride request?!")) {
      window.location.href = '/cancelrides/'+url;
   } else {
     txt = "You pressed Cancel!";
@@ -644,7 +644,7 @@ $option.appendTo('#areas');
                             </div>
                             <div class="favorite-icon">
                                 <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="myFunction('{{ field.id }}')">Book now</button></span>
-                                <span> <button class="btn btn-primary" type="button" id="hidden{{ field.id }}" onclick="cancelFunction('{{ field.id }}','{{field.no_of_seats}')" >Cancel Ride</button></span>
+                                <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="cancelFunction('{{ field.id }}','{{field.no_of_seats}')" >Cancel Request</button></span>
                             
 							</div>
                         </div>

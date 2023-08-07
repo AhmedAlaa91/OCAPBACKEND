@@ -60,7 +60,7 @@
                             <a class="btn btn-success" href="{% url 'pages.update_ride' ride.RideRequested.pk %}">Edit</a>
                             <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Ride</button></span>
                             {% else %} 
-                            <a class="btn btn-danger" href="#">Cancel Request</a>
+                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Request</button></span>
                             {% endif %}
                         </td>
                     </tr>
@@ -127,7 +127,7 @@ function cancelFunction(url,seats) {
 
     else {
 
-    if (confirm("Are you sure you want to Cancel This Ride ?!")) {
+    if (confirm("Are you sure you want to cancel this ride request?!")) {
     window.location.href = '/cancelrides/'+url;
     } else {
     txt = "You pressed Cancel!";
