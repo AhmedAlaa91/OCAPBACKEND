@@ -2,6 +2,7 @@ from django.views.generic import UpdateView
 from apps.website.models.ride import Ride
 from apps.website.models.ride import RidesBooked
 from apps.website.models import Car
+from apps.website.models.profile import Profile
 from apps.website.forms.ride import RideForm
 from apps.website.jsonData import JsonData
 import logging
@@ -86,6 +87,7 @@ class EditRideView(UpdateView):
                     "ride_meeting_point": ride.RideRequested.meeting_point,
                     "ride_restrictions": ride.RideRequested.restrictions,
                     "ride_owner": ride.RideRequested.creator.first_name + ' ' + ride.RideRequested.creator.last_name,
+                    "ride_owner_phone": Profile.objects.filter(user=ride.RideRequested.creator.id).get().phone,
                     "ride_car_model": ride.RideRequested.car.Car_Manufacture,
                     "ride_car_color": ride.RideRequested.car.Car_Color,
                     "ride_car_plate_number": ride.RideRequested.car.Car_Pallet_Number,

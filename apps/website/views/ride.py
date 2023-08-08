@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 
 from apps.website.jsonData import JsonData
 from apps.website.models import ride
+from apps.website.models.profile import Profile
 from django.db.models import F
 
 from lib.mail_service.mail import send_alerting_message
@@ -79,6 +80,7 @@ class RideView(View):
             "ride_meeting_point": rideObj.meeting_point,
             "ride_restrictions": rideObj.restrictions,
             "ride_owner": driver['first_name'] + ' ' + driver['last_name'],
+            "ride_owner_phone": Profile.objects.filter(user=driver['id']).get().phone,
             "ride_car_model": rideObj.car.Car_Manufacture,
             "ride_car_color": rideObj.car.Car_Color,
             "ride_car_plate_number": rideObj.car.Car_Pallet_Number,
@@ -122,6 +124,7 @@ class RideView(View):
             "ride_meeting_point": rideObj[0].meeting_point,
             "ride_restrictions": rideObj[0].restrictions,
             "ride_owner": driver['first_name'] + ' ' + driver['last_name'],
+            "ride_owner_phone": Profile.objects.filter(user=driver['id']).get().phone,
             "ride_car_model": rideObj[0].car.Car_Manufacture,
             "ride_car_color": rideObj[0].car.Car_Color,
             "ride_car_plate_number": rideObj[0].car.Car_Pallet_Number,
