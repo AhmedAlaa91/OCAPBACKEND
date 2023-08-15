@@ -33,14 +33,14 @@ PROJECT_ROOT = dirname(DJANGO_ROOT)
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Update Login URL config
-LOGIN_URL = '/login/'
+LOGIN_URL = "/login/"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = convert_str_bool(getenv('DJANGO_DEBUG'), True)
+DEBUG = convert_str_bool(getenv("DJANGO_DEBUG"), True)
 
 ALLOWED_HOSTS = []
 # Add hosts from env variable, default to "*"
-for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
+for v in getenv("DJANGO_ALLOWED_HOSTS", "*").split(","):
     v = v.strip()
     if v:
         ALLOWED_HOSTS.append(v)
@@ -49,87 +49,94 @@ for v in getenv('DJANGO_ALLOWED_HOSTS', '*').split(','):
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b'
+SECRET_KEY = "django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b"
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'apps.pages',
-    'apps.website',
-    'crispy_forms',
-    'crispy_bootstrap4',
-    'phonenumber_field',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
-
+THIRD_PARTY_APPS = [
+    "drf_yasg",
+    "crispy_forms",
+    "crispy_bootstrap4",
+    "phonenumber_field",
+    "rest_framework",
+]
+OCAP_APPS = [
+    "apps.pages",
+    "apps.website",
+]
+INSTALLED_APPS += THIRD_PARTY_APPS
+INSTALLED_APPS += OCAP_APPS
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'apps.website.middleware.UserAccessMiddleware'
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "apps.website.middleware.UserAccessMiddleware",
 ]
 
 # add apps/ to the Python path
-sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
+sys.path.append(normpath(join(PROJECT_ROOT, "apps")))
 
 # Set URLs root path
-ROOT_URLCONF = 'bootstrap.urls'
+ROOT_URLCONF = "bootstrap.urls"
 
 # Set templates folder root path
-PROJECT_TEMPLATES = [join(PROJECT_ROOT, 'templates')]
+PROJECT_TEMPLATES = [join(PROJECT_ROOT, "templates")]
 
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 # Set static files config
-STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+STATIC_URL = "static/"
+STATIC_ROOT = "staticfiles/"
+STATICFILES_DIRS = [join(BASE_DIR, "static")]
+MEDIA_ROOT = join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': PROJECT_TEMPLATES,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": PROJECT_TEMPLATES,
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'bootstrap.wsgi.application'
+WSGI_APPLICATION = "bootstrap.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     },
 }
 
 # Authentication Backend Models
 AUTHENTICATION_BACKENDS = (
-    'website.backends.OrangeAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    "website.backends.OrangeAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
 )
 
 # Password validation
@@ -137,25 +144,25 @@ AUTHENTICATION_BACKENDS = (
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -166,51 +173,105 @@ USE_TZ = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ########################################################################################
 
 ######################
 # Orange Auth Config #
 ######################
-ORANGE_AUTH_URL = os.getenv(
-    'ORANGE_AUTH_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/token',
+ORANGE_AUTH_URL = getenv(
+    "ORANGE_AUTH_URL",
+    "https://inside01.api.intraorange/openidconnect/internal/v1/token",
 )
-ORANGE_AUTH_USER_INFO_URL = os.getenv(
-    'ORANGE_AUTH_USER_INFO_URL', 'https://inside01.api.intraorange/openidconnect/internal/v1/userinfo',
+ORANGE_AUTH_USER_INFO_URL = getenv(
+    "ORANGE_AUTH_USER_INFO_URL",
+    "https://inside01.api.intraorange/openidconnect/internal/v1/userinfo",
 )
-ORANGE_AUTH_REDIRECT_URI = os.getenv('ORANGE_AUTH_REDIRECT_URI')
-ORANGE_AUTH_HEADER = os.getenv('ORANGE_AUTH_HEADER')
-ORANGE_AUTH_CLIENT_ID = os.getenv('ORANGE_AUTH_CLIENT_ID')
+ORANGE_AUTH_REDIRECT_URI = getenv("ORANGE_AUTH_REDIRECT_URI")
+ORANGE_AUTH_HEADER = getenv("ORANGE_AUTH_HEADER")
+ORANGE_AUTH_CLIENT_ID = getenv("ORANGE_AUTH_CLIENT_ID")
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-PHONENUMBER_DB_FORMAT = 'NATIONAL'
-PHONENUMBER_DEFAULT_REGION = 'EG'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+PHONENUMBER_DB_FORMAT = "NATIONAL"
+PHONENUMBER_DEFAULT_REGION = "EG"
 
 # ---------------------------------------------------------------------
 # Sending Email Configuration
-ORANGE_SEND_EMAIL_CLIENT_ID = os.environ.get('ORANGE_SEND_EMAIL_CLIENT_ID')
+ORANGE_SEND_EMAIL_CLIENT_ID = getenv("ORANGE_SEND_EMAIL_CLIENT_ID")
 
-ORANGE_SEND_EMAILS_CLIENT_SECRET = os.environ.get('ORANGE_SEND_EMAILS_CLIENT_SECRET')
+ORANGE_SEND_EMAILS_CLIENT_SECRET = getenv("ORANGE_SEND_EMAILS_CLIENT_SECRET")
 
-SEND_MAILS_ACCESS_TOKENS_URL = os.environ.get(
-    'SEND_MAILS_ACCESS_TOKENS_URL',
+SEND_MAILS_ACCESS_TOKENS_URL = getenv(
+    "SEND_MAILS_ACCESS_TOKENS_URL",
 )
 
-SEND_MAIL_SERVICE_URL = os.environ.get(
-    'SEND_MAIL_SERVICE_URL',
+SEND_MAIL_SERVICE_URL = getenv(
+    "SEND_MAIL_SERVICE_URL",
 )
 
-SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+SENDER_EMAIL = getenv("SENDER_EMAIL")
 
 ORANGE_MAIL_API_CERT = join(
-    BASE_DIR, 'certs/Groupe_France_Telecom_Root_CA.pem',
+    BASE_DIR,
+    "certs/Groupe_France_Telecom_Root_CA.pem",
 )
 
 # Logging
-with open(os.path.join(BASE_DIR, 'logging.yml'), encoding='utf-8') as f:
+with open(os.path.join(BASE_DIR, "logging.yml"), encoding="utf-8") as f:
     log_settings = yaml.safe_load(f.read())
-    for logger in log_settings['loggers'].values():
-        logger['level'] = getenv('LOG_LEVEL', 'INFO')
+    for logger in log_settings["loggers"].values():
+        logger["level"] = getenv("LOG_LEVEL", "INFO")
 
 LOGGING = log_settings
+
+
+# S3 CONFIGURATION
+#####################################################################################
+
+AWS_CA_BUNDLE = os.path.join(BASE_DIR, "certs\\Root_CA.cer")
+AWS_S3_CUSTOM_DOMAIN = getenv(
+    "AWS_S3_CUSTOM_DOMAIN",
+    default="https://oss.eu-west-0.prod-cloud-ocb.orange-business.com",
+)
+AWS_ACCESS_KEY_ID = getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = str(
+    getenv(
+        "AWS_STORAGE_BUCKET_NAME",
+        default="obsit-webex-monitor-prod",
+    ),
+)
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+AWS_DEFAULT_ACL = "public-read"
+AWS_LOCATION = "cdr-files"
+AWS_REGION = "eu-west-0"
+AWS_QUERYSTRING_AUTH = False
+
+# REST Configuration
+#####################################################################################
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "100/day",
+        "user": "1000/day",
+    },
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+        "rest_framework.filters.SearchFilter",
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+}
+TOKEN_EXPIRED_AFTER_SECONDS = 86400

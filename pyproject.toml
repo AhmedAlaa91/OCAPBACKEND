@@ -17,6 +17,9 @@ crispy-bootstrap4 = "^2022.1"
 django-phonenumber-field = "^7.1.0"
 django-phonenumbers = "^1.0.1"
 python-dotenv = "^1.0.0"
+djangorestframework = "^3.14.0"
+markdown = "^3.4.4"
+drf-yasg = {extras = ["validation"], version = "^1.21.7"}
 
 [tool.poetry.group.dev.dependencies]
 bandit = "~1.7"
