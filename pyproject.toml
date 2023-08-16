@@ -20,6 +20,7 @@ python-dotenv = "^1.0.0"
 djangorestframework = "^3.14.0"
 markdown = "^3.4.4"
 drf-yasg = {extras = ["validation"], version = "^1.21.7"}
+boto3 = "^1.28.27"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "~1.7"
