@@ -20,14 +20,46 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from django.urls import re_path
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+from apps.website.api_urls import OpenAPIHttpAndHttpsSchemaGenerator
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="OCAP APIs",
+        default_version="v1",
+        description="a web portal for car pooling between orange employees ",
+        terms_of_service="https://www.orange-business.com/en",
+        contact=openapi.Contact(email="mohamed.g.ismail@orange.com"),
+        license=openapi.License(name="[OS] Orange Business License"),
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+    generator_class=OpenAPIHttpAndHttpsSchemaGenerator,
+)
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-
-                  # apps URLs
-                  path('', include('apps.pages.urls')),
-                  path('', include('apps.website.urls')),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path("admin/", admin.site.urls),
+    path("api/v1/", include("apps.website.api_urls")),
+    re_path(
+        r"^swagger(?P<format>\.json|\.yaml)$",
+        schema_view.without_ui(cache_timeout=0),
+        name="schema-json",
+    ),
+    re_path(
+        r"^api/v1/",
+        schema_view.with_ui(
+            "swagger",
+            cache_timeout=0,
+        ),
+        name="schema-swagger-ui",
+    ),
+    # apps URLs
+    path("", include("apps.pages.urls")),
+    path("", include("apps.website.urls")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
