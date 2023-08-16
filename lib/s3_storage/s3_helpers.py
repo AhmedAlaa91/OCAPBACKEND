@@ -22,7 +22,7 @@ def create_s3_client():
     return client, session
 
 
-def create_aws_resouce():
+def create_aws_resource():
     s3 = boto3.resource(
         verify=False,
         service_name="s3",
