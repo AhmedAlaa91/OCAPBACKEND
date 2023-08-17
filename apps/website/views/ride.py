@@ -98,7 +98,7 @@ class RideView(View):
         
         return redirect(request.META.get('HTTP_REFERER'), request.GET)
 
-    def CancelRide(request, rideid):
+    def CancelRequest(request, rideid):
         """
         This should cancel request for a specific ride (CancelRequest)
         """
@@ -139,9 +139,34 @@ class RideView(View):
 
         send_alerting_message ([{"email": passenger['email'], "name": passenger['first_name'] + ' ' + passenger['last_name']}] , content=passenger_details, subject="Ride Cancellation")
         send_alerting_message ([{"email": driver['email'], "name": driver['first_name'] + ' ' + driver['last_name']}] , content=driver_details, subject="Ride Cancellation")
-
-
-
-        
         return redirect(request.META.get('HTTP_REFERER'))
 
+    def cancel_ride(request, ride_id):
+        """
+        This should cancel the whole ride and inform passengers with deletion
+
+        Parameters
+        request: Request object
+        ride_id: Ride ID
+        """
+        ride_obj = ride.Ride.objects.filter(id=ride_id).first()
+
+        # Check that logged in user is the driver who can cancel the ride
+        if not ride_obj or ride_obj.creator != request.user:
+            messages.error(request, 'Ride cannot be cancelled.', extra_tags="danger")
+            return redirect('/myrides')
+
+        for booked_ride in ride.RidesBooked.objects.filter(RideRequested=ride_obj).all():
+            passenger_details = {
+                "user": booked_ride.Requestor.first_name + ' ' + booked_ride.Requestor.last_name,
+                "content_header": "Unfortunately, Your requested ride has been Cancelled.",
+                "ride_type": booked_ride.RideRequested.type,
+                "ride_time": f"""{booked_ride.RideRequested.date} {booked_ride.RideRequested.leave_time}""",
+                "ride_meeting_point": booked_ride.RideRequested.meeting_point,
+                "ride_restrictions": booked_ride.RideRequested.restrictions,
+            }
+            send_alerting_message ([{"email": booked_ride.Requestor.email, "name": booked_ride.Requestor.first_name + ' ' + booked_ride.Requestor.last_name}] , content=passenger_details, subject="Ride Cancellation")
+
+        ride_obj.delete()
+        messages.success(request, 'Ride has been successfully cancelled. And notificaiton has been sent to passengers if any.')
+        return redirect(request.META.get('HTTP_REFERER'))
