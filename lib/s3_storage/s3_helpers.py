@@ -49,7 +49,7 @@ def generate_uploaded_file_url(key: str):
     return url
 
 
-def get_cdr_file_by_key(key: str):
+def get_profile_pic_by_key(key: str):
     try:
         s3, session = create_s3_client()
         incident_body = s3.get_object(
