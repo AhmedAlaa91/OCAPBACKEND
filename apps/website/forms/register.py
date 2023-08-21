@@ -99,7 +99,7 @@ class ProfileForm(ModelForm):
             attrs={"id": "areas"},
         ),
     )
-    profile_picture = ImageField()
+    # profile_picture = ImageField()
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
@@ -110,3 +110,4 @@ class ProfileForm(ModelForm):
         model = Profile
 
         fields = ["phone", "gender", "city", "area"]
+        exclude = ("profile_pic",)

@@ -40,16 +40,16 @@ class AuthView(View):
                 profile.user = user
                 profile.city = JsonData.get_city_name(request.POST.get("city"))
                 profile.area = JsonData.get_area_name(request.POST.get("area"))
-                # Get img from register form and create s3 client to upload img
-                img = profile_form.cleaned_data.get("profile_picture")
-                client, session = create_s3_client()
-                client.upload_fileobj(
-                    img.open(mode="rb"),
-                    settings.AWS_STORAGE_BUCKET_NAME,
-                    img.name,
-                )
-                img.close()
-                profile.profile_pic = img.name
+                # # Get img from register form and create s3 client to upload img
+                # img = profile_form.cleaned_data.get("profile_picture")
+                # client, session = create_s3_client()
+                # client.upload_fileobj(
+                #     img.open(mode="rb"),
+                #     settings.AWS_STORAGE_BUCKET_NAME,
+                #     img.name,
+                # )
+                # img.close()
+                # profile.profile_pic = img.name
                 profile.save()
                 messages.success(request, "You have registered successfully.")
                 login(
