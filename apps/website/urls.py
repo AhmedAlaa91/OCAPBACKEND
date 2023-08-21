@@ -22,6 +22,7 @@ urlpatterns = [
     path('DeleteCar/<pk>/', DeleteCar, name='pages.DeleteCar'),
 
     path('ride/', RideView.createRide, name='website.ride'),
+    path('ride/<ride_id>/passengers', RideView.display_passengers, name='passengers'),
     path('myrides/', MyRidesListView.as_view(), name='website.myrides'),
     path('reqrides/<rideid>/', RideView.RequestRide, name='pages.reqride'),
     path('cancelrides/<rideid>/', RideView.CancelRequest, name='pages.cancelrequest'),

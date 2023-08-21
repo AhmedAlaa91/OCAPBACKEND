@@ -1,0 +1,27 @@
+.status{
+    padding-left:20px;
+    padding-top:5px;
+    padding-right:20px;
+    padding-bottom:5px;
+    font-family:Segoe UI !important;
+    font-style: italic;
+}
+.pending {
+    background:yellow;
+    color: black;
+}
+
+.accepted {
+    background:green;
+    color: white;
+}
+
+.rejected {
+    background:maroon;
+    color: white;
+}
+
+.cancelled {
+    background:red;
+    color: white;
+}

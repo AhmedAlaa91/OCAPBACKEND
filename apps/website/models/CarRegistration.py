@@ -34,7 +34,7 @@ class Car(models.Model):
     CarReg_id = models.UUIDField(
         default=uuid.uuid4, unique=True, primary_key=True, editable=False,
     )
-    No_OF_Seats = models.IntegerField(max_length=10, default='3')
+    No_OF_Seats = models.IntegerField(default='3')
     Car_Pallet_Number = models.ForeignKey(CarPlate, on_delete=models.CASCADE, related_name='plate')
     Car_Manufacture = models.CharField(max_length=50)
     Car_Color = models.CharField(max_length=50)

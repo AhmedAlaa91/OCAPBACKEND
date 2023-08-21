@@ -1,6 +1,6 @@
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from apps.website.models import RidesBooked
+from apps.website.models.rides_booked import RidesBooked
 from django.db.models import Q
 import datetime
 

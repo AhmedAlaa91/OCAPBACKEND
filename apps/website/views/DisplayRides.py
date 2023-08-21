@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from apps.website.models.ride import Ride, RidesBooked
+from apps.website.models.ride import Ride
+from apps.website.models.rides_booked import RidesBooked
 from apps.website.jsonData import JsonData
 
 from datetime import date
