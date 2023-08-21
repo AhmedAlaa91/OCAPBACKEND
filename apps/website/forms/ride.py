@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from .widgets import DatePickerInput, TimePickerInput
-from apps.website.models import Ride
+from apps.website.models.ride import Ride
 from django import forms
 from django.forms import CharField, Select, TextInput, ModelChoiceField, NumberInput
 from apps.website.models import Car

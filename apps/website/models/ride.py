@@ -22,9 +22,3 @@ class Ride(models.Model):
     restrictions = models.CharField(null=True, blank=True, max_length=100)
     meeting_point = models.CharField(null=True, blank=True, max_length=300)
     Car_Pallet_Number = models.CharField(max_length=50, blank=True)
-
-
-class RidesBooked(models.Model):
-    # RideRequested = models.IntegerField()
-    Requestor = models.ForeignKey(User, on_delete=models.CASCADE)
-    RideRequested = models.ForeignKey(Ride, on_delete=models.CASCADE)
