@@ -48,19 +48,19 @@
                 <tbody id="table_body">
                     {% for ride in object_list %}
                     <tr>
-                        <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.area }}</td>
-                        <td>{{ ride.RideRequested.date }}</td>
-                        <td>{{ ride.RideRequested.leave_time }}</td>
-                        <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
-                        <td>{{ ride.RideRequested.no_of_seats }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %}
-                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.RideRequested.pk %}">Edit</a>
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.RideRequested.pk %}">Cancel Ride</a>
+                        <td>{{ ride.type }}</td>
+                        <td>{{ ride.area }}</td>
+                        <td>{{ ride.date }}</td>
+                        <td>{{ ride.leave_time }}</td>
+                        <td>{{ ride.return_time }}</td>
+                        <td>{{ ride.car.Car_Manufacture }} - {{ ride.car.Car_Color }}</td>
+                        <td>{{ ride.no_of_seats }}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %} You {% else %} {{ ride.creator.first_name }} {% endif %}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %}
+                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.pk %}">Edit</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.pk %}">Cancel Ride</a>
                             {% else %} 
-                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Request</button></span>
+                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" onclick="cancelFunction('{{ ride.id }}','{{ride.no_of_seats}')" >Cancel Request</button></span>
                             {% endif %}
                         </td>
                     </tr>
@@ -91,14 +91,14 @@
                 <tbody id="table_body">
                     {% for ride in historical_rides %}
                     <tr>
-                        <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.area }}</td>
-                        <td>{{ ride.RideRequested.date }}</td>
-                        <td>{{ ride.RideRequested.leave_time }}</td>
-                        <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
-                        <td>{{ ride.RideRequested.no_of_seats }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
+                        <td>{{ ride.type }}</td>
+                        <td>{{ ride.area }}</td>
+                        <td>{{ ride.date }}</td>
+                        <td>{{ ride.leave_time }}</td>
+                        <td>{{ ride.return_time }}</td>
+                        <td>{{ ride.car.Car_Manufacture }} - {{ ride.car.Car_Color }}</td>
+                        <td>{{ ride.no_of_seats }}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %} You {% else %} {{ ride.creator.first_name }} {% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
