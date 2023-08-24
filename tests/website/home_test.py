@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from django.test import Client
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 
 
@@ -10,6 +9,6 @@ class HomeTestCase(TestCase):
         self.client = Client()
 
     def test_home(self):
-        url = reverse('pages.home')
+        url = reverse("pages.home")
         response = self.client.get(url)
         self.assertIn(response.status_code, [200, 302])

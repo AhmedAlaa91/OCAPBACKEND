@@ -1,5 +1,3 @@
-from .CarRegistration import CarPlate
-from .CarRegistration import Car
+from .CarRegistration import Car, CarPlate
 from .profile import Profile
-from .ride import Ride
-from .ride import RidesBooked
+from .ride import Ride, RidesBooked

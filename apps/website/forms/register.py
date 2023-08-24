@@ -1,14 +1,8 @@
-from __future__ import annotations
-
-from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
-from django.forms import CharField
-from django.forms import ImageField
-from django.forms import HiddenInput
-from django.forms import ModelForm
-from django.forms import Select
+from django.forms import CharField, HiddenInput, ModelForm, Select
 from phonenumber_field.formfields import PhoneNumberField
+
 from apps.website.models import Profile
 
 
@@ -99,7 +93,6 @@ class ProfileForm(ModelForm):
             attrs={"id": "areas"},
         ),
     )
-    # profile_picture = ImageField()
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
