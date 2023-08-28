@@ -141,7 +141,7 @@ class OrangeAuthBackend(BaseBackend):
                     )
                     return redirect(request.META.get('HTTP_REFERER', 'pages.home'))
             else:
-                return redirect(request.META.get('HTTP_REFERER', 'website.register'))
+                return redirect(request.META.get('HTTP_REFERER', 'website.legalDisclaimer'))
         else:
             return redirect('pages.home')
 

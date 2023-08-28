@@ -299,3 +299,11 @@
     font-weight: bold;
     padding: 15px 8px;
 }
+
+#legal-submit{
+    margin-bottom:50px;
+}
+
+#legal_checkbox{
+    accent-color:#ff7900;
+}
