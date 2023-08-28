@@ -386,13 +386,27 @@
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, arial, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;Margin-bottom:15px;margin-left:0;color:#000000;list-style-type:square;font-size:16px">
                                                                             <p
                                                                                 style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Helvetica, helvetica, 'helvetica neue', arial, sans-serif;line-height:24px;color:#000000;list-style-type:square;font-size:16px">
-                                                                                Ride Type: {{content.ride_type}}</p>
+                                                                                Request Status: {{content.Status}}</p>
                                                                         </li>
+                                                                        {% if content.Status and content.Status != 'Accepted' %}
+                                                                        <li
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, arial, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;Margin-bottom:15px;margin-left:0;color:#000000;list-style-type:square;font-size:16px">
+                                                                        <p
+                                                                            style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Helvetica, helvetica, 'helvetica neue', arial, sans-serif;line-height:24px;color:#000000;list-style-type:square;font-size:16px">
+                                                                            Comment: {{content.Comment}}</p>
+                                                                        </li>
+                                                                        {% endif %}
                                                                         <li
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, arial, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;Margin-bottom:15px;margin-left:0;color:#000000;list-style-type:square;font-size:16px">
                                                                             <p
                                                                                 style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Helvetica, helvetica, 'helvetica neue', arial, sans-serif;line-height:24px;color:#000000;list-style-type:square;font-size:16px">
-                                                                                Ride Time: {{content.ride_time}}</p>
+                                                                                Ride Time: {{content.ride_type}}</p>
+                                                                        </li>
+                                                                        <li
+                                                                        style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, arial, 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;Margin-bottom:15px;margin-left:0;color:#000000;list-style-type:square;font-size:16px">
+                                                                        <p
+                                                                            style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:Helvetica, helvetica, 'helvetica neue', arial, sans-serif;line-height:24px;color:#000000;list-style-type:square;font-size:16px">
+                                                                            Ride Time: {{content.ride_time}}</p>
                                                                         </li>
                                                                         {% if content.ride_meeting_point %}
                                                                             <li
