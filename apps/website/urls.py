@@ -11,6 +11,7 @@ from apps.website.views.DisplayRides import get_context_data
 from apps.website.views.edit_ride import EditRideView
 
 urlpatterns = [
+    path('legal-disclaimer/', AuthView.legalDisclaimer, name='website.legalDisclaimer'),
     path('register/', AuthView.register, name='website.register'),
     path('login/', AuthView.login, name='website.login'),
     path('logout/', AuthView.logout, name='website.logout'),
