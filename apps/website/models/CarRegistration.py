@@ -38,6 +38,8 @@ class Car(models.Model):
     Car_Pallet_Number = models.ForeignKey(CarPlate, on_delete=models.CASCADE, related_name='plate')
     Car_Manufacture = models.CharField(max_length=50)
     Car_Color = models.CharField(max_length=50)
+    Car_license = models.BooleanField(default=False,blank=True)
+    Driver_license = models.BooleanField(default=False,blank=True)
     Owner = models.ForeignKey(
         User, on_delete=models.CASCADE,
     )
