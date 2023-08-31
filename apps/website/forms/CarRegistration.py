@@ -29,10 +29,7 @@ class CarRegistrationForm(forms.ModelForm):
             "Car_Color",
             "No_OF_Seats",
             "Car_license",
-            "Driver_license",
-            "Engine_size",
-            "No_clyender",
-            "Fuel_consumption",
+            "Driver_license"
         ]
 
 

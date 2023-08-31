@@ -58,7 +58,7 @@ class Car(models.Model):
     )
     Engine_size = models.IntegerField(default="0", blank=True)
     No_clyender = models.IntegerField(default="0", blank=True)
-    Fuel_consumption = models.IntegerField(blank=False)
+    Fuel_consumption = models.IntegerField(blank=True)
 
     def __str__(self):
         return (

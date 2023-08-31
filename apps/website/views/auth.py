@@ -15,6 +15,7 @@ from lib.s3_storage.s3_helpers import create_s3_client
 class AuthView(View):
     context = {}
 
+    @staticmethod
     def legalDisclaimer(request):
         if request.method == "GET":
             return render(request, "legal_disclaimer.html")
@@ -53,7 +54,11 @@ class AuthView(View):
                     if "profile_picture" in request.FILES.keys():
                         img = request.FILES.get("profile_picture")
                         client, session = create_s3_client()
-                        client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic)
+                        if profile.profile_pic is not None:
+                            # delete an image before upload new one
+                            client.delete_object(
+                                Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic
+                            )
                         client.upload_fileobj(
                             img.open(mode="rb"),
                             settings.AWS_STORAGE_BUCKET_NAME,
@@ -143,8 +148,11 @@ class ProfileView(LoginRequiredMixin, View):
                     if "profile_picture" in request.FILES.keys():
                         img = request.FILES.get("profile_picture")
                         client, session = create_s3_client()
-                        # delete an image before upload new one
-                        client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic)
+                        if profile.profile_pic is not None:
+                            # delete an image before upload new one
+                            client.delete_object(
+                                Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic
+                            )
                         client.upload_fileobj(
                             img.open(mode="rb"),
                             settings.AWS_STORAGE_BUCKET_NAME,
