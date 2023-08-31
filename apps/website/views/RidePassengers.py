@@ -64,7 +64,7 @@ class RequestsView(APIView):
         instance.status = status_new
         instance.comment= comment_new
         instance.save()
-        self.send_mail_nofitication(ride_id,requestor_id,status_new,comment_new)
+        self.send_mail_notification(ride_id, requestor_id, instance.get_status_display(), comment_new)
     
 
 
@@ -74,7 +74,7 @@ class RequestsView(APIView):
         return Response(result)
     
 
-    def send_mail_nofitication(self,rideid,Requestor_id,RideStatus,comment):
+    def send_mail_notification(self,rideid,Requestor_id,RideStatus,comment):
 
         """
         This should send email to passenger about ride request status update 

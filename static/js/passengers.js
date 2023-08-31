@@ -164,7 +164,7 @@ async function accept(rideid,requestorid)  {
               
               "Requestor_id": requestorid,
               "comment" : ' ',
-              "status": "Accepted"}),
+              "status": "2"}),
       contentType: "application/json",
       success: function()
       {
@@ -218,7 +218,7 @@ async function reject(rideid,requestorid,commenttxt)  {
                 
                 "Requestor_id": requestorid,
                 "comment": commenttxt ,
-                "status": "Rejected"
+                "status": "3"
                 }),
         contentType: "application/json",
         success: function(response)
@@ -279,7 +279,7 @@ async function cancel(rideid,requestorid,commenttxt)  {
               
               "Requestor_id": requestorid,
               "comment": commenttxt ,
-              "status": "Cancelled"}),
+              "status": "4"}),
       contentType: "application/json",
       success: function()
       {
