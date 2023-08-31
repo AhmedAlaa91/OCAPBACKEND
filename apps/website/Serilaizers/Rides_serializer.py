@@ -19,8 +19,8 @@ class Profile_serializer(serializers.ModelSerializer):
 
 
 class User_serializer(serializers.ModelSerializer):
-    profile_user = Profile_serializer()
+    profile = Profile_serializer()
     class Meta:
         model = User
-        fields=['id','first_name','last_name','profile_user']
+        fields=['id','first_name','last_name','profile']
 

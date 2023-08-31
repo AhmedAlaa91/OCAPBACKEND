@@ -12,5 +12,5 @@ class RidesBooked(models.Model):
     ]
     Requestor = models.ForeignKey(User, on_delete=models.CASCADE)
     RideRequested = models.ForeignKey(Ride, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50, choices=request_status, default='1')
+    status = models.CharField(max_length=50, choices=request_status, default='Pending')
     comment = models.CharField(max_length=50, null=True, blank=True)

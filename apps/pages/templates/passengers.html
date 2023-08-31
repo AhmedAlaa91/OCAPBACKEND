@@ -39,7 +39,7 @@
                             <div class="p-3 card-body">
                                 <div class="align-items-center row">
                                     <div class="col-lg-2">
-                                        {% if  passenger.Requestor_id.profile_user.gender == 'Male' %}
+                                        {% if  passenger.Requestor_id.profile.gender == 'Male' %}
                                             <div class="candidate-list-images" style="margin-left:20px">
                                                 <img src="{% static '../static/images/default_male_user.jfif' %}" alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;"/>
                                             </div>
@@ -52,7 +52,7 @@
                                     <div class="col-lg-4">
                                         <h3 class="fs-19 mb-0">{{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}</h3>
                                         <ul class="list-inline mb-0 text-muted" style="margin-top:10px;font-size:14">
-                                            <li class="list-inline-item" style="font-size:22px"><i class="mdi mdi-phone"></i>{{passenger.Requestor_id.profile_user.phone}}</li>
+                                            <li class="list-inline-item" style="font-size:22px"><i class="mdi mdi-phone"></i>{{passenger.Requestor_id.profile.phone}}</li>
                                         </ul>
                                     </div>
                                     <div class="col-lg-2">
