@@ -8,10 +8,24 @@ from django.views.generic import View
 from apps.website.forms.register import ChangeUserForm, ProfileForm, RegisterForm
 from apps.website.jsonData import JsonData
 from lib.s3_storage.s3_helpers import create_s3_client
+from datetime import datetime, timedelta
+from apps.website.models import Profile
 
 
 class AuthView(View):
     context = {}
+    
+    def legalDisclaimer(request):
+        if request.method == "GET":
+            return render(request, "legal_disclaimer.html")
+
+        if request.method == "POST":
+            if request.user.is_authenticated and request.user.profile:
+                request.user.profile.legal_consent_date = datetime.now() + timedelta(days=180)
+                request.user.profile.save()
+                return redirect("/")
+
+            return redirect("/register")
 
     @staticmethod
     def register(request):

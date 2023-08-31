@@ -10,6 +10,8 @@ from apps.website.views.myRides import MyRidesListView
 from apps.website.views.ride import RideView
 from apps.website.views.UpdateCar import UpdateCar
 
+from apps.website.views.RidePassengers import RequestsView
+
 urlpatterns = [
     path("register/", AuthView.register, name="website.register"),
     path("login/", AuthView.login, name="website.login"),

@@ -20,12 +20,15 @@ class CarRegistrationForm(forms.ModelForm):
 
     No_OF_Seats = forms.CharField(initial=3, widget=forms.NumberInput(attrs={"min": "1", "max": "3"}))
 
+    No_OF_Seats = forms.CharField(initial=3, widget=forms.NumberInput(attrs={'min': '1', 'max': '3'}))
+    Car_license =forms.BooleanField(label='Is Car license Valid ?',required=False)
+    Driver_license = forms.BooleanField(label='Is Driver license Valid ?',required=False)
+
     class Meta:
         model = Car
         fields = [
-            "Car_Manufacture",
-            "Car_Color",
-            "No_OF_Seats",
+            'Car_Manufacture',
+            'Car_Color', 'No_OF_Seats','Car_license','Driver_license','Engine_size','No_clyender','Fuel_consumption'
         ]
 
 

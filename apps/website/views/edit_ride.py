@@ -1,3 +1,10 @@
+from django.views.generic import UpdateView
+from apps.website.models.ride import Ride
+from apps.website.models.rides_booked import RidesBooked
+from apps.website.models import Car
+from apps.website.models.profile import Profile
+from apps.website.forms.ride import RideForm
+from apps.website.jsonData import JsonData
 import logging
 
 from django.contrib import messages

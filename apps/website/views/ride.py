@@ -8,7 +8,8 @@ from django.views.generic import View
 
 from apps.website.forms.ride import RideForm
 from apps.website.jsonData import JsonData
-from apps.website.models import Car, ride
+from apps.website.models.ride import Ride
+from apps.website.models.rides_booked import RidesBooked
 from apps.website.models.profile import Profile
 from lib.mail_service.mail import send_alerting_message
 
@@ -44,17 +45,18 @@ class RideView(View):
                 form.car = car
                 form.creator = request.user
                 form.save()
-                ride.RidesBooked.objects.create(RideRequested=form, Requestor=request.user)
-                messages.success(request, "Ride created successfully.")
-                log.info(f"Ride created successfully NO:{form.pk}")
-                return redirect("/myrides")
+                RidesBooked.objects.create(RideRequested=form, Requestor=request.user)
+                messages.success(request, 'Ride created successfully.')
+                log.info(f'Ride created successfully NO:{form.pk}')
+                return redirect('/myrides')
             else:
                 return render(request, "ride.html", {"form": form})
 
     @staticmethod
     def RequestRide(request, rideid):
-        booked_rides = ride.RidesBooked.objects.filter(Requestor=request.user)
-        rideObj = ride.Ride.objects.filter(id=rideid).first()
+
+        booked_rides = RidesBooked.objects.filter(Requestor=request.user)
+        rideObj = Ride.objects.filter(id=rideid).first()
 
         for bookded_ride in booked_rides:
             if (
@@ -63,7 +65,7 @@ class RideView(View):
             ):
                 return redirect("/rides")
 
-        ride.RidesBooked.objects.create(RideRequested=rideObj, Requestor=request.user)
+        RidesBooked.objects.create(RideRequested=rideObj, Requestor=request.user)
 
         rideObj.no_of_seats -= 1
         rideObj.save()
@@ -95,27 +97,43 @@ class RideView(View):
             "ride_time": f"""{rideObj.date} {rideObj.leave_time}""",
         }
 
-        send_alerting_message(
-            [{"email": passenger["email"], "name": passenger["first_name"] + " " + passenger["last_name"]}],
-            content=passenger_details,
-            subject="Ride Confirmation",
-        )
-        send_alerting_message(
-            [{"email": driver["email"], "name": driver["first_name"] + " " + driver["last_name"]}],
-            content=driver_details,
-            subject="Ride Confirmation",
-        )
+        send_alerting_message ([{"email": passenger['email'], "name": passenger['first_name'] + ' ' + passenger['last_name']}] , content=passenger_details, subject="Ride Confirmation")
+        send_alerting_message ([{"email": driver['email'], "name": driver['first_name'] + ' ' + driver['last_name']}] , content=driver_details, subject="Ride Confirmation")
 
-        return redirect(request.META.get("HTTP_REFERER"), request.GET)
+        return redirect(request.META.get('HTTP_REFERER'), request.GET)
 
-    @staticmethod
-    def CancelRequest(self, request, rideid):
+    def display_passengers(request, ride_id):
+        passengers = []
+        context = {}
+        selected_ride = Ride.objects.filter(id=ride_id).first()
+        if selected_ride:
+            ride_passengers = RidesBooked.objects.filter(RideRequested=selected_ride).all()
+            for passenger in ride_passengers:
+                passenger_item = {
+                    "id": passenger.Requestor.id,
+                    "first_name": passenger.Requestor.first_name,
+                    "last_name": passenger.Requestor.last_name,
+                    "phone": passenger.Requestor.profile.phone,
+                    "gender": passenger.Requestor.profile.gender,
+                    "status": passenger.get_status_display(),
+                    "comment": passenger.comment}
+                passengers.append(passenger_item)
+            if len(passengers) > 0:
+                context = {"passengers": passengers}
+            else:
+                context = {"passengers": None, "message": "No passenger requested your ride yet !"}
+        else:
+            context = {"passengers": None, "message": "Your ride not found, or may be deleted !"}
+
+        return render(request, 'passengers.html', context)
+
+    def CancelRequest(request, rideid):
         """
         This should cancel request for a specific ride (CancelRequest)
         """
-        ride.RidesBooked.objects.filter(RideRequested=rideid, Requestor=request.user).delete()
-        rideObj = ride.Ride.objects.filter(id=rideid)
-        rideObj.update(no_of_seats=F("no_of_seats") + 1)
+        RidesBooked.objects.filter(RideRequested=rideid, Requestor=request.user).delete()
+        rideObj = Ride.objects.filter(id=rideid)
+        rideObj.update(no_of_seats=F('no_of_seats') + 1)
         rideFields = rideObj.values()
 
         typeRide = rideFields[0]["type"]
@@ -171,14 +189,14 @@ class RideView(View):
         request: Request object
         ride_id: Ride ID
         """
-        ride_obj = ride.Ride.objects.filter(id=ride_id).first()
+        ride_obj = Ride.objects.filter(id=ride_id).first()
 
         # Check that logged in user is the driver who can cancel the ride
         if not ride_obj or ride_obj.creator != request.user:
             messages.error(request, "Ride cannot be cancelled.", extra_tags="danger")
             return redirect("/myrides")
 
-        for booked_ride in ride.RidesBooked.objects.filter(RideRequested=ride_obj).all():
+        for booked_ride in RidesBooked.objects.filter(RideRequested=ride_obj).all():
             passenger_details = {
                 "user": booked_ride.Requestor.first_name + " " + booked_ride.Requestor.last_name,
                 "content_header": "Unfortunately, Your requested ride has been Cancelled.",
