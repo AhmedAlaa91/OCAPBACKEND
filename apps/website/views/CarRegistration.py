@@ -1,8 +1,8 @@
 import logging
-from django.shortcuts import redirect
-from django.shortcuts import render
-from apps.website.forms.CarRegistration import CarPlateForm
-from apps.website.forms.CarRegistration import CarRegistrationForm
+
+from django.shortcuts import redirect, render
+
+from apps.website.forms.CarRegistration import CarPlateForm, CarRegistrationForm
 
 log = logging.getLogger(__name__)
 
@@ -13,12 +13,12 @@ def CarRegistration(request):
     # create object of form
     form = CarRegistrationForm()
     form2 = CarPlateForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         form2 = CarPlateForm(request.POST)
         form = CarRegistrationForm(request.POST)
         # save the form data to model
 
-    # check if form data is valid
+        # check if form data is valid
         if form.is_valid() and form2.is_valid():
             # save the form data to model
             form2 = form2.save(commit=False)
@@ -28,8 +28,8 @@ def CarRegistration(request):
             task.Owner = request.user
             task.Car_Pallet_Number = form2
             task.save()
-            log.info(f'a car had been Updated , CAR:{task.Car_Pallet_Number}')
-            return redirect('pages.mycars')
+            log.info(f"a car had been Updated , CAR:{task.Car_Pallet_Number}")
+            return redirect("pages.mycars")
 
-    context = {'form': form, 'form2': form2, 'context': 'create'}
-    return render(request, 'CarReg.html', context)
+    context = {"form": form, "form2": form2, "context": "create"}
+    return render(request, "CarReg.html", context)

@@ -10,7 +10,7 @@
 {% block content %}
 
 <style>body{
-background:#E6E6FA    
+background:#E6E6FA
 }
 .card {
     box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
@@ -84,10 +84,10 @@ a {
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js">
-  <script> 
+  <script>
   </script>
-  
-  
+
+
 
 <script>
 
@@ -100,82 +100,82 @@ $( document ).ready(function() {  $(".btn").hide();	$("#nrides").hide();
 
 
 
-                                             
-											   
-											   
-											      
+
+
+
+
 											   		$('.candidate-list-box').each(function() {
 														let fieldName = $(this).find('.rideid');
 														let fieldVal = $(fieldName)[0].textContent;
-															
-														
+
+
 													    $("#"+ fieldVal).show();
-														
-													
-											
-												{% for fieldbooked in BookedRides %}	
-											
-													
+
+
+
+												{% for fieldbooked in BookedRides %}
+
+
 											   {% for f in fieldbooked %}
-											
-                                   
+
+
 											   var riderequested="{{f.RideRequested_id}}"
-												
-														  
+
+
 														if (riderequested == fieldVal ) {
 															$("#hidden{{f.RideRequested_id}}").show();
 														    $("#{{f.RideRequested_id}}").hide();
 														}
-														
-														
-														
-														
-														
-														
-											
-														
+
+
+
+
+
+
+
+
 														  {% endfor %}
 														   {% endfor %}
-														   
-													
-														   
-														   
-														
-														   
-														
+
+
+
+
+
+
+
 													});
-													
-												
-		
-											  
 
 
-	
+
+
+
+
+
 	  var theContainer = $(".candidate-list"), // You could use body if all the rows are children of body
         theRows = $(".candidate-list-box").get() // an array
-		
+
 
         theRows = theRows.sort(function (a, b) {
-		
-		
 
 
-			
+
+
+
                         return $(a).find(".btn:visible").text() < $(b).find(".btn:visible").text();
     });
 	//console.log(theRows)
     $(".candidate-list").html(theRows);
-				
 
-       
-      
-	
+
+
+
+
 });
 
 function val() {
     d = document.getElementById("areas");
     c = document.getElementById("cities");
-	
+
     ctext = c.options[c.selectedIndex].text;
 	text = d.options[d.selectedIndex].text;
 	window.location.href = '/rides/?city='+ctext+'&area='+text
@@ -186,13 +186,13 @@ function val() {
 function onChangeDate() {
 
     d = document.getElementById("departure_date");
-	
+
 
 	selected_date = d.value
 
-		
+
 		$('.candidate-list-box').each(function() {
-		
+
 		         $(this).show();
 				let fieldName = $(this).find('#form_Date');
 				let fieldVal = $(fieldName)[0].textContent;
@@ -200,33 +200,33 @@ function onChangeDate() {
 				console.log(fieldVal.trim())
 
 
-				var new_Date =  moment(mydate).format('YYYY-MM-DD'); 
-             
-				
+				var new_Date =  moment(mydate).format('YYYY-MM-DD');
+
+
 				if (fieldVal.trim() != selected_date) { $(this).hide()}
 
 
 				if (! selected_date)  { $(this).show()}
-				
+
 			});
-			
-			
+
+
 			if (!$('.candidate-list-box:visible').length) {
                 $("#nrides2").hide();
 			$("#nrides").show();}
-			
-			else {$("#nrides").hide();}
-		
 
-	
+			else {$("#nrides").hide();}
+
+
+
 		d = document.getElementById("form_Date");
 	    var mydate = new Date(d.textContent);
         var str =  moment(mydate).format('YYYY-MM-DD');
-		
-		
 
-		
-		
+
+
+
+
     //alert(d);
 };
 
@@ -244,9 +244,9 @@ function myFunction(url) {
 function cancelFunction(url,seats) {
 
   if (seats == 0 ) {
-  
+
   confirm("No seats available ")}
-  
+
   else {
 
   if (confirm("Are you sure you want to cancel this ride request?!")) {
@@ -264,7 +264,7 @@ $(document).ready(function(){
         var user_city = "{{ user_city }}";
 
 		var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
-		
+
         var $option = $("<option>", {
 
 text: "Choose City",
@@ -279,11 +279,11 @@ $option.appendTo('#cities');
 
 
 		 for(index in cities){
-         
 
 
 
-           
+
+
 
                 var $option = $("<option>", {
 
@@ -295,13 +295,13 @@ $option.appendTo('#cities');
 
                 $option.appendTo('#cities');
 
-            
+
 
         }
-		
-		
-		
-		
+
+
+
+
 		$("#cities option:contains("+user_city+")").prop("selected","selected")
         change_areas_first_reload();
         $("#areas option:contains("+user_area+")").prop("selected","selected")
@@ -315,13 +315,13 @@ $option.appendTo('#cities');
 
         city_id = parseInt($('#cities').val())  + parseInt(1);
 
-    
+
 
         $('#areas').empty();
 
-       
-		
-		
+
+
+
 		        var $option = $("<option>", {
 
 text: "All",
@@ -348,10 +348,10 @@ $option.appendTo('#areas');
 
         for(index in areas){
 
-     
+
             if(areas[index]["governorate_id"] == city_id ){
 
-                
+
 
                 var $option = $("<option>", {
 
@@ -359,19 +359,19 @@ $option.appendTo('#areas');
 
                     value: areas[index]["id"]
 
-                 
+
 
                 });
-         
+
                 $option.appendTo('#areas');
 
             }
 
         }
 
-      
 
-     
+
+
 
 
 
@@ -381,7 +381,7 @@ $option.appendTo('#areas');
 
 
 
-      
+
 c = document.getElementById("cities");
 
 ctext = c.options[c.selectedIndex].text;
@@ -430,7 +430,7 @@ for(index in areas){
 
     if(areas[index]["governorate_id"] == city_id ){
 
-        
+
 
         var $option = $("<option>", {
 
@@ -438,10 +438,10 @@ for(index in areas){
 
             value: areas[index]["id"]
 
-         
+
 
         });
- 
+
         $option.appendTo('#areas');
 
     }
@@ -461,26 +461,26 @@ for(index in areas){
 
 
 
-      
+
         c = document.getElementById("cities");
-        
+
         ctext = c.options[c.selectedIndex].text;
         if ( ctext != 'Choose City')
         {
         window.location.href = '/rides/?city='+ctext
         }
 
-        
+
 
         city_id = parseInt($('#cities').val())  + parseInt(1);
 
-    
+
 
         $('#areas').empty();
 
-       
-		
-		
+
+
+
 		        var $option = $("<option>", {
 
 text: "All",
@@ -507,10 +507,10 @@ $option.appendTo('#areas');
 
         for(index in areas){
 
-     
+
             if(areas[index]["governorate_id"] == city_id ){
 
-                
+
 
                 var $option = $("<option>", {
 
@@ -518,19 +518,19 @@ $option.appendTo('#areas');
 
                     value: areas[index]["id"]
 
-                 
+
 
                 });
-         
+
                 $option.appendTo('#areas');
 
             }
 
         }
 
-      
 
-     
+
+
 
 
 
@@ -542,29 +542,29 @@ $option.appendTo('#areas');
      <form method="POST">
 
 
-	 
+
     <div class="container" style="padding-bottom: 15px;">
-	
-	
-	                                
+
+
+
         <div class="justify-content-center row">
             <div class="col-lg-12">
                 <div class="candidate-list-widgets mb-4">
                 </div>
-				
+
             </div>
         </div>
 			  <div class="filler-job-form" style="padding-top: 30px;">
 			   <i class="uil uil-location-point"></i>
-                                 
-									
+
+
 							<select name="city" onchange="change_areas()" id="cities" class="select form-control" style="width: 150px;display:inline-block;">
 
-</select>		
+</select>
 							<select name="area"  id="areas" class="select form-control" onchange="val()" style="width: 150px;display:inline-block;">
 
-</select>	
-  
+</select>
+
         <label for="departure_date">
                 Date
             </label>
@@ -579,22 +579,22 @@ $option.appendTo('#areas');
             </label>
 <input  id="id_return_time" class="timepickerinput form-control" type="time" name="return_time" style="width: 150px;display:inline-block;"> -->
         <div class="row body-scroll" style="height:500px;width: 1300px;padding-right: 100px;" >
-		            
+
 
             <div class="col-12" >
                 <div class="align-items-center row">
-                    
+
                 </div>
-				
+
 				  {% if  RideObj != None %}
                 <div class="candidate-list" >
-				
+
 				{% csrf_token %}
-				                
-                           
-				
+
+
+
 					 {% for field in RideObj %}
-									
+
 
 
                     <div class="candidate-list-box bookmark-post card mt-4"  id="allitems">
@@ -610,14 +610,14 @@ $option.appendTo('#areas');
                                         <h5 class="fs-19 mb-0">
                                             <a class="primary-link" href="#">{{field.creator.first_name}} {{field.creator.last_name}}</a>
                                         </h5>
-                                     
+
                                         <ul class="list-inline mb-0 text-muted">
                                             <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.city}} , {{field.area}}</li>
                                         </ul>
 										<ul class="list-inline mb-0 text-muted">
 										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date |date:'Y-m-d'}} </span> at {{field.leave_time}} </li>
-										 
-                                         {% if field.type != 'From Office' %} 
+
+                                         {% if field.type != 'From Office' %}
                                          <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
                                          {% else  %}
                                          <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Drop :  {{field.meeting_point}}</li>
@@ -645,27 +645,27 @@ $option.appendTo('#areas');
                             <div class="favorite-icon">
                                 <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="myFunction('{{ field.id }}')">Book now</button></span>
                                 <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="cancelFunction('{{ field.id }}','{{field.no_of_seats}')" >Cancel Request</button></span>
-                            
+
 							</div>
                         </div>
                     </div>
 					  {% endfor %}
 
-					
-					
-					
 
-					
+
+
+
+
                 </div>
 				 {% else  %}
 				<div class="norides"  id="nrides2" style="padding-top: 50px;padding-bottom: 150px;"> <h1>No Available Rides ! </h1> </div>
 				 {% endif %}
-				 
+
 				 <div class="norides"  id="nrides" style="padding-top: 50px;padding-bottom: 150px;"> <h1>No Available Rides ! </h1> </div>
-				
+
             </div>
         </div>
-      
+
     </div>
 	</form>
 </section>

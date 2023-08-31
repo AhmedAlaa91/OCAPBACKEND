@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
-from datetime import datetime, timedelta
+from django.templatetags.static import static
+
+from lib.s3_storage.s3_helpers import get_profile_pic_by_key
 
 
 class Profile(models.Model):

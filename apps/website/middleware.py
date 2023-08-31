@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 import datetime
 
+
 class UserAccessMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response

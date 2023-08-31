@@ -18,12 +18,11 @@ from __future__ import annotations
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include
-from django.urls import path
-from django.urls import re_path
+from django.urls import include, path, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+
 from apps.website.api_urls import OpenAPIHttpAndHttpsSchemaGenerator
 
 schema_view = get_schema_view(
