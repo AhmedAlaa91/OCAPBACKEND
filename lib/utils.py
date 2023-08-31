@@ -6,6 +6,10 @@ import os
 from datetime import datetime
 
 
+def Average(lst):
+    return sum(lst) / len(lst)
+
+
 def getenv(name: str, default: str = None) -> str:
     """Return environment variable value or default is not defined or blank"""
     value = os.environ.get(name)

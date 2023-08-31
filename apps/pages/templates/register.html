@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static crispy_forms_tags %}
+{% load image_byte %}
 
 
 
@@ -28,7 +29,7 @@
 
         <div class="col-sm-6">
 
-            <form method="POST">
+            <form method="POST" enctype="multipart/form-data">
 
                 {% csrf_token %}
 
@@ -85,20 +86,54 @@
 
                 <button class="btn btn-primary" type="submit" id="register-submit">Submit</button>
 
-            </form>
 
         </div>
 
         <div class="col-sm-6">
 
-            <img alt="CarPool" style="width: inherit;" src="{% static 'images/hello.png' %}">
+           {% if request.user.profile.profile_pic %}
+   <div class="form-group col-8">
+          <img id="preview"  alt="Embedded Image"  style="width: 29rem;height:27vh;margin-inline: 2.3rem;" src="data:image;base64,{{ request.user.profile.get_profile_picture_url | bin_2_img }}"  class="avatar-md img-thumbnail rounded-circle "/>
+
+         <label for="profile_picture">Profile Picture</label>
+       <input id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;" />
+            <div class="col d-none" id="alert">
+                   <ul>
+              <li> Image Max size : 4 MG</li>
+             </ul>
+            </div>
+   </div>
+            {% else %}
+               <div class="form-group col-8">
+            <img id="preview" style="width: 29rem;height:27vh;margin-inline: 2.3rem;" src="{{ request.user.profile.get_profile_picture_url }}" class="avatar-md img-thumbnail rounded-circle">
+
+         <label for="profile_picture">Profile Picture</label>
+       <input required id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;" />
+            <div class="col d-none" id="alert">
+                   <ul>
+              <li> Image Max size : 4 MG</li>
+             </ul>
+            </div>
+   </div>
+            {% endif %}
 
         </div>
+            </form>
 
     </div>
 
 </div>
+<script>
+      const imgInp = document.getElementById("profile_picture");
+      const preview = document.getElementById("preview");
 
+imgInp.onchange = evt => {
+  const [file] = imgInp.files
+  if (file) {
+    preview.src = URL.createObjectURL(file)
+  }
+}
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
@@ -196,7 +231,33 @@
             }));
 
         $("#areas").prepend("<option value=''>Choose Area</option>").val('');
+        $("#profile_picture").on("change", function (e) {
 
+    var count=1;
+    var files = e.currentTarget.files; // puts all files into an array
+
+    // call them as such; files[0].size will get you the file size of the 0th file
+    for (var x in files) {
+
+        var filesize = ((files[x].size/1024)/1024).toFixed(4); // MB
+
+        if (files[x].name != "item" && typeof files[x].name != "undefined" && filesize <= 10) {
+
+            if (count > 1) {
+
+                approvedHTML += ", "+files[x].name;
+            }
+            else {
+
+                approvedHTML += files[x].name;
+            }
+
+            count++;
+        }
+    }
+    $("#alert").append(approvedHTML);
+
+});
     }
 
 </script>
