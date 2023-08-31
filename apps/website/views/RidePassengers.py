@@ -30,10 +30,10 @@ class RequestsView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        body_json = json.loads(request.body)
-        
-        requests= RidesBooked.objects.filter(RideRequested_id=body_json['rideid']).select_related()
-        #requests= RidesBooked.objects.select_related()
+        # body_json = json.loads(request.body)
+        #
+        # requests= RidesBooked.objects.filter(RideRequested_id=body_json['rideid']).select_related()
+        requests= RidesBooked.objects.select_related()
 
 
         data_serialized = BookedRides_serializer(requests,many=True).data
@@ -64,7 +64,7 @@ class RequestsView(APIView):
         instance.status = status_new
         instance.comment= comment_new
         instance.save()
-        self.send_mail_nofitication(ride_id,requestor_id,status_new,comment_new)
+        self.send_mail_nofitication(ride_id, requestor_id, instance.get_status_display(), comment_new)
     
 
 
