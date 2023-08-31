@@ -80,7 +80,7 @@ Default superuser login is "admin" and default password is "Orange000".
 
 # Profile Picture
 
-S3 bucket storage used for upload user's images 
+S3 bucket storage used for upload user's images
 
 [S3Bucket] (https://s3-object-storage.obs-tech.com.intraorange/how_to_use/).
 

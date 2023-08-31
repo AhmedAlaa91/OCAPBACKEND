@@ -1,9 +1,10 @@
 # coding: utf-8
 """Utility functions"""
-from __future__ import annotations
-
+import logging
 import os
 from datetime import datetime
+
+log = logging.getLogger(__name__)
 
 
 def getenv(name: str, default: str = None) -> str:
@@ -20,9 +21,9 @@ def convert_str_bool(v: str, default=False) -> bool:
     Case is insensitive
     Return "default" arg otherwise
     """
-    if v and v.lower() in ['true', 'yes', 'y', '1']:
+    if v and v.lower() in ["true", "yes", "y", "1"]:
         return True
-    if v and v.lower() in ['false', 'no', 'n', '0']:
+    if v and v.lower() in ["false", "no", "n", "0"]:
         return False
     return default
 
@@ -32,7 +33,8 @@ def convert_str_int(v: str, default=-1) -> int:
     if v:
         try:
             return int(v)
-        except:
+        except Exception as ex:
+            log.error(f"{str(ex)}")
             pass
     return default
 
@@ -41,5 +43,6 @@ def convert_iso_datetime(data: str) -> datetime:
     """Convert ISO formatted datetime string into datetime object or return None in case of invalid input"""
     try:
         return datetime.fromisoformat(data)
-    except:
+    except Exception as ex:
+        log.error(f"{str(ex)}")
         return None
