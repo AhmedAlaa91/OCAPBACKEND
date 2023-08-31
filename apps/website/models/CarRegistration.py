@@ -48,16 +48,20 @@ class Car(models.Model):
         primary_key=True,
         editable=False,
     )
-    No_OF_Seats = models.IntegerField(default='3')
-    Car_Pallet_Number = models.ForeignKey(CarPlate, on_delete=models.CASCADE, related_name='plate')
+    No_OF_Seats = models.IntegerField(default="3")
+    Car_Pallet_Number = models.ForeignKey(CarPlate, on_delete=models.CASCADE, related_name="plate")
     Car_Manufacture = models.CharField(max_length=50)
     Car_Color = models.CharField(max_length=50)
-    Car_license = models.BooleanField(default=False,blank=True)
-    Driver_license = models.BooleanField(default=False,blank=True)
+    Car_license = models.BooleanField(default=False, blank=True)
+    Driver_license = models.BooleanField(default=False, blank=True)
     Owner = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
     )
+    Engine_size = models.IntegerField(default="0", blank=True)
+    No_clyender = models.IntegerField(default="0", blank=True)
+    Fuel_consumption = models.IntegerField(blank=False)
+
     objects = CarManager()
 
     def __str__(self):

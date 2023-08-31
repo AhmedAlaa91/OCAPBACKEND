@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from .widgets import DatePickerInput, TimePickerInput
-from apps.website.models.ride import Ride
+from datetime import datetime, time, timedelta
+
 from django import forms
 from django.forms import CharField, ModelChoiceField, NumberInput, Select, TextInput
 
 from apps.website.models import Car, Ride
+from apps.website.models.ride import Ride
 
 from .widgets import DatePickerInput, TimePickerInput
 
@@ -50,9 +51,29 @@ class RideForm(forms.ModelForm):
     class Meta:
         model = Ride
         fields = [
-            'ride_type', 'area', 'no_of_seats', 'city',
-            'restrictions', 'date', 'car', 'meeting_point', 'leave_time', 'return_time','distance'
+            "ride_type",
+            "area",
+            "no_of_seats",
+            "city",
+            "restrictions",
+            "date",
+            "car",
+            "meeting_point",
+            "leave_time",
+            "return_time",
+            "distance",
         ]
 
-    field_order = ['ride_type', 'car', 'city', 'area', 'date',
-                   'no_of_seats', 'leave_time', 'return_time', 'meeting_point', 'restrictions','distance']
+    field_order = [
+        "ride_type",
+        "car",
+        "city",
+        "area",
+        "date",
+        "no_of_seats",
+        "leave_time",
+        "return_time",
+        "meeting_point",
+        "restrictions",
+        "distance",
+    ]

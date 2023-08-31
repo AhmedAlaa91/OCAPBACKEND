@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from apps.website.models.CarRegistration import Car, CarPlate
 from apps.website.models.profile import Profile
-from apps.website.models.ride import Ride, RidesBooked
+from apps.website.models.ride import Ride
+from apps.website.models.rides_booked import RidesBooked
 
 # Register your models here.
 admin.site.register(Ride)

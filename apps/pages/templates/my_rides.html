@@ -48,21 +48,6 @@
                 <tbody id="table_body">
                     {% for ride in object_list %}
                     <tr>
-<<<<<<< apps/pages/templates/my_rides.html
-                        <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.area }}</td>
-                        <td>{{ ride.RideRequested.date }}</td>
-                        <td>{{ ride.RideRequested.leave_time }}</td>
-                        <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
-                        <td>{{ ride.RideRequested.no_of_seats }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %}
-                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.RideRequested.pk %}">Edit</a>
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.RideRequested.pk %}">Cancel Ride</a>
-                            {% else %}
-                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Request</button></span>
-=======
                         <td><a href="#">{{ ride.type }}</a></td>
                         <td>{{ ride.area }}</td>
                         <td>{{ ride.date }}</td>
@@ -74,9 +59,8 @@
                         <td>{% if ride.creator.first_name == user.first_name %}
                             <a class="btn btn-success" href="{% url 'pages.update_ride' ride.pk %}">Edit</a>
                             <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.pk %}">Cancel Ride</a>
-                            {% else %} 
+                            {% else %}
                             <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" onclick="cancelFunction('{{ ride.id }}','{{ride.no_of_seats}')" >Cancel Request</button></span>
->>>>>>> apps/pages/templates/my_rides.html
                             {% endif %}
                         </td>
                     </tr>
