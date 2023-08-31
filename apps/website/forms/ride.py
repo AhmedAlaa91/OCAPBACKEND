@@ -42,8 +42,8 @@ class RideForm(forms.ModelForm):
         model = Ride
         fields = [
             'ride_type', 'area', 'no_of_seats', 'city',
-            'restrictions', 'date', 'car', 'meeting_point', 'leave_time', 'return_time'
+            'restrictions', 'date', 'car', 'meeting_point', 'leave_time', 'return_time','distance'
         ]
 
     field_order = ['ride_type', 'car', 'city', 'area', 'date',
-                   'no_of_seats', 'leave_time', 'return_time', 'meeting_point', 'restrictions']
+                   'no_of_seats', 'leave_time', 'return_time', 'meeting_point', 'restrictions','distance']

@@ -43,6 +43,9 @@ class Car(models.Model):
     Owner = models.ForeignKey(
         User, on_delete=models.CASCADE,
     )
+    Engine_size=models.IntegerField(default='0',blank=True)
+    No_clyender=models.IntegerField(default='0',blank=True)
+    Fuel_consumption =models.IntegerField(blank=False)
 
     def __str__(self): return str(self.Car_Manufacture) + ' - ' + str(self.Car_Color) + ' /  Plate Number : ' + str(
         self.Car_Pallet_Number)
