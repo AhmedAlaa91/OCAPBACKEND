@@ -1,3 +1,4 @@
+from django.urls import path
 from drf_yasg.generators import OpenAPISchemaGenerator
 
 

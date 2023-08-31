@@ -1,20 +1,22 @@
+from datetime import datetime, timedelta
+
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.files.base import ContentFile
 from django.shortcuts import redirect, render
 from django.views.generic import View
 
 from apps.website.forms.register import ChangeUserForm, ProfileForm, RegisterForm
 from apps.website.jsonData import JsonData
-from lib.s3_storage.s3_helpers import create_s3_client
-from datetime import datetime, timedelta
 from apps.website.models import Profile
+from lib.s3_storage.s3_helpers import create_s3_client
 
 
 class AuthView(View):
     context = {}
-    
+
     def legalDisclaimer(request):
         if request.method == "GET":
             return render(request, "legal_disclaimer.html")
@@ -27,7 +29,6 @@ class AuthView(View):
 
             return redirect("/register")
 
-    @staticmethod
     def register(request):
         context = {}
         context["areas"] = JsonData.get_areas()
@@ -48,30 +49,24 @@ class AuthView(View):
                 profile.user = user
                 profile.city = JsonData.get_city_name(request.POST.get("city"))
                 profile.area = JsonData.get_area_name(request.POST.get("area"))
-                try:
-                    # Get img from register form and create s3 client to upload
-                    if "profile_picture" in request.FILES.keys():
-                        img = request.FILES.get("profile_picture")
-                        client, session = create_s3_client()
-                        client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic)
-                        client.upload_fileobj(
-                            img.open(mode="rb"),
-                            settings.AWS_STORAGE_BUCKET_NAME,
-                            f"{request.user.username}_{img.name}",
-                        )
-                        img.close()
-                        profile.profile_pic = f"{request.user.username}_{img.name}"
-                    profile.save()
-                    messages.success(request, "You have registered successfully.")
-                    login(
-                        request,
-                        user,
-                        backend="django.contrib.auth.backends.ModelBackend",
-                    )
-                    return redirect("pages.home")
-                except Exception as ex:
-                    messages.error(request, f"error : {str(ex)}")
-                    return redirect("website.login")
+                # # Get img from register form and create s3 client to upload img
+                # img = profile_form.cleaned_data.get("profile_picture")
+                # client, session = create_s3_client()
+                # client.upload_fileobj(
+                #     img.open(mode="rb"),
+                #     settings.AWS_STORAGE_BUCKET_NAME,
+                #     img.name,
+                # )
+                # img.close()
+                # profile.profile_pic = img.name
+                profile.save()
+                messages.success(request, "You have registered successfully.")
+                login(
+                    request,
+                    user,
+                    backend="django.contrib.auth.backends.ModelBackend",
+                )
+                return redirect("/")
             else:
                 return render(
                     request,
@@ -85,7 +80,6 @@ class AuthView(View):
                     },
                 )
 
-    @staticmethod
     def login(request):
         """Implement customized django auth backend with Orange Auth. You can refer to AUTHENTICATION_BACKENDS in django settings.
 
@@ -96,7 +90,6 @@ class AuthView(View):
         """
         return authenticate(request)
 
-    @staticmethod
     def logout(request):
         """Logout a user from request sessions.
 
@@ -110,7 +103,6 @@ class AuthView(View):
 
 
 class ProfileView(LoginRequiredMixin, View):
-    @staticmethod
     def edit_profile(request):
         context = {}
         context["context"] = "edit"
@@ -138,26 +130,9 @@ class ProfileView(LoginRequiredMixin, View):
                 profile.user = user
                 profile.city = JsonData.get_city_name(request.POST.get("city"))
                 profile.area = JsonData.get_area_name(request.POST.get("area"))
-                try:
-                    # Get img from register form and create s3 client to upload
-                    if "profile_picture" in request.FILES.keys():
-                        img = request.FILES.get("profile_picture")
-                        client, session = create_s3_client()
-                        # delete an image before upload new one
-                        client.delete_object(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic)
-                        client.upload_fileobj(
-                            img.open(mode="rb"),
-                            settings.AWS_STORAGE_BUCKET_NAME,
-                            f"{request.user.username}_{img.name}",
-                        )
-                        img.close()
-                        profile.profile_pic = f"{request.user.username}_{img.name}"
-                    profile.save()
-                    messages.success(request, "Edit profile done successfully.")
-                    return redirect("pages.home")
-                except Exception as ex:
-                    messages.error(request, f"error : {str(ex)}")
-                    return redirect("pages.home")
+                profile.save()
+                messages.success(request, "Edit profile done successfully.")
+                return redirect("/")
             else:
                 return render(
                     request,

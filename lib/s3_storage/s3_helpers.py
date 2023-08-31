@@ -1,4 +1,3 @@
-import io
 import logging
 import os
 
@@ -53,10 +52,11 @@ def generate_uploaded_file_url(key: str):
 def get_profile_pic_by_key(key: str):
     try:
         s3, session = create_s3_client()
-        bytes_buffer = io.BytesIO()
-        s3.download_fileobj(Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=key, Fileobj=bytes_buffer)
-        byte_value = bytes_buffer.getvalue()
+        incident_body = s3.get_object(
+            Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+            Key=key,
+        )
         log.info("File had been retrieved")
-        return byte_value
+        return incident_body["Body"]
     except Exception as ex:
         log.error(f"Error {str(ex)}")

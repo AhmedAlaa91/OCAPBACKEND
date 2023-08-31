@@ -1,8 +1,11 @@
 # coding: utf-8
+from django.contrib.auth.models import Group, User
 from django.core.management.base import BaseCommand
 
 
 class Command(BaseCommand):
+    help = "Initialize OCAP default data"
+
     def handle(self, *args, **options):
         try:
             import sys

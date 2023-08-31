@@ -3,7 +3,6 @@ from pathlib import Path
 
 
 class JsonData:
-    @staticmethod
     def get_area_name(area_id):
         area_name = None
         if area_id == "0":
@@ -18,7 +17,6 @@ class JsonData:
                 return area_name
         return area_name
 
-    @staticmethod
     def get_city_name(city_id):
         city_name = None
         if city_id == "0":
@@ -33,7 +31,6 @@ class JsonData:
                 return city_name
         return city_name
 
-    @staticmethod
     def get_areas():
         current_dir = Path.cwd()
         areas_file_loc = "static/json/areas.json"
@@ -42,7 +39,6 @@ class JsonData:
         f.close()
         return areas
 
-    @staticmethod
     def get_user_areas(user_city):
         current_dir = Path.cwd()
 
@@ -64,7 +60,6 @@ class JsonData:
 
         return areas
 
-    @staticmethod
     def get_cities_json():
         current_dir = Path.cwd()
 
@@ -78,7 +73,6 @@ class JsonData:
 
         return cities
 
-    @staticmethod
     def get_cities():
         current_dir = Path.cwd()
 
@@ -99,7 +93,6 @@ class JsonData:
 
         return cities
 
-    @staticmethod
     def get_carbrand():
         current_dir = Path.cwd()
         carbrands_file_loc = "static/json/carbrands.json"
@@ -114,7 +107,6 @@ class JsonData:
         f.close()
         return brands
 
-    @staticmethod
     def get_carcolor():
         current_dir = Path.cwd()
         carcolor_file_loc = "static/json/colors.json"

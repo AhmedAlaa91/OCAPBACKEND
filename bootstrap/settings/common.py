@@ -47,9 +47,7 @@ for v in getenv("DJANGO_ALLOWED_HOSTS", "*").split(","):
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv(
-    "SECRET_KEY", default="django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b"
-)
+SECRET_KEY = "django-insecure-cjwun1jlw9onag=1k1nrgnajvoc8()x2oif_mq$3maun(zbb-b"
 
 # Application definition
 
@@ -239,13 +237,13 @@ AWS_SECRET_ACCESS_KEY = getenv("AWS_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = str(
     getenv(
         "AWS_STORAGE_BUCKET_NAME",
-        default="obs-ocap-prod",
+        default="obsit-webex-monitor-prod",
     ),
 )
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
 AWS_DEFAULT_ACL = "public-read"
-AWS_LOCATION = "profile-pics"
+AWS_LOCATION = "cdr-files"
 AWS_REGION = "eu-west-0"
 AWS_QUERYSTRING_AUTH = False
 
@@ -272,10 +270,6 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
-  #  "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    #  "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 TOKEN_EXPIRED_AFTER_SECONDS = 86400
-
-
-AVERAGE_CARS_CONSUMPTION_PER_100KM = 9
-AVERAGE_EMISSIONS_PER_LITRE = 2.3

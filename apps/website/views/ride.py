@@ -8,16 +8,16 @@ from django.views.generic import View
 
 from apps.website.forms.ride import RideForm
 from apps.website.jsonData import JsonData
+from apps.website.models import Car
+from apps.website.models.profile import Profile
 from apps.website.models.ride import Ride
 from apps.website.models.rides_booked import RidesBooked
-from apps.website.models.profile import Profile
 from lib.mail_service.mail import send_alerting_message
 
 log = logging.getLogger(__name__)
 
 
 class RideView(View):
-    @staticmethod
     def createRide(request):
         context = {}
 
@@ -46,15 +46,13 @@ class RideView(View):
                 form.creator = request.user
                 form.save()
                 RidesBooked.objects.create(RideRequested=form, Requestor=request.user)
-                messages.success(request, 'Ride created successfully.')
-                log.info(f'Ride created successfully NO:{form.pk}')
-                return redirect('/myrides')
+                messages.success(request, "Ride created successfully.")
+                log.info(f"Ride created successfully NO:{form.pk}")
+                return redirect("/myrides")
             else:
                 return render(request, "ride.html", {"form": form})
 
-    @staticmethod
     def RequestRide(request, rideid):
-
         booked_rides = RidesBooked.objects.filter(Requestor=request.user)
         rideObj = Ride.objects.filter(id=rideid).first()
 
@@ -97,10 +95,18 @@ class RideView(View):
             "ride_time": f"""{rideObj.date} {rideObj.leave_time}""",
         }
 
-        send_alerting_message ([{"email": passenger['email'], "name": passenger['first_name'] + ' ' + passenger['last_name']}] , content=passenger_details, subject="Ride Confirmation")
-        send_alerting_message ([{"email": driver['email'], "name": driver['first_name'] + ' ' + driver['last_name']}] , content=driver_details, subject="Ride Confirmation")
+        send_alerting_message(
+            [{"email": passenger["email"], "name": passenger["first_name"] + " " + passenger["last_name"]}],
+            content=passenger_details,
+            subject="Ride Confirmation",
+        )
+        send_alerting_message(
+            [{"email": driver["email"], "name": driver["first_name"] + " " + driver["last_name"]}],
+            content=driver_details,
+            subject="Ride Confirmation",
+        )
 
-        return redirect(request.META.get('HTTP_REFERER'), request.GET)
+        return redirect(request.META.get("HTTP_REFERER"), request.GET)
 
     def display_passengers(request, ride_id):
         passengers = []
@@ -116,7 +122,8 @@ class RideView(View):
                     "phone": passenger.Requestor.profile.phone,
                     "gender": passenger.Requestor.profile.gender,
                     "status": passenger.get_status_display(),
-                    "comment": passenger.comment}
+                    "comment": passenger.comment,
+                }
                 passengers.append(passenger_item)
             if len(passengers) > 0:
                 context = {"passengers": passengers}
@@ -125,7 +132,7 @@ class RideView(View):
         else:
             context = {"passengers": None, "message": "Your ride not found, or may be deleted !"}
 
-        return render(request, 'passengers.html', context)
+        return render(request, "passengers.html", context)
 
     def CancelRequest(request, rideid):
         """
@@ -133,9 +140,10 @@ class RideView(View):
         """
         RidesBooked.objects.filter(RideRequested=rideid, Requestor=request.user).delete()
         rideObj = Ride.objects.filter(id=rideid)
-        rideObj.update(no_of_seats=F('no_of_seats') + 1)
+        rideObj.update(no_of_seats=F("no_of_seats") + 1)
         rideFields = rideObj.values()
 
+        source = rideFields[0]["area"]
         typeRide = rideFields[0]["type"]
         leaveTime = rideFields[0]["leave_time"]
         leaveDate = rideFields[0]["date"]
@@ -180,8 +188,7 @@ class RideView(View):
         )
         return redirect(request.META.get("HTTP_REFERER"))
 
-    @staticmethod
-    def cancel_ride(self, request, ride_id):
+    def cancel_ride(request, ride_id):
         """
         This should cancel the whole ride and inform passengers with deletion
 

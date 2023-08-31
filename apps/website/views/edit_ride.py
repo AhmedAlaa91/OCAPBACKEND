@@ -1,6 +1,8 @@
 import logging
 
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.db.models import F
 from django.urls import reverse
 from django.views.generic import UpdateView
 
@@ -43,6 +45,7 @@ class EditRideView(UpdateView):
         return ctx
 
     def form_valid(self, form, **kwargs):
+        print("hello")
         try:
             ride = self.object
             ride_booked = RidesBooked.objects.filter(RideRequested=ride, Requestor=self.request.user).first()
@@ -70,15 +73,16 @@ class EditRideView(UpdateView):
             ride_booked.save()
             messages.success(self.request, "Ride updated successfully.")
             log.info(f"Ride updated successfully NO:{ride.pk}")
-        except Exception as ex:  # noqa
-            log.info(f"Error : {str(ex)}")  # noqa
-            messages.error(self.request, f"Error{str(ex)}")  # noqa
-        finally:  # noqa
-            return super().form_valid(form)  # noqa
+        except Exception as ex:
+            log.info(f"Error : {str(ex)}")
+            messages.error(self.request, f"Error{str(ex)}")
+        finally:
+            return super().form_valid(form)
 
     def get_success_url(self, **kwargs):
         try:
             rideObj = Ride.objects.filter(pk=self.kwargs["pk"]).first()
+            source = rideObj.area
             typeRide = rideObj.type
             leaveTime = rideObj.leave_time
             leaveDate = rideObj.date
@@ -114,8 +118,8 @@ class EditRideView(UpdateView):
                 )
                 log.info(f"Alert had been sent to:{ride.Requestor.email}")
             messages.success(self.request, "Alert Messages had been sent to passengers.")
-        except Exception as ex:  # noqa
-            log.info(f"Error in sending mails : {str(ex)}")  # noqa
-            messages.error(self.request, f"Error in sending alerts{str(ex)}")  # noqa
-        finally:  # noqa
-            return reverse("website.myrides")  # noqa
+        except Exception as ex:
+            log.info(f"Error in sending mails : {str(ex)}")
+            messages.error(self.request, f"Error in sending alerts{str(ex)}")
+        finally:
+            return reverse("website.myrides")

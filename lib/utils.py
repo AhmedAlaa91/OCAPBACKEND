@@ -1,10 +1,9 @@
 # coding: utf-8
 """Utility functions"""
-import logging
+from __future__ import annotations
+
 import os
 from datetime import datetime
-
-log = logging.getLogger(__name__)
 
 
 def getenv(name: str, default: str = None) -> str:
@@ -33,8 +32,7 @@ def convert_str_int(v: str, default=-1) -> int:
     if v:
         try:
             return int(v)
-        except Exception as ex:
-            log.error(f"{str(ex)}")
+        except:
             pass
     return default
 
@@ -43,6 +41,5 @@ def convert_iso_datetime(data: str) -> datetime:
     """Convert ISO formatted datetime string into datetime object or return None in case of invalid input"""
     try:
         return datetime.fromisoformat(data)
-    except Exception as ex:
-        log.error(f"{str(ex)}")
+    except:
         return None

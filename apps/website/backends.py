@@ -34,8 +34,7 @@ class OrangeAuthBackend(BaseBackend):
         finally:
             self.logger.debug("orange_auth_backend: end authenticate method")
 
-    @staticmethod
-    def get_user(user_id):
+    def get_user(self, user_id):
         """Override get_user method in base auth backend
 
         Parameters
@@ -64,8 +63,9 @@ class OrangeAuthBackend(BaseBackend):
                 + "&scope=openid%20profile%20email&state=test",
             )
             return response
-        except Exception as ex:  # noqa
-            cls.logger.error(ex)  # noqa
+            # return (response.headers['Location'] if hasattr(response, 'headers') else response) if response.status_code == 302 else response.text
+        except Exception as ex:
+            cls.logger.error(ex)
         finally:
             cls.logger.debug("orange_auth_backend: end do_authenticate method")
 
@@ -79,13 +79,13 @@ class OrangeAuthBackend(BaseBackend):
             The request object
         """
 
-        def get_request_headers(headers):
+        def get_request_headers(headers={}):
             return headers | {
                 "Authorization": settings.ORANGE_AUTH_HEADER,
                 "Content-Type": "application/x-www-form-urlencoded",
             }
 
-        def get_request_params(params):
+        def get_request_params(params={}):
             return params | {
                 "grant_type": "authorization_code",
                 "code": request.GET.get("code") if request.GET.get("code") is not None else None,
@@ -99,8 +99,7 @@ class OrangeAuthBackend(BaseBackend):
                 settings.ORANGE_AUTH_URL,
                 headers=headers,
                 data=parameters,
-                verify=settings.ORANGE_MAIL_API_CERT,
-                timeout=10,
+                verify=False,
             )
             return cls.handle_auth_response(request=request, response=response)
         else:
@@ -146,7 +145,7 @@ class OrangeAuthBackend(BaseBackend):
                     )
                     return redirect(request.META.get("HTTP_REFERER", "pages.home"))
             else:
-                return redirect(request.META.get("HTTP_REFERER", "website.register"))
+                return redirect(request.META.get("HTTP_REFERER", "website.legalDisclaimer"))
         else:
             return redirect("pages.home")
 
@@ -160,7 +159,7 @@ class OrangeAuthBackend(BaseBackend):
             The request object
         """
 
-        def get_request_headers(headers):
+        def get_request_headers(headers={}):
             return headers | {
                 "Authorization": f"Bearer {request.session['access_token']}",
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -171,8 +170,7 @@ class OrangeAuthBackend(BaseBackend):
             response = requests.get(
                 settings.ORANGE_AUTH_USER_INFO_URL,
                 headers=headers,
-                verify=settings.ORANGE_MAIL_API_CERT,
-                timeout=10,
+                verify=False,
             )
             return json.loads(response.text)
         except Exception as ex:

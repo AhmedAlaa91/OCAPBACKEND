@@ -5,18 +5,17 @@ from datetime import datetime, time, timedelta
 from django import forms
 from django.forms import CharField, ModelChoiceField, NumberInput, Select, TextInput
 
-from apps.website.models import Car, Ride
+from apps.website.jsonData import JsonData
+from apps.website.models import Car
 from apps.website.models.ride import Ride
 
 from .widgets import DatePickerInput, TimePickerInput
 
 
-def get_initial_date():
-    date = datetime.today() + timedelta(days=1)
-    return date
-
-
 class RideForm(forms.ModelForm):
+    def get_initial_date():
+        return datetime.today() + timedelta(days=1)
+
     date = CharField(initial=get_initial_date(), widget=DatePickerInput(format="%Y-%m-%d"))
     leave_time = CharField(initial=time(8), widget=TimePickerInput(format="%H:%M"))
     return_time = CharField(initial=time(18), required=False, widget=TimePickerInput(format="%H:%M"))
