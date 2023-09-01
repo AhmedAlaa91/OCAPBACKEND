@@ -5,6 +5,8 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from apps.website.managers import CarManager
+
 
 class CarPlate(models.Model):
     def validate_length(value):
@@ -56,9 +58,7 @@ class Car(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    Engine_size = models.IntegerField(default="0", blank=True)
-    No_clyender = models.IntegerField(default="0", blank=True)
-    Fuel_consumption = models.IntegerField(blank=True)
+    objects = CarManager()
 
     def __str__(self):
         return (
