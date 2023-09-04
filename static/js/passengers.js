@@ -1,4 +1,3 @@
-
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -28,96 +27,93 @@ $.ajaxSetup({
     }
 });
 
-
-
-function set_status_class(){
-    
-    const status_items = document.getElementsByName("passenger_status");
-
-    for(item in status_items){
-        element = status_items[item]
-        class_name = element.innerText.toLowerCase();
-        element.className += class_name;
-    }
-}
-
 $(document).ready(function() {
-
-   // set_status_class();
    
-   
-   
-   });
+});
 
 async function show_confirmation_dialog(title,message,action,ride,requestor){
-
-
 
     modal = $('#confirmation_modal')
     modal.modal('show')
     modal.find('.modal-title').text(title)
     modal.find('.modal-body').text(message)
+    var passenger_response_reason="";
     if(action == "accept"){
-       // document.getElementById("modal-btn-confirm").onclick = hidemodal
-      // modal.find('.reason').hide();
-      modal.find('#reasonl').hide();
-       modal.find('#reason').hide();
-       await hidemodal();
-        accept(ride,requestor) ;
+        modal.find('#reasonl').hide();
+        modal.find('#reason').hide();
+        await hide_modal();
+        response_to_passenger_request(ride,requestor,"2","");
     }
     else if(action == "reject"){
-       // document.getElementById("modal-btn-confirm").onclick = reject
-       modal.find('#reasonl').show();
-       modal.find('#reason').show();
-
-       var textarea = document.querySelector("#reason");
-     
-        var commenttxt="";
+        modal.find('#reasonl').show();
+        modal.find('#reason').show();
+        var textarea = document.querySelector("#reason");
         this.lastKey= "";
         textarea.addEventListener("input", (e) => {
-            this.commenttxt= e.target.value;
-           
-         });
-      
-         await hidemodal();
-         this.commenttxt=textarea.value
-     
-      
-        reject(ride,requestor,this.commenttxt) ;
+            this.passenger_response_reason= e.target.value;
+        });
+        await hide_modal();
+        this.passenger_response_reason = textarea.value
+        response_to_passenger_request(ride,requestor,"3",this.passenger_response_reason);
     }
     else if(action == "cancel"){
-       // document.getElementById("modal-btn-confirm").onclick = cancel
        modal.find('#reasonl').show();
        modal.find('#reason').show();
-
-
        var textarea = document.querySelector("#reason");
-     
-       var commenttxt="";
        this.lastKey= "";
        textarea.addEventListener("input", (e) => {
-           this.commenttxt= e.target.value;
-          
-        });
-      
-        await hidemodal();
-        this.commenttxt=textarea.value
- 
-       
-        cancel(ride,requestor,this.commenttxt) ;
+           this.passenger_response_reason= e.target.value;
+       });
+       await hide_modal();
+       this.passenger_response_reason=textarea.value
+       response_to_passenger_request(ride,requestor,"4",this.passenger_response_reason)
     }
-    else{
-        document.getElementById("modal-btn-confirm").onclick = function(){$('.modal').modal('hide'); alert(action)}}
-
+    else {
+        document.getElementById("modal-btn-confirm").onclick = function(){$('.modal').modal('hide'); alert(action)}
+    }
     $('#confirm').show()
 }
 
+async function response_to_passenger_request(ride_id,requestor_id,passenger_response_code,comment){
+    let csrftoken= document.querySelector('input[name="csrfmiddlewaretoken"]').value
+    $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      }
+      $("#avatarpic"+requestor_id).hide();
+      $("#loader"+requestor_id).show();
+    }
+    });
 
+    $.ajax({
+        url: "/ride/passengers",
+        headers:{
+                    Accept : "application/json",
+                    "Content-Type": "application/json" ,
+                    'csrfmiddlewaretoken' : csrftoken
+                 },
+        type: "POST",
+        accept:"application/json",
+        data :JSON.stringify( { "RideRequested_id": ride_id,"Requestor_id": requestor_id,"comment": comment ,"status": passenger_response_code}),
+        contentType: "application/json",
+        success: function() {
+            $("#avatarpic"+requestor_id).show();
+            $("#loader"+requestor_id).hide();
+            // it will update the html of table body
+            $("#passengers_form").load(location.href + " #passengers_form");
+        },
+        error: function (error) {
+            $("#avatarpic"+requestor_id).show();
+            $("#loader"+requestor_id).hide();
+            console.log(error);
+        }
+    });
+}
 
-function hidemodal() {
+function hide_modal() {
 
-
-    return new Promise(resolve => 
+    return new Promise(resolve =>
         $('#modal-btn-confirm').on('click', () => {
             $('.modal').modal('hide');
             resolve();
@@ -125,185 +121,3 @@ function hidemodal() {
         )
     );
 }
-
-async function accept(rideid,requestorid)  {
-
-   
-    
-
-    let csrftoken= document.querySelector('input[name="csrfmiddlewaretoken"]').value
-    
-    $.ajaxSetup({
-    
-    beforeSend: function(xhr, settings) {
-    
-      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-    
-          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    
-      }
-      $("#avatarpic"+requestorid).hide();
-      $("#loader"+requestorid).show();
-    }
-    
-    });
-
-    
-     $.ajax({
-    
-      url: "/ride/passengers",
-      
-      headers:{ Accept : "application/json",         
-      "Content-Type": "application/json" ,
-      'csrfmiddlewaretoken' : csrftoken },
-      type: "POST",
-     
-    
-      
-      accept:"application/json",
-      data :JSON.stringify( { "RideRequested_id": rideid,
-              
-              "Requestor_id": requestorid,
-              "comment" : ' ',
-              "status": "2"}),
-      contentType: "application/json",
-      success: function()
-      {
-            // it will update the html of table body
-          $("#passengers_form").load(location.href + " #passengers_form");
-         
-          
-      },
-      complete:function(){
-        /* Hide image container */
-        
-      $("#avatarpic"+requestorid).show();
-      $("#loader"+requestorid).hide();
-       }
-
-    });
-
-    }
-
-
-
-async function reject(rideid,requestorid,commenttxt)  {
-
-   
- 
-
-        let csrftoken= document.querySelector('input[name="csrfmiddlewaretoken"]').value
-    
-        $.ajaxSetup({
-        
-        beforeSend: function(xhr, settings) {
-        
-          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-        
-              xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-        
-          }
-          $("#avatarpic"+requestorid).hide();
-          $("#loader"+requestorid).show();
-        }
-        
-        });
-    
-        
-    
-
-    $.ajax({
-        url: "/ride/passengers",
-    
-        headers:{ Accept : "application/json",         
-        "Content-Type": "application/json" ,
-        'csrfmiddlewaretoken' : csrftoken },
-        type: "POST",
-       
-    
-        
-        accept:"application/json",
-        data :JSON.stringify( { "RideRequested_id": rideid,
-                
-                "Requestor_id": requestorid,
-                "comment": commenttxt ,
-                "status": "3"
-                }),
-        contentType: "application/json",
-        success: function(response)
-        {
-              // it will update the html of table body
-            $("#passengers_form").load(location.href + " #passengers_form");
-            
-        },
-        complete:function(){
-            /* Hide image container */
-            
-          $("#avatarpic"+requestorid).show();
-          $("#loader"+requestorid).hide();
-           }
-    });
-    
-}
-
-
-
-async function cancel(rideid,requestorid,commenttxt)  {
-
-   
-
-
-
-
-    let csrftoken= document.querySelector('input[name="csrfmiddlewaretoken"]').value
-    
-    $.ajaxSetup({
-    
-    beforeSend: function(xhr, settings) {
-    
-      if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-    
-          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    
-      }
-      $("#avatarpic"+requestorid).hide();
-      $("#loader"+requestorid).show();
-    }
-    
-    });
-
-    
-     $.ajax({
-    
-      url: "/ride/passengers",
-      
-      headers:{ Accept : "application/json",         
-      "Content-Type": "application/json" ,
-      'csrfmiddlewaretoken' : csrftoken },
-      type: "POST",
-     
-    
-      
-      accept:"application/json",
-      data :JSON.stringify( { "RideRequested_id": rideid,
-              
-              "Requestor_id": requestorid,
-              "comment": commenttxt ,
-              "status": "4"}),
-      contentType: "application/json",
-      success: function()
-      {
-            // it will update the html of table body
-          $("#passengers_form").load(location.href + " #passengers_form");
-      },
-      complete:function(){
-        /* Hide image container */
-        
-      $("#avatarpic"+requestorid).show();
-      $("#loader"+requestorid).hide();
-       }
-
-
-    });
-    
-    }

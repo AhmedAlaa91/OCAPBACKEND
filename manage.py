@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import os
 import sys
+
 import urllib3
+
 urllib3.disable_warnings()
+
 
 def main():
     """Run administrative tasks."""

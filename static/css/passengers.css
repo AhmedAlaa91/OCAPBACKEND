@@ -5,23 +5,21 @@
     padding-bottom:5px;
     font-family:Segoe UI !important;
     font-style: italic;
+    font-size:22px;
+    font-weight:700;
 }
 .pending {
-    background:yellow;
-    color: black;
+    color: #FE9436;
 }
 
 .accepted {
-    background:green;
-    color: white;
+    color: green;
 }
 
 .rejected {
-    background:maroon;
-    color: white;
+    color: maroon;
 }
 
 .cancelled {
-    background:red;
-    color: white;
+    color: red;
 }

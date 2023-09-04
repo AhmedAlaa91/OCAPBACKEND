@@ -237,7 +237,7 @@
 }
 
 #register-title{
-    margin: 40px 0;
+
     color:#ff7900;
 }
 
@@ -246,7 +246,7 @@
 }
 
 #regiseration-form{
-    padding-top: 100px;
+    padding-top: 0px;
 }
 .alert{
     margin-bottom: 0 !important;

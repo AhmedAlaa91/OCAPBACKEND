@@ -173,17 +173,17 @@ function grabLink(event) {
 
 
 
-    
-     $.ajax({
-    
-      url: "/ride/passengers",
-      
-     
-      type: "GET",
-     
-    
 
-      
+     $.ajax({
+
+      url: "/ride/passengers",
+
+
+      type: "GET",
+
+
+
+
       success: function(response)
       {
         console.log(response)
@@ -195,7 +195,7 @@ location.href = response.redirect;
           //$("#passengers_form").load(location.href + " #passengers_form");
       }
     });
-    
+
 }
 
   // $('#link').click(grabLink)
