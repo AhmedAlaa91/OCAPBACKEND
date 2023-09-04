@@ -30,7 +30,7 @@ class AuthView(View):
 
     @staticmethod
     def register(request):
-        context = {}
+        context = dict()
         context["areas"] = JsonData.get_areas()
         context["cities"] = JsonData.get_cities_json()
         context["context"] = "create"

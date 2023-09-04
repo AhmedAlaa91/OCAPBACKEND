@@ -153,7 +153,7 @@ class Migration(migrations.Migration):
                 ("profile_pic", models.CharField(blank=True, max_length=255, null=True)),
                 (
                     "legal_consent_date",
-                    models.DateField(default=apps.website.models.profile.Profile.six_months_from_today),
+                    models.DateField(),
                 ),
                 (
                     "user",
