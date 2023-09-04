@@ -97,15 +97,9 @@
 
          <label for="profile_picture">Profile Picture</label>
        <input id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;" />
-            <div class="col d-none" id="alert">
-                   <ul>
-              <li> Image Max size : 4 MG</li>
-             </ul>
-            </div>
-   </div>
             {% else %}
                <div class="form-group col-8">
-            <img id="preview" style="width: 29rem;height:35.4vh;margin-inline: 2.3rem;" src="{{ request.user.profile.get_profile_picture_url }}" class="avatar-md img-thumbnail rounded-circle">
+            <img id="preview" style="width: 29rem;height:35.4vh;margin-inline: 2.3rem;" src="{% static 'images/male.jfif' %}" class="avatar-md img-thumbnail rounded-circle">
 
          <label for="profile_picture">Profile Picture</label>
        <input required id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;" />

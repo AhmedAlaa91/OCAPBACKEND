@@ -30,7 +30,5 @@ class Profile(models.Model):
             return True
 
     def get_profile_picture_url(self):
-        if self.profile_pic in [None, '']:
-            return static("images/male.jfif")
-        else:
+        if self.profile_pic not in [None, '']:
             return get_profile_pic_by_key(key=str(self.profile_pic))
