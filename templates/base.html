@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
 
@@ -87,10 +86,13 @@
     </div>
     {% endif %}
 
-    <div style="min-height: 60vh;">
-        {% block content %}
-        {% endblock %}
-    </div>
+    <main id="content" class="container-fluid" style="background:none; margin-top: 0px; width:90%;padding-top: 100px;min-height:85vh" >
+        <div id="pageContent" style="background:none; margin-top: 2%;" >
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
 
     <footer class="ftco-footer ftco-bg-dark ftco-section" style="padding: 4em 0em;">
         <div class="container">
@@ -174,7 +176,7 @@
     <script src="{% static 'js/scrollax.min.js' %}"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
     <!-- <script src="{% static 'js/google-map.js' %}"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha384-QnFIXbEfAgO7z63b/aNzTSdSNLoNiNX/mk/Ok+NpUNMnvriWLo5cOtB0OUCAdKNu" crossorigin="anonymous"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js" integrity="sha384-QnFIXbEfAgO7z63b/aNzTSdSNLoNiNX/mk/Ok+NpUNMnvriWLo5cOtB0OUCAdKNu" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" integrity="sha384-XnTxmviuqUy3cHBf+lkYWuTSDlhxCDxd9RgSo5zvzsCq93P9xNa6eENuAITCwxNh" crossorigin="anonymous"></script>
     <script src="{% static 'js/main.js' %}"></script>
     {% endblock %}

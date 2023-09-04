@@ -6,6 +6,10 @@ import os
 from datetime import datetime
 
 
+def Average(lst):
+    return sum(lst) / len(lst)
+
+
 def getenv(name: str, default: str = None) -> str:
     """Return environment variable value or default is not defined or blank"""
     value = os.environ.get(name)
@@ -20,9 +24,9 @@ def convert_str_bool(v: str, default=False) -> bool:
     Case is insensitive
     Return "default" arg otherwise
     """
-    if v and v.lower() in ['true', 'yes', 'y', '1']:
+    if v and v.lower() in ["true", "yes", "y", "1"]:
         return True
-    if v and v.lower() in ['false', 'no', 'n', '0']:
+    if v and v.lower() in ["false", "no", "n", "0"]:
         return False
     return default
 

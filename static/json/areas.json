@@ -80,7 +80,9 @@
     "id": "14",
     "governorate_id": "1",
     "city_name_ar": "مدينة الشروق",
-    "city_name_en": "Shorouk"
+    "city_name_en": "Shorouk",
+    "distance": "38"
+
 },
 {
     "id": "15",
@@ -230,61 +232,80 @@
     "id": "39",
     "governorate_id": "1",
     "city_name_ar": "مدينة نصر",
-    "city_name_en": "Nasr City"
+    "city_name_en": "Nasr City",
+    "distance": "5"
+
 },
 {
     "id": "40",
     "governorate_id": "1",
     "city_name_ar": "مصر الجديدة",
-    "city_name_en": "New Heliopolis"
+    "city_name_en": "New Heliopolis",
+    "distance": "8"
 },
 {
     "id": "41",
     "governorate_id": "1",
     "city_name_ar": "مصر القديمة",
-    "city_name_en": "Masr Al Qadima"
+    "city_name_en": "Masr Al Qadima",
+        "distance": "12"
+
 },
 {
     "id": "42",
     "governorate_id": "1",
     "city_name_ar": "منشية ناصر",
-    "city_name_en": "Mansheya Nasir"
+    "city_name_en": "Mansheya Nasir",
+        "distance": "7"
+
 },
 {
     "id": "43",
     "governorate_id": "1",
     "city_name_ar": "مدينة بدر",
-    "city_name_en": "Badr City"
+    "city_name_en": "Badr City",
+        "distance": "48"
+
 },
 {
     "id": "44",
     "governorate_id": "1",
     "city_name_ar": "مدينة العبور",
-    "city_name_en": "Obour City"
+    "city_name_en": "Obour City" ,
+        "distance": "30"
+
 },
 {
     "id": "45",
     "governorate_id": "1",
     "city_name_ar": "وسط البلد",
-    "city_name_en": "Cairo Downtown"
+    "city_name_en": "Cairo Downtown",
+        "distance": "18"
+
 },
 {
     "id": "46",
     "governorate_id": "1",
     "city_name_ar": "الزمالك",
-    "city_name_en": "Zamalek"
+    "city_name_en": "Zamalek",
+        "distance": "20"
+
 },
 {
     "id": "47",
     "governorate_id": "1",
     "city_name_ar": "قصر النيل",
-    "city_name_en": "Kasr El Nile"
+    "city_name_en": "Kasr El Nile",
+        "distance": "19"
+
 },
 {
     "id": "48",
     "governorate_id": "1",
     "city_name_ar": "الرحاب",
-    "city_name_en": "Rehab"
+    "city_name_en": "Rehab",
+        "distance": "15"
+
 },
 {
     "id": "49",
@@ -296,7 +317,8 @@
     "id": "50",
     "governorate_id": "1",
     "city_name_ar": "مدينتي",
-    "city_name_en": "Madinty"
+    "city_name_en": "Madinty",
+    "distance": "34"
 },
 {
     "id": "51",

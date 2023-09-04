@@ -25,7 +25,8 @@
                 {% csrf_token %}
                 <div class="row">
                 {% for field in form %}
-                {% if forloop.counter|divisibleby:2 %}
+                {% if field.name != 'Car_license'  and field.name != 'Driver_license' %}
+                {% if forloop.counter|divisibleby:2  %}
                 <div class="col-sm-6">
                     {{ field |as_crispy_field}}
                 </div>
@@ -34,7 +35,20 @@
                     {{ field |as_crispy_field}}
                 </div>
                 {% endif %}
+                {% endif %}
                 {% endfor %}
+
+
+                <div class="col-sm-6">
+
+                </div>
+
+                <div class="col-sm-6">
+                    {{ form.Driver_license |as_crispy_field}}
+                </div>
+                <div class="col-sm-6">
+                    {{ form.Car_license |as_crispy_field}}
+                </div>
 
                 {% for field in profile_form %}
                 {% if forloop.counter|divisibleby:2 %}

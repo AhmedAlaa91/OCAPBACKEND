@@ -12,15 +12,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import sys
-from os.path import abspath
-from os.path import dirname
-from os.path import join
-from os.path import normpath
+from os.path import abspath, dirname, join, normpath
 from pathlib import Path
-from dotenv import load_dotenv
+
 import yaml
-from lib.utils import convert_str_bool
-from lib.utils import getenv
+from dotenv import load_dotenv
+
+from lib.utils import convert_str_bool, getenv
 
 load_dotenv()
 # fetch Django's project directory
@@ -272,6 +270,8 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    #  "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 TOKEN_EXPIRED_AFTER_SECONDS = 86400
+AVERAGE_CARS_CONSUMPTION_PER_KM = 0.09
+AVERAGE_EMISSIONS_PER_LITRE = 2.3

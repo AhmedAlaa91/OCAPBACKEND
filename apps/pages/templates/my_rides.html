@@ -48,19 +48,19 @@
                 <tbody id="table_body">
                     {% for ride in object_list %}
                     <tr>
-                        <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.area }}</td>
-                        <td>{{ ride.RideRequested.date }}</td>
-                        <td>{{ ride.RideRequested.leave_time }}</td>
-                        <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
-                        <td>{{ ride.RideRequested.no_of_seats }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %}
-                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.RideRequested.pk %}">Edit</a>
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.RideRequested.pk %}">Cancel Ride</a>
-                            {% else %} 
-                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.RideRequested.pk }}" onclick="cancelFunction('{{ ride.RideRequested.id }}','{{ride.RideRequested.no_of_seats}')" >Cancel Request</button></span>
+                        <td><a id='link' href="/ride/{{ ride.id }}/passengers">{{ ride.type }}</a></td>
+                        <td>{{ ride.area }}</td>
+                        <td>{{ ride.date }}</td>
+                        <td>{{ ride.leave_time }}</td>
+                        <td>{{ ride.return_time }}</td>
+                        <td>{{ ride.car.Car_Manufacture }} - {{ ride.car.Car_Color }}</td>
+                        <td>{{ ride.no_of_seats }}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %} You {% else %} {{ ride.creator.first_name }} {% endif %}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %}
+                            <a class="btn btn-success" href="{% url 'pages.update_ride' ride.pk %}">Edit</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" href="{% url 'pages.cancel.ride' ride.pk %}">Cancel Ride</a>
+                            {% else %}
+                            <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" onclick="cancelFunction('{{ ride.id }}','{{ride.no_of_seats}')" >Cancel Request</button></span>
                             {% endif %}
                         </td>
                     </tr>
@@ -91,14 +91,14 @@
                 <tbody id="table_body">
                     {% for ride in historical_rides %}
                     <tr>
-                        <td>{{ ride.RideRequested.type }}</td>
-                        <td>{{ ride.RideRequested.area }}</td>
-                        <td>{{ ride.RideRequested.date }}</td>
-                        <td>{{ ride.RideRequested.leave_time }}</td>
-                        <td>{{ ride.RideRequested.return_time }}</td>
-                        <td>{{ ride.RideRequested.car.Car_Manufacture }} - {{ ride.RideRequested.car.Car_Color }}</td>
-                        <td>{{ ride.RideRequested.no_of_seats }}</td>
-                        <td>{% if ride.RideRequested.creator.first_name == user.first_name %} You {% else %} {{ ride.RideRequested.creator.first_name }} {% endif %}</td>
+                        <td><a href="/ride/{{ ride.id }}/passengers">{{ ride.type }}</a></td>
+                        <td>{{ ride.area }}</td>
+                        <td>{{ ride.date }}</td>
+                        <td>{{ ride.leave_time }}</td>
+                        <td>{{ ride.return_time }}</td>
+                        <td>{{ ride.car.Car_Manufacture }} - {{ ride.car.Car_Color }}</td>
+                        <td>{{ ride.no_of_seats }}</td>
+                        <td>{% if ride.creator.first_name == user.first_name %} You {% else %} {{ ride.creator.first_name }} {% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -114,8 +114,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 $(document).ready(function(){
-    $("#planned_rides_table").dataTable(); 
-    $("#historical_rides_table").dataTable(); 
+    $("#planned_rides_table").dataTable();
+    $("#historical_rides_table").dataTable();
 });
 
 
@@ -135,5 +135,71 @@ function cancelFunction(url,seats) {
     }
 
 };
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+
+function grabLink(event) {
+
+
+
+
+
+
+     $.ajax({
+
+      url: "/ride/passengers",
+
+
+      type: "GET",
+
+
+
+
+      success: function(response)
+      {
+        console.log(response)
+
+        if (response.redirect){
+location.href = response.redirect;
+}
+            // it will update the html of table body
+          //$("#passengers_form").load(location.href + " #passengers_form");
+      }
+    });
+
+}
+
+  // $('#link').click(grabLink)
+
+
 </script>
 {% endblock %}

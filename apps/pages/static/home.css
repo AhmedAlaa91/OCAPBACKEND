@@ -237,7 +237,7 @@
 }
 
 #register-title{
-    margin: 40px 0; 
+
     color:#ff7900;
 }
 
@@ -246,7 +246,7 @@
 }
 
 #regiseration-form{
-    padding-top: 100px;
+    padding-top: 0px;
 }
 .alert{
     margin-bottom: 0 !important;
@@ -260,7 +260,7 @@
     .body-scroll::-webkit-scrollbar-track {
     background-color: transparent;
     }
-    
+
     .body-scroll::-webkit-scrollbar-thumb {
     background-color: #000000;
     border-radius: 20px;
@@ -298,4 +298,12 @@
     vertical-align: middle;
     font-weight: bold;
     padding: 15px 8px;
+}
+
+#legal-submit{
+    margin-bottom:50px;
+}
+
+#legal_checkbox{
+    accent-color:#ff7900;
 }
