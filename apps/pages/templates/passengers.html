@@ -35,19 +35,22 @@
                 {% if  RidesBooked != None %}
                 <div class="passengers-list">
                     {% for passenger in RidesBooked %}
-                        <div class="candidate-list-box bookmark-post card mt-2"  id="passengers_cad_{{ passenger.id }}">
+                        <div class="candidate-list-box bookmark-post card mt-2"  id="passengers_cad_{{ passenger.Requestor_id.id }}">
                             <div class="p-3 card-body">
                                 <div class="align-items-center row">
                                     <div class="col-lg-2">
                                         {% if  passenger.Requestor_id.profile.gender == 'Male' %}
-                                            <div class="candidate-list-images" style="margin-left:20px">
-                                                <img src="{% static '../static/images/default_male_user.jfif' %}" alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;"/>
+                                            <div id="avatarpic{{ passenger.Requestor_id.id }}" class="candidate-list-images" style="margin-left:20px">
+                                                <img src="{% static '../static/images/male.jfif' %}" alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;"/>
                                             </div>
                                         {% else %}
-                                            <div class="candidate-list-images" style="margin-left:20px">
-                                                <img src="{% static '../static/images/default_female_user.jfif' %}" alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;"/>
+                                            <div  id="avatarpic{{ passenger.Requestor_id.id }}" class="candidate-list-images" style="margin-left:20px">
+                                                <img src="{% static '../static/images/female.jfif' %}" alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;"/>
                                             </div>
                                         {% endif %}
+                                         <div  id="loader{{ passenger.Requestor_id.id }}" class="candidate-list-images" style='display: none;'>
+                                            <img src="{% static '../static/images/orange_circles.gif' %}"  alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;">
+                                          </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <h3 class="fs-19 mb-0">{{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}</h3>
@@ -71,13 +74,13 @@
 
                                         {% if  passenger.status|lower == "pending" %}
                                         <div style="width: 125%;display: flex;justify-content: space-evenly;padding-bottom: 17px;">
-                                            <button class="btn btn-primary" type="button" id="accept{{ passenger.id }}" onclick="show_confirmation_dialog('Accept Request','Are you sure to accept request from {{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}','accept','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')">Accept</button>
-                                            <button class="btn btn-danger"  type="button" id="reject{{ passenger.id }}" onclick="show_confirmation_dialog('Reject Request','Are you sure to reject request from {{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}','reject','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')">Reject</button>
+                                            <button class="btn btn-primary" type="button" id="accept{{ passenger.Requestor_id.id }}" onclick="show_confirmation_dialog('Accept Request','Are you sure to accept request from {{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}','accept','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')">Accept</button>
+                                            <button class="btn btn-danger"  type="button" id="reject{{ passenger.Requestor_id.id }}" onclick="show_confirmation_dialog('Reject Request','Are you sure to reject request from {{passenger.Requestor_id.first_name}} {{passenger.Requestor_id.last_name}}','reject','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')">Reject</button>
                                         </div>
                                         {% endif %}
                                         {% if  passenger.status|lower == "accepted" %}
                                         <div style="width: 125%;display: flex;justify-content: space-around;padding-bottom: 17px;">
-                                            <button class="btn btn-danger"  type="button" id="cancel{{ passenger.id }}" onclick="show_confirmation_dialog('Cancel Request','Are you sure to cancel request from {{passenger.first_name}} {{passenger.last_name}}','cancel','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')" style="width: inherit;margin-left: 30px;margin-right: 30px;">Cancel Request</button>
+                                            <button class="btn btn-danger"  type="button" id="cancel{{ ppassenger.Requestor_id.id }}" onclick="show_confirmation_dialog('Cancel Request','Are you sure to cancel request from {{passenger.first_name}} {{passenger.last_name}}','cancel','{{passenger.RideRequested_id.id}}' ,'{{passenger.Requestor_id.id}}')" style="width: inherit;margin-left: 30px;margin-right: 30px;">Cancel Request</button>
                                         </div>
                                         {% endif %}
                                     </div>
@@ -118,7 +121,7 @@
            
 
         </div>
-            
+
             <div class="modal-footer" id="confirm">
                 <button type="button" class="btn btn-secondary" id="modal-btn-cancel" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary"   id="modal-btn-confirm">Confirm</button>

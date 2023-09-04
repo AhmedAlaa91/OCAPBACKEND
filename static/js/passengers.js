@@ -142,7 +142,8 @@ async function accept(rideid,requestorid)  {
           xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     
       }
-    
+      $("#avatarpic"+requestorid).hide();
+      $("#loader"+requestorid).show();
     }
     
     });
@@ -172,7 +173,14 @@ async function accept(rideid,requestorid)  {
           $("#passengers_form").load(location.href + " #passengers_form");
          
           
-      }
+      },
+      complete:function(){
+        /* Hide image container */
+        
+      $("#avatarpic"+requestorid).show();
+      $("#loader"+requestorid).hide();
+       }
+
     });
 
     }
@@ -195,7 +203,8 @@ async function reject(rideid,requestorid,commenttxt)  {
               xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         
           }
-        
+          $("#avatarpic"+requestorid).hide();
+          $("#loader"+requestorid).show();
         }
         
         });
@@ -226,13 +235,13 @@ async function reject(rideid,requestorid,commenttxt)  {
               // it will update the html of table body
             $("#passengers_form").load(location.href + " #passengers_form");
             
-              //  document.addEventListener("DOMContentLoaded", set_status_class());
+        },
+        complete:function(){
+            /* Hide image container */
             
-            
-   
-
-
-        }
+          $("#avatarpic"+requestorid).show();
+          $("#loader"+requestorid).hide();
+           }
     });
     
 }
@@ -257,7 +266,8 @@ async function cancel(rideid,requestorid,commenttxt)  {
           xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     
       }
-    
+      $("#avatarpic"+requestorid).hide();
+      $("#loader"+requestorid).show();
     }
     
     });
@@ -285,7 +295,15 @@ async function cancel(rideid,requestorid,commenttxt)  {
       {
             // it will update the html of table body
           $("#passengers_form").load(location.href + " #passengers_form");
-      }
+      },
+      complete:function(){
+        /* Hide image container */
+        
+      $("#avatarpic"+requestorid).show();
+      $("#loader"+requestorid).hide();
+       }
+
+
     });
     
     }

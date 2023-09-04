@@ -30,5 +30,6 @@ urlpatterns = [
     path("rides/", get_context_data, name="pages.rides"),
     re_path("rides/(?P<city>)/(?P<area>)$", get_context_data, name="pages.rides"),
     path("rides/update/<pk>", EditRideView.as_view(), name="pages.update_ride"),
+    path("ride/<pk>/passengers", RequestsView.as_view(), name="pages.update_requests"),
     path("ride/passengers", RequestsView.as_view(), name="pages.update_requests"),
 ]

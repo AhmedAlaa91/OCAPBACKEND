@@ -48,7 +48,7 @@
                 <tbody id="table_body">
                     {% for ride in object_list %}
                     <tr>
-                        <td><a href="#">{{ ride.type }}</a></td>
+                        <td><a id='link' href="/ride/{{ ride.id }}/passengers">{{ ride.type }}</a></td>
                         <td>{{ ride.area }}</td>
                         <td>{{ ride.date }}</td>
                         <td>{{ ride.leave_time }}</td>
@@ -91,7 +91,7 @@
                 <tbody id="table_body">
                     {% for ride in historical_rides %}
                     <tr>
-                        <td><a href="#">{{ ride.type }}</a></td>
+                        <td><a href="/ride/{{ ride.id }}/passengers">{{ ride.type }}</a></td>
                         <td>{{ ride.area }}</td>
                         <td>{{ ride.date }}</td>
                         <td>{{ ride.leave_time }}</td>
@@ -135,5 +135,71 @@ function cancelFunction(url,seats) {
     }
 
 };
+
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+        }
+    }
+});
+
+
+function grabLink(event) {
+
+
+
+
+
+    
+     $.ajax({
+    
+      url: "/ride/passengers",
+      
+     
+      type: "GET",
+     
+    
+
+      
+      success: function(response)
+      {
+        console.log(response)
+
+        if (response.redirect){
+location.href = response.redirect;
+}
+            // it will update the html of table body
+          //$("#passengers_form").load(location.href + " #passengers_form");
+      }
+    });
+    
+}
+
+  // $('#link').click(grabLink)
+
+
 </script>
 {% endblock %}

@@ -30,15 +30,22 @@ class RequestsView(APIView):
 
     def get(self, request, *args, **kwargs):
 
-        body_json = json.loads(request.body)
-        
-        requests= RidesBooked.objects.filter(RideRequested_id=body_json['rideid']).select_related()
-        #requests= RidesBooked.objects.select_related()
+        print(kwargs)
 
+        request_ride_id=''
+        if request.body :
+            request_ride_id = json.loads(request.body)['rideid']
+
+        elif kwargs:
+          request_ride_id =kwargs['ride_id']
+
+
+        requests= RidesBooked.objects.filter(RideRequested_id=request_ride_id).select_related()
+    
 
         data_serialized = BookedRides_serializer(requests,many=True).data
   
-        return Response({"RidesBooked":data_serialized})
+        return Response({"RidesBooked":data_serialized}, template_name='Passengers.html')
     
     def post (self, request, *args, **kwargs):
         result = ''
