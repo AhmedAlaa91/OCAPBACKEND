@@ -120,3 +120,19 @@ class JsonData:
 
         f.close()
         return colors
+
+    # get distance from area json file
+    def get_distance_by_area(area_name_en):
+        from lib.utils import convert_str_int
+
+        current_dir = Path.cwd()
+        areas_file_loc = "static/json/areas.json"
+        area_file_path = current_dir.joinpath(areas_file_loc)
+        f = open(area_file_path, encoding="utf8")
+        areas = json.load(f)["data"]
+        distance = str()
+        for area in areas:
+            if area["city_name_en"] == area_name_en:
+                distance = area["distance"]
+        f.close()
+        return convert_str_int(distance)
