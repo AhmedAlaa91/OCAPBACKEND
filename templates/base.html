@@ -37,12 +37,21 @@
                 <img src="{% static 'images/orange_logo.svg' %}" alt="Back to homepage" title="Back to homepage"
                     width="50" height="50" />
                 Car<span class="text-primary">POOL</span></a>
+               <div class="navbar-brand d-flex justify-content-center">
+                <div class="col-2 d-flex justify-content-center">
+                     <img src="{% static 'images/co2.png' %}" alt="Back to homepage" title="Back to homepage"
+                    width="30" height="30" />
+                </div>
+                    <div class="col-10 d-flex justify-content-center pt-3">
+               <span class="text-primary" style="margin-left: -10px;">{{ total_emissions | floatformat:2 }} <span class="text-white text-bold" style="text-transform: none;">Kg</span> </span>
+                    </div>
+               </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
 
-            <div class="collapse navbar-collapse" id="ftco-nav">
+            <div id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="{% url 'pages.home' %}" class="nav-link">Home</a></li>
                     {% if request.user.is_authenticated %}

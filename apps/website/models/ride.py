@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from apps.website.managers import RideManager
 from .CarRegistration import Car
 
 
@@ -24,3 +24,4 @@ class Ride(models.Model):
     meeting_point = models.CharField(null=True, blank=True, max_length=300)
     Car_Pallet_Number = models.CharField(max_length=50, blank=True)
     distance = models.IntegerField(null=True, blank=True)
+    objects = RideManager()
