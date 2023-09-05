@@ -19,7 +19,7 @@ from apps.website.Serilaizers.RidesBooked_Serializer import BookedRides_serializ
 
 class RequestsView(APIView):
     renderer_classes = [TemplateHTMLRenderer, JSONRenderer]
-    template_name = "Passengers.html"
+    template_name = "passengers.html"
 
     def get(self, request, *args, **kwargs):
 
