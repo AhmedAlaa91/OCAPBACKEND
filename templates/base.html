@@ -43,7 +43,7 @@
                     width="30" height="30" />
                 </div>
                     <div class="col-10 d-flex justify-content-center pt-3">
-               <span class="text-primary">{{ total_emissions | floatformat:2 }} <span class="text-white text-bold" style="text-transform: none;">Kg</span> </span>
+               <span class="text-primary" style="margin-left: -10px;">{{ total_emissions | floatformat:2 }} <span class="text-white text-bold" style="text-transform: none;">Kg</span> </span>
                     </div>
                </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -51,7 +51,7 @@
                 <span class="oi oi-menu"></span> Menu
             </button>
 
-            <div class="collapse navbar-collapse" id="ftco-nav">
+            <div id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="{% url 'pages.home' %}" class="nav-link">Home</a></li>
                     {% if request.user.is_authenticated %}
