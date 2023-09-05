@@ -38,7 +38,7 @@ class RequestsView(APIView):
         else:
             content = {"Message": "No passengers requested your ride yet."}
 
-        return Response(content, template_name="Passengers.html")
+        return Response(content, template_name="passengers.html")
 
     def post(self, request, *args, **kwargs):
         result = ""
