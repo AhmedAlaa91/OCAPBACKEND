@@ -6,10 +6,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.views.generic import View
-
+from apps.website.utils.image_resize import get_profile_picture_resized
 from apps.website.forms.register import ChangeUserForm, ProfileForm, RegisterForm
 from apps.website.jsonData import JsonData
+from apps.website.utils.image_resize import Thumbnail
 from lib.s3_storage.s3_helpers import create_s3_client
+from lib.utils import get_filename_without_ext
 
 
 class AuthView(View):
@@ -57,15 +59,18 @@ class AuthView(View):
                         if profile.profile_pic is not None:
                             # delete an image before upload new one
                             client.delete_object(
-                                Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic
+                                Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+                                Key=f"{settings.AWS_S3_PREFIX}/{profile.profile_pic}",
                             )
+                        img_resized, format_type = get_profile_picture_resized(img)
+                        file_name = get_filename_without_ext(img.name)
                         client.upload_fileobj(
-                            img.open(mode="rb"),
+                            img_resized.read(),
                             settings.AWS_STORAGE_BUCKET_NAME,
-                            f"{request.user.username}_{img.name}",
+                            f"{settings.AWS_S3_PREFIX}/{request.user.username}_{file_name}.{format_type.lower()}",
                         )
                         img.close()
-                        profile.profile_pic = f"{request.user.username}_{img.name}"
+                        profile.profile_pic = f"{request.user.username}_{file_name}.{format_type.lower()}"
                     profile.save()
                     messages.success(request, "You have registered successfully.")
                     login(
@@ -151,15 +156,19 @@ class ProfileView(LoginRequiredMixin, View):
                         if profile.profile_pic is not None:
                             # delete an image before upload new one
                             client.delete_object(
-                                Bucket=settings.AWS_STORAGE_BUCKET_NAME, Key=profile.profile_pic
+                                Bucket=settings.AWS_STORAGE_BUCKET_NAME,
+                                Key=f"{settings.AWS_S3_PREFIX}/{profile.profile_pic}",
                             )
+                        img_resized, format_type = get_profile_picture_resized(img)
+                        file_name = get_filename_without_ext(img.name)
                         client.upload_fileobj(
-                            img.open(mode="rb"),
+                            img_resized,
                             settings.AWS_STORAGE_BUCKET_NAME,
-                            f"{request.user.username}_{img.name}",
+                            f"{settings.AWS_S3_PREFIX}/{request.user.username}_{file_name}.{format_type.lower()}",
                         )
                         img.close()
-                        profile.profile_pic = f"{request.user.username}_{img.name}"
+                        profile.profile_pic = f"{request.user.username}_{file_name}.{format_type.lower()}"
+
                     profile.save()
                     messages.success(request, "Edit profile done successfully.")
                     return redirect("pages.home")
