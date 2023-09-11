@@ -45,7 +45,6 @@ class EditRideView(UpdateView):
         return ctx
 
     def form_valid(self, form, **kwargs):
-        print("hello")
         try:
             ride = self.object
             ride_booked = RidesBooked.objects.filter(RideRequested=ride, Requestor=self.request.user).first()
@@ -68,9 +67,6 @@ class EditRideView(UpdateView):
             ride.car = car
             ride.creator = self.request.user
             ride.save()
-            ride_booked.RideRequested = ride
-            ride_booked.Requestor = self.request.user
-            ride_booked.save()
             messages.success(self.request, "Ride updated successfully.")
             log.info(f"Ride updated successfully NO:{ride.pk}")
         except Exception as ex:
@@ -86,38 +82,39 @@ class EditRideView(UpdateView):
             typeRide = rideObj.type
             leaveTime = rideObj.leave_time
             leaveDate = rideObj.date
-            rides = RidesBooked.objects.filter(RideRequested=rideObj).exclude(Requestor=self.request.user)
-            for ride in rides:
-                passenger_details = {
-                    "user": ride.Requestor.first_name + " " + ride.Requestor.last_name,
-                    "content_header": "Your enrolled ride has been updated.",
-                    "ride_type": typeRide,
-                    "ride_time": f"""{leaveDate} {leaveTime}""",
-                    "ride_meeting_point": ride.RideRequested.meeting_point,
-                    "ride_restrictions": ride.RideRequested.restrictions,
-                    "ride_owner": ride.RideRequested.creator.first_name
-                    + " "
-                    + ride.RideRequested.creator.last_name,
-                    "ride_owner_phone": Profile.objects.filter(user=ride.RideRequested.creator.id)
-                    .get()
-                    .phone,
-                    "ride_car_model": ride.RideRequested.car.Car_Manufacture,
-                    "ride_car_color": ride.RideRequested.car.Car_Color,
-                    "ride_car_plate_number": ride.RideRequested.car.Car_Pallet_Number,
-                }
+            rides = RidesBooked.objects.filter(RideRequested=rideObj)
+            if rides:
+                for ride in rides:
+                    passenger_details = {
+                        "user": ride.Requestor.first_name + " " + ride.Requestor.last_name,
+                        "content_header": "Your enrolled ride has been updated.",
+                        "ride_type": typeRide,
+                        "ride_time": f"""{leaveDate} {leaveTime}""",
+                        "ride_meeting_point": ride.RideRequested.meeting_point,
+                        "ride_restrictions": ride.RideRequested.restrictions,
+                        "ride_owner": ride.RideRequested.creator.first_name
+                        + " "
+                        + ride.RideRequested.creator.last_name,
+                        "ride_owner_phone": Profile.objects.filter(user=ride.RideRequested.creator.id)
+                        .get()
+                        .phone,
+                        "ride_car_model": ride.RideRequested.car.Car_Manufacture,
+                        "ride_car_color": ride.RideRequested.car.Car_Color,
+                        "ride_car_plate_number": ride.RideRequested.car.Car_Pallet_Number,
+                    }
 
-                send_alerting_message(
-                    [
-                        {
-                            "email": ride.Requestor.email,
-                            "name": ride.Requestor.first_name + " " + ride.Requestor.last_name,
-                        }
-                    ],
-                    content=passenger_details,
-                    subject="Ride Updated",
-                )
-                log.info(f"Alert had been sent to:{ride.Requestor.email}")
-            messages.success(self.request, "Alert Messages had been sent to passengers.")
+                    send_alerting_message(
+                        [
+                            {
+                                "email": ride.Requestor.email,
+                                "name": ride.Requestor.first_name + " " + ride.Requestor.last_name,
+                            }
+                        ],
+                        content=passenger_details,
+                        subject="Ride Updated",
+                    )
+                    log.info(f"Alert had been sent to:{ride.Requestor.email}")
+                messages.success(self.request, "Alert Messages had been sent to passengers.")
         except Exception as ex:
             log.info(f"Error in sending mails : {str(ex)}")
             messages.error(self.request, f"Error in sending alerts{str(ex)}")
