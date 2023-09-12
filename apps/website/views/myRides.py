@@ -36,7 +36,7 @@ class MyRidesListView(LoginRequiredMixin, ListView):
 
         result = joined_historical_rides | created_historical_rides
 
-        context["historical_rides"] = result
+        context["historical_rides"] = result.order_by("date")
         return context
 
     def get_queryset(self):
@@ -60,4 +60,4 @@ class MyRidesListView(LoginRequiredMixin, ListView):
             joined_planned_rides |= Ride.objects.filter(pk=item.RideRequested.id)
 
         result = joined_planned_rides | created_planned_rides
-        return result
+        return result.order_by("date")

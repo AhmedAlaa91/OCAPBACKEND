@@ -38,6 +38,10 @@ class RequestsView(APIView):
         else:
             content = {"Message": "No passengers requested your ride yet."}
 
+        ride = Ride.objects.filter(id=request_ride_id).first()
+        if ride.creator != request.user:
+            content = {"Message": "You don't have access to this ride."}
+
         return Response(content, template_name="passengers.html")
 
     def post(self, request, *args, **kwargs):

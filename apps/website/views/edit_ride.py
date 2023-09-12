@@ -13,6 +13,7 @@ from apps.website.models.profile import Profile
 from apps.website.models.ride import Ride
 from apps.website.models.rides_booked import RidesBooked
 from lib.mail_service.mail import send_alerting_message
+from django.core.exceptions import PermissionDenied
 
 log = logging.getLogger(__name__)
 
@@ -26,6 +27,15 @@ class EditRideView(UpdateView):
     form_class = RideForm
     template_name = "ride.html"
     current_object = None
+    permission_denied_message = "You are not allowed here."
+
+    def dispatch(self, request, *args, **kwargs):
+        handler = super().dispatch(request, *args, **kwargs)
+        user = request.user
+        ride = self.get_object()
+        if ride.creator != user:
+            raise PermissionDenied
+        return handler
 
     def get_object(self, queryset=None):
         queryset = Ride.objects.filter(pk=self.kwargs["pk"]).first()
