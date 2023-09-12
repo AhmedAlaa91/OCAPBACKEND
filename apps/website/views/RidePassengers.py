@@ -77,7 +77,8 @@ class RequestsView(APIView):
         """
         # RidesBooked.objects.filter(RideRequested=rideid, Requestor=Requestor_id).delete()
         rideObj = Ride.objects.filter(id=rideid)
-        rideObj.update(no_of_seats=F("no_of_seats") + 1)
+        if (RideStatus == "Cancelled" or RideStatus == "Rejected" ):
+             rideObj.update(no_of_seats=F("no_of_seats") + 1)
         rideFields = rideObj.values()
 
         source = rideFields[0]["area"]

@@ -72,7 +72,8 @@ class RideView(View):
 
         passenger_details = {
             "user": passenger["first_name"] + " " + passenger["last_name"],
-            "content_header": "Your ride request is Confirmed.",
+            "content_header": "Your ride request is Submitted.",
+            "Status": "Pending",
             "ride_type": rideObj.type,
             "ride_time": f"""{rideObj.date} {rideObj.leave_time}""",
             "ride_meeting_point": rideObj.meeting_point,

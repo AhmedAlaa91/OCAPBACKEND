@@ -41,6 +41,7 @@
                             <div class="p-3 card-body">
                                 <div class="align-items-center row">
                                     <div class="col-lg-2">
+
                                         {% if passenger.Requestor_id.profile.profile_pic %}
                                          <div id="avatarpic{{ passenger.Requestor_id.id }}" class="candidate-list-images" style="margin-left:20px">
                                             <img alt="avatar"  src="data:image;base64,{{ passenger.Requestor_id.profile.profile_pic | bin_2_img }}"  class="avatar-md img-thumbnail rounded-circle" style="padding:0;border:none; width: 50%;"/>
