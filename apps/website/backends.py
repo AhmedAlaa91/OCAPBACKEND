@@ -143,9 +143,9 @@ class OrangeAuthBackend(BaseBackend):
                         current_user,
                         backend="django.contrib.auth.backends.ModelBackend",
                     )
-                    return redirect(request.META.get("HTTP_REFERER", "pages.home"))
+                    return redirect("pages.home")
             else:
-                return redirect(request.META.get("HTTP_REFERER", "website.legalDisclaimer"))
+                return redirect("website.legalDisclaimer")
         else:
             return redirect("pages.home")
 
