@@ -18,7 +18,7 @@ repos:
       - id: check-json # if you have JSON files in your repo
       - id: file-contents-sorter #  if there are files that benefit from a reliable ordering, this is a handy hook
         # search for nameing conventions
-      - id: name-tests-test
+      #- id: name-tests-test
 
   # black
   - repo: https://github.com/psf/black

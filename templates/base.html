@@ -4,7 +4,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Orange Carpooling</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}" />
@@ -75,7 +74,6 @@
                                 <li><a class="dropdown-item" href="{% url 'website.profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'pages.mycars' %}">My Car</a></li>
                                 <li><a class="dropdown-item" href="{% url 'website.myrides' %}">My Rides</a></li>
-                                <li><a class="dropdown-item" href="{% url 'website.logout' %}">Logout</a></li>
                             {% else %}
                             <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
                             {% endif %}
