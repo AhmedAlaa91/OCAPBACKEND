@@ -10,13 +10,14 @@
 <title>Orange Carpooling</title>
 <div class="hero-wrap ftco-degree-bg" style="background-image: url('static/images/bg_2.jpg');margin-top: -2%;"
     data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
+    <div class="overlay" style="height:initial;">
+    </div>
     <div class="container">
         <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
             <div class="col-lg-8 ftco-animate">
                 <div class="text w-100 text-center mb-md-5 pb-md-5">
-                    <h1 class="mb-4">Fast &amp; Easy Way To Share A Car</h1>
-                    <p style="font-size: 18px;">A friendly application to either share or request a ride
+                    <h1 class="mb-4" style="margin-top:-53%">Fast &amp; Easy Way To Share A Car</h1>
+                    <p style="font-size: 18px; margin-top:-3%">A friendly application to either share or request a ride
                         from and to Orange office.
                     </p>
                 </div>
@@ -26,42 +27,44 @@
 </div>
 
 
-<section class="ftco-section ftco-no-pt bg-light">
+<section class="ftco-section ftco-no-pt bg-light" style="padding:0px;">
     <div class="container">
         <div class="row no-gutters">
-            <div class="col-md-12 featured-top">
-                <div class="row no-gutters">
-                    <div class="col-md-4 d-flex align-items-center">
+            <div class="col-md-12 featured-top" style="margin-top: -60%">
+                <div class="row no-gutters justify-content-md-center">
+                    <div class="col-md-3 d-flex align-items-center">
                         <form action="#" class="col-md-12 request-form ftco-animate bg-primary">
                             <h2>Get your trip</h2>
-                            <div class="form-group">
-                                <label for="" class="label">Pick-up location</label>
-                                <input type="text" class="form-control" placeholder="City, Area, etc">
+                            <div class="form-check">
+                                <input class="form-check-input" value="To Office" type="radio" name="type" style="accent-color: black !important;" checked>
+                                <label class="form-check-label" for="tooffice" style="font-size: 13px;">
+                                  To Office
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <input class="form-check-input" value="From Office" type="radio" name="type" style="accent-color: black !important;">
+                                <label class="form-check-label" for="fromoffice" style="font-size: 13px;">
+                                  From Office
+                                </label>
+                              </div>
+                            <div class="form-group" id="city_list_label">
+                                <label for="city_list_label" style="font-size: 13px; margin-top: 20px;">Pick-up City</label>
+                                <select name="city" onchange="change_areas()" id="cities" class="select form-control"  style="color: black !important;"></select>
+                            </div>
+                            <div class="form-group" id="area_list_label">
+                                <label for="area_list_label" style="font-size: 13px;">Pick-up Area</label>
+                                <select name="area" id="areas" class="select form-control"  style="color: black !important;"></select>
                             </div>
                             <div class="form-group">
-                                <label for="" class="label">Drop-off location</label>
-                                <input type="text" class="form-control" placeholder="City, Area, etc">
-                            </div>
-                            <div class="d-flex">
-                                <div class="form-group mr-2">
-                                    <label for="" class="label">Pick-up date</label>
-                                    <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
-                                </div>
-                                <div class="form-group ml-2">
-                                    <label for="" class="label">Drop-off date</label>
-                                    <input type="text" class="form-control" id="book_off_date" placeholder="Date">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="label">Pick-up time</label>
-                                <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                <label for="" style="font-size: 13px;">Date</label>
+                                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="Get a Ride" class="btn btn-secondary py-3 px-4">
                             </div>
                         </form>
                     </div>
-                    <div class="col-md-8 d-flex align-items-center">
+                    <div class="col-md-6 d-flex align-items-center">
                         <div class="services-wrap rounded-right w-100">
                             <h3 class="heading-section mb-4">Better Way to Share/Ride Cars</h3>
                             <div class="row d-flex mb-4">
@@ -70,7 +73,7 @@
                                         <div class="icon d-flex align-items-center justify-content-center"><span
                                                 class="flaticon-route"></span></div>
                                         <div class="text w-100">
-                                            <h3 class="heading mb-2">Choose Your Pickup Location</h3>
+                                            <h3 class="heading mb-2">Choose Pickup Location</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -93,38 +96,122 @@
                                     </div>
                                 </div>
                             </div>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Ride</a></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{% url 'pages.rides' %}" class="btn btn-primary py-3 px-4" style="width:203px">Reserve Your Ride</a>
+                                </div>
+                                <div class="col-md-6" style="text-align: right;">
+                                    <a href="{% url 'website.ride' %}" class="btn btn-primary py-3 px-4" style="width:203px;">I Have A Car</a>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
 
-{% comment %}
-    <section class="ftco-section ftco-about">
-        <div class="container">
-            <div class="row no-gutters">
-                <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center"
-                    style="background-image: url(static/images/about.png);">
-                </div>
-                <div class="col-md-6 wrap-about ftco-animate">
-                    <div class="heading-section heading-section-white pl-md-5">
-                        <span class="subheading">About us</span>
-                        <h2 class="mb-4">Welcome to CarPool</h2>
+$(document).ready(function(){
+    var user_area = "{{ user_area }}";
+    var user_city = "{{ user_city }}";
+    var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
+    $('#cities').empty();
+    for(index in cities){
+        var $option = $("<option>", {
+            text: cities[index]["governorate_name_en"] ,
+            value: cities[index]["id"]
+        });
+        $option.appendTo('#cities');
+    }
+    $("#cities").html($("#cities option").sort(function (a, b) {
+        return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+    }));
+    $("#cities").prepend("<option value=''>Choose City</option>").val('');
+    $("#cities option:contains("+user_city+")").prop("selected","selected");
+    change_areas();
+    $("#areas option:contains("+user_area+")").prop("selected","selected");
 
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                            is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                        <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it
-                            would have been rewritten a thousand times and everything that was left from its origin would be
-                            the word "and" and the Little Blind Text should turn around and return to its own, safe country.
-                            A small river named Duden flows by their place and supplies it with the necessary regelialia. It
-                            is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                        <p><a href="#" class="btn btn-primary py-3 px-4">Search Vehicle</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-{% endcomment %}
+
+    $('input:radio[name="type"]').change(
+    function(){
+        if ($(this).is(':checked') && $(this).val() == 'From Office') {
+            $("#city_list_label").find("label[for=city_list_label]").text("Drop-off City");
+            $("#area_list_label").find("label[for=area_list_label]").text("Drop-off Area");
+        }
+        else if ($(this).is(':checked') && $(this).val() == 'To Office') {
+            $("#city_list_label").find("label[for=city_list_label]").text("Pick-up City");
+            $("#area_list_label").find("label[for=area_list_label]").text("Pick-up Area");
+        }
+    });
+
+});
+
+var areas =  {% autoescape off %}{{ areas }}{% endautoescape %};
+var cities =  {% autoescape off %}{{ cities }}{% endautoescape %};
+
+function change_areas(){
+
+    city_id = $('#cities').val();
+
+    $('#areas').empty();
+
+    for(index in areas){
+
+        if(areas[index]["governorate_id"] == city_id){
+
+            var $option = $("<option>", {
+
+                text: areas[index]["city_name_en"],
+
+                value: areas[index]["id"]
+
+            });
+
+            $option.appendTo('#areas');
+
+        }
+
+    }
+
+
+    $("#areas").html($("#areas option").sort(function (a, b) {
+            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+        }));
+
+    $("#areas").prepend("<option value=''>Choose Area</option>").val('');
+    $("#profile_picture").on("change", function (e) {
+
+var count=1;
+var files = e.currentTarget.files; // puts all files into an array
+
+// call them as such; files[0].size will get you the file size of the 0th file
+for (var x in files) {
+
+    var filesize = ((files[x].size/1024)/1024).toFixed(4); // MB
+
+    if (files[x].name != "item" && typeof files[x].name != "undefined" && filesize <= 10) {
+
+        if (count > 1) {
+
+            approvedHTML += ", "+files[x].name;
+        }
+        else {
+
+            approvedHTML += files[x].name;
+        }
+
+        count++;
+    }
+}
+$("#alert").append(approvedHTML);
+
+});
+}
+
+
+</script>
+
 {% endblock content %}
