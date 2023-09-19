@@ -3,14 +3,23 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'home.css' %}" />
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+<script src="{% static '/js/carreg.js' %}" ></script>
+<script src="{% static '/js/carplatenum.js' %}" ></script>
 {% endblock extra_head %}
 
 
 {% block content %}
+
 <style>.div {
   height: 20px;
   width: 50px;
 }</style>
+   <title>Car Registration</title>
 <div class="container" {% if context == 'create' %}id="regiseration-form"{% endif %}>
     <div class="row">
         <h1 id="register-title">Register Your Car</h1>
@@ -62,7 +71,8 @@
                 {% endif %}
                 {% endfor %}
 				</div>
-				{% if context == 'create' %} <h5>Plate Number</h5> {% endif %}
+				<!-- {% if context == 'create' %} <h5>Plate Number</h5> {% endif %} -->
+                <h5>Plate Number</h5> 
 				<div class ="row">
 
 				{% for field2 in form2 %}
@@ -85,6 +95,7 @@
         <div class="col-sm-6">
             <img alt="CarPool" style="width: inherit;" src="{% static '../static/images/orcar.png' %}">
         </div>
+  
     </div>
 </div>
 {% endblock %}

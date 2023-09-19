@@ -34,8 +34,9 @@
     font-size: 17px;
 }
 </style>
-
+<title>My Rides</title>
 <div class="container" {% if not messages %}id="regiseration-form"{% endif %}>
+    
     <h1 id="register-title">My Rides:</h1>
     <a class="btn btn-primary" id="create_ride_btn" href="{% url 'website.ride' %}" style="display: block !important;"  >Add New Ride</a>
 
@@ -204,6 +205,7 @@ $(document).ready(function(){
             $("#second-link").css("background","#ff7900");
         } 
     });
+    $("#content").css("padding-top", 0);
 });
 
 

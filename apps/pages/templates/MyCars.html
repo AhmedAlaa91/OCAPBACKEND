@@ -26,6 +26,7 @@ function myFunction(url) {
 
 }
 </script>
+<title>Cars</title>
 <div class="container"                       id="regiseration-form">
     <div class="row">
         <h1 id="register-title">Registered  Cars</h1>
@@ -40,8 +41,8 @@ function myFunction(url) {
                         {% for field in carObj %}
                         <li class="d-flex justify-content-between align-items-start">
                           <div class="ms-2 me-auto">
-                            <div class="fw-bold">Car Model : {{field.Car_Manufacture}}</div>
-                             <div class="fw-bold">Plate Number : {{field.Car_Pallet_Number}} </div>
+                            <div ><h5>Car Model : {{field.Car_Manufacture}}</h5></div>
+                             <div ><h5>Number : {{field.Car_Pallet_Number}} </h5> </div>
                           </div>
 						  <div class="ms-2 me-auto wrapper" >
 
