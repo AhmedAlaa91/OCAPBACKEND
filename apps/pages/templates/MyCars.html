@@ -27,6 +27,30 @@ function myFunction(url) {
 }
 </script>
 <title>Cars</title>
+
+<script>
+    function delete_car(car_id) {
+      window.location.href = "/DeleteCar/" + car_id;
+    }
+  
+    async function show_confirmation_dialog(car_id) {
+      modal = $("#confirmation_modal");
+      modal.modal("show");
+      await hide_modal();
+      delete_car(car_id);
+    }
+  
+    function hide_modal() {
+      return new Promise((resolve) =>
+        $("#modal-btn-confirm").on("click", () => {
+          $(".modal").modal("hide");
+          resolve();
+        }),
+      );
+    }
+  </script>
+
+
 <div class="container"                       id="regiseration-form">
     <div class="row">
         <h1 id="register-title">Registered  Cars</h1>
@@ -47,7 +71,7 @@ function myFunction(url) {
 						  <div class="ms-2 me-auto wrapper" >
 
                           <span> <button class="btn btn-primary" type="button" id="edit-submit" onclick="location.href = '/UpdateCar/{{ field.CarReg_id }}'" style="margin-right:5px">Edit</button></span>
-                          <span> <button class="btn btn-primary" type="button" id="register-submit" onclick="myFunction('{{ field.CarReg_id }}')">Delete</button></span>
+                          <span> <button class="btn btn-primary" type="button" id="register-submit" onclick="show_confirmation_dialog('{{ field.CarReg_id }}')">Delete</button></span>
                           </div>
 						</li>
                         {% endfor %}
@@ -63,6 +87,23 @@ function myFunction(url) {
         <div class="col-sm-6">
 
             <img alt="CarPool" style="width: inherit;" src="{% static '../static/images/cars.png' %}">
+        </div>
+    </div>
+</div>
+
+<div id="confirmation_modal"  class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="confirmation_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-top: 10px;">
+                <h3 class="modal-title" id="confirmation_modalLabel">Delete Car Confirmation</h3>
+            </div>
+            <div class="modal-body" style="font-size: 20px">
+                Are you sure to delete selected car?
+            </div>
+            <div class="modal-footer" id="confirm">
+                <button type="button" class="btn btn-secondary" id="modal-btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary"   id="modal-btn-confirm">Confirm</button>
+            </div>
         </div>
     </div>
 </div>

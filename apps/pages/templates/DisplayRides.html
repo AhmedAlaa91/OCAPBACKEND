@@ -110,7 +110,8 @@ function getUrlVars()
 $( document ).ready(function() {  
     
     
-    $(".btn").hide();	$("#nrides").hide();
+    //$(".btn").hide();
+    $("#nrides").hide();
 
     if (window.location.href.indexOf("date") > -1) {
         date_value = getUrlVars()["date"];
@@ -138,20 +139,23 @@ $( document ).ready(function() {
 														let fieldName = $(this).find('.rideid');
 														let fieldVal = $(fieldName)[0].textContent;
 
-
+                                                        $("#hidden"+fieldVal).hide();
 													    $("#"+ fieldVal).show();
 
 
-
-												{% for fieldbooked in BookedRides %}
-
-
+                                            var counter = 0;
+                                            {% for fieldbooked in BookedRides %}
 											   {% for f in fieldbooked %}
-
-                                          
-
-
+                                               console.log ("{{f.profile_pic}}")
+                                               
 											   var riderequested="{{f.RideRequested_id}}"
+                                               if (riderequested == fieldVal ) {
+                                                
+                                                counter +=1;
+                                                        $("#hidden{{f.RideRequested_id}}").show();
+                                                        $("#{{f.RideRequested_id}}").hide();
+                                                    }
+
                                                var ride_status = "{{f.status}}"
                                                if (ride_status ==  1 ){ride_status = "Pending"} 
                                                else (ride_status = "Accepted")
@@ -293,6 +297,48 @@ function cancelFunction(url,seats) {
   }
 
 };
+
+
+function cancel_rideRequest(ride_id) {
+    window.location.href = '/cancelrides/'+ride_id;
+}
+
+function book_ride(ride_id,seats) {
+    if (seats == 0 )
+    {
+        modal = $('#error_modal')
+        modal.modal('show')
+    }
+    else{
+        window.location.href = '/reqrides/'+ride_id;
+    }
+}
+
+async function show_confirmation_dialog(ride_id,no_of_seats,action,msg){
+    modal = $('#confirmation_modal')
+    modal.modal('show')
+    document.getElementById('content_msg').innerHTML = msg
+    await hide_modal();
+    if(action == "cancel"){
+        cancel_rideRequest(ride_id);
+    }
+    else{
+        book_ride(ride_id,no_of_seats);
+    }
+}
+
+function hide_modal() {
+
+    return new Promise(resolve =>
+        $('#modal-btn-confirm').on('click', () => {
+            $('.modal').modal('hide');
+            resolve();
+            }
+        )
+    );
+}
+
+
 
 
 $(document).ready(function(){
@@ -685,9 +731,10 @@ $option.appendTo('#areas');
                                 </div>
                             </div>
                             <div class="favorite-icon">
-                                <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="myFunction('{{ field.id }}')">Book now</button></span>
-                                <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="cancelFunction('{{ field.id }}','{{field.no_of_seats}')" >Cancel Request</button></span>
-              
+                                
+                                <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}',{{field.no_of_seats}},'book','Are you sure you want to book this ride ?')">Book now</button></span>
+                                <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}','{{field.no_of_seats}}','cancel','Are you sure you want to cancel your ride request?')" >Cancel Request</button></span>
+
 
 							</div>
                         </div>
@@ -710,6 +757,41 @@ $option.appendTo('#areas');
         </div>
 
     </div>
+
+    <div id="confirmation_modal"  class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="confirmation_modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="margin-top: 10px;">
+                    <h3 class="modal-title" id="confirmation_modalLabel">Cancel Ride Confirmation</h3>
+                </div>
+                <div class="modal-body" style="font-size: 20px;" id="content_msg">
+                </div>
+                <div class="modal-footer" id="confirm">
+                    <button type="button" class="btn btn-secondary" id="modal-btn-cancel" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary"   id="modal-btn-confirm">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="error_modal"  class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="error_modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="margin-top: 10px;">
+                    <h3 class="modal-title" id="error_modalLabel">Error</h3>
+                </div>
+                <div class="modal-body" style="font-size: 20px;">
+                    No avaialble seats in this ride.
+                </div>
+                <div class="modal-footer" id="confirm">
+                    <button type="button" class="btn btn-secondary" id="modal-btn-cancel" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 	</form>
 </section>
 
