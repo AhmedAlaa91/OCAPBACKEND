@@ -115,7 +115,6 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "apps.website.utils.context_processors.portal_total_emissions",
-
             ],
         },
     },
@@ -248,7 +247,7 @@ AWS_DEFAULT_ACL = "public-read"
 AWS_LOCATION = "cdr-files"
 AWS_REGION = "eu-west-0"
 AWS_QUERYSTRING_AUTH = False
-
+AWS_S3_PREFIX = getenv("AWS_S3_PREFIX")
 # REST Configuration
 #####################################################################################
 X_FRAME_OPTIONS = "SAMEORIGIN"

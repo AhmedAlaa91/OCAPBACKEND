@@ -54,7 +54,7 @@ def get_profile_pic_by_key(key: str):
         s3, session = create_s3_client()
         incident_body = s3.get_object(
             Bucket=settings.AWS_STORAGE_BUCKET_NAME,
-            Key=key,
+            Key=f"{settings.AWS_S3_PREFIX}/{key}",
         )
         log.info("File had been retrieved")
         return incident_body["Body"]
