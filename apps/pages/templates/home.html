@@ -60,7 +60,7 @@
                                 <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Get a Ride" class="btn btn-secondary py-3 px-4">
+                                <input type="button" value="Get a Ride" onclick="get_my_ride()" class="btn btn-secondary py-3 px-4">
                             </div>
                         </form>
                     </div>
@@ -212,6 +212,36 @@ $("#alert").append(approvedHTML);
 }
 
 
+
+function get_my_ride(){
+    city = document.getElementById("cities");
+    area = document.getElementById("areas");
+    city_name = city.options[city.selectedIndex].text;
+	area_name = area.options[area.selectedIndex].text;
+    date = document.getElementById("book_pick_date").value;
+
+    if(city_name == "Choose City" && area_name == "Choose Area")
+    {
+        url = '/rides/'
+        if(date){ url=url+"?date="+date}
+        window.location.href = url
+    }
+    else if(area_name == "Choose Area")
+    {
+        url = '/rides/?city='+city_name
+        if(date){ url=url+"&date="+date}
+        window.location.href = url
+    }
+    else{
+        url = '/rides/?city='+city_name+'&area='+area_name
+        if(date){ url=url+"&date="+date}
+        window.location.href = url
+    }
+
+
+
+
+}
 </script>
 
 {% endblock content %}
