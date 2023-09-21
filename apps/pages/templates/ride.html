@@ -6,9 +6,8 @@
 
 
 {% block extra_head %}
-
-<link rel="stylesheet" href="{% static 'home.css' %}" />
-
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 {% endblock extra_head %}
 
 
@@ -86,10 +85,7 @@
 
 </div>
 
-{% block extra_head %}
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-{% endblock %}
 
 <script>
     $(document).ready(function(){
