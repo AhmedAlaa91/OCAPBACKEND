@@ -35,7 +35,7 @@
 }
 </style>
 <title>My Rides</title>
-<div class="container" {% if not messages %}id="regiseration-form"{% endif %}>
+<div class="container" {% if not messages %} id="regiseration-form" {% endif %}>
     
     <h1 id="register-title">My Rides:</h1>
     <a class="btn btn-primary" id="create_ride_btn" href="{% url 'website.ride' %}" style="display: block !important;"  >Add New Ride</a>
@@ -205,7 +205,16 @@ $(document).ready(function(){
             $("#second-link").css("background","#ff7900");
         } 
     });
-    $("#content").css("padding-top", 0);
+
+    var paddT = $(".messages ").css('padding-top')
+    console.log(paddT)
+      //$("#content").css("padding-top", '7%');
+
+      if (paddT == '100px') {  $("#content").css("padding-top", 0);}
+
+      else { $("#content").css("padding-top", 100);}
+ 
+   
 });
 
 
