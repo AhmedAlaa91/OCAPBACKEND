@@ -31,7 +31,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-expand-md ftco_navbar bg-dark ftco-navbar-light"
         id="ftco-navbar">
-        <div class="container">
+        <div class="container-fluid" style="margin-left: 5%;margin-right: 5%;">
             <a class="navbar-brand" href="{% url 'pages.home' %}">
                 <img src="{% static 'images/orange_logo.svg' %}" alt="Back to homepage" title="Back to homepage"
                     width="50" height="50" />
@@ -42,7 +42,7 @@
                     width="30" height="30" />
                 </div>
                     <div class="col-10 d-flex justify-content-center pt-3">
-               <span class="text-primary" style="margin-left: -10px;">{{ total_emissions | floatformat:2 }} <span class="text-white text-bold" style="text-transform: none;">Kg</span> </span>
+               <span class="text-primary" style="margin-left: -10px;">{{ total_emissions | floatformat:2 }} <span class="text-white text-bold" style="text-transform: none;">Kg<br><span style="color:white; font-size:10px"> CO2 Saved</span></span> </span>
                     </div>
                </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
@@ -54,9 +54,10 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="{% url 'pages.home' %}" class="nav-link">Home</a></li>
                     {% if request.user.is_authenticated %}
-                      <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-                    <li class="nav-item"><a  href="{% url 'pages.rides' %}" class="nav-link">Rides</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Support</a></li>
+                        <li class="nav-item"><a href="{% url 'pages.rides' %}" class="nav-link">Join Ride</a></li>
+                        <li class="nav-item"><a  href="{% url 'website.ride' %}" class="nav-link">Create Ride</a></li>
+                        <li class="nav-item"><a  href="{% url 'website.myrides' %}" class="nav-link">My Rides</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
                     {% endif %}
                     <li class="nav-item">
                         <button type="button"
@@ -73,7 +74,6 @@
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'website.profile' %}">Profile</a></li>
                                 <li><a class="dropdown-item" href="{% url 'pages.mycars' %}">My Car</a></li>
-                                <li><a class="dropdown-item" href="{% url 'website.myrides' %}">My Rides</a></li>
                             {% else %}
                             <li><a class="dropdown-item" href="{% url 'website.login' %}">Login</a></li>
                             {% endif %}
@@ -93,7 +93,7 @@
     </div>
     {% endif %}
 
-    <main id="content" class="container-fluid" style="background:none; margin-top: 0px; width:90%;padding-top: 100px;min-height:85vh" >
+    <main id="content" style="width: 100%; padding-bottom:0px; background:none; margin-top: 0px; padding-top: 100px;min-height:85vh" >
         <div id="pageContent" style="background:none; margin-top: 2%;" >
             {% block content %}
             {% endblock %}
@@ -101,59 +101,28 @@
     </main>
 
 
-    <footer class="ftco-footer ftco-bg-dark ftco-section" style="padding: 4em 0em;">
-        <div class="container">
-            <div class="row mb-2">
+    <footer class="ftco-footer ftco-bg-dark ftco-section" style="padding: 0em 0em;">
+        <div class="container-fluid" style="margin-left: 5%;
+        margin-right: 5%;">
+            <div class="row mb-2" style="margin-bottom: 0px !important;">
                 <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2"><a href="#" class="logo">Car<span>Pool</span></a></h2>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                            <li class="ftco-animate"><a href="https://twitter.com/orangebusiness"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="https://www.linkedin.com/company/orange-business"><span class="icon-linkedin"></span></a></li>
-                        </ul>
+                    <div class="ftco-footer-widge">
+                        <h1 class="ftco-heading-2" style="font-size:20px; margin-top:5%;margin-bottom:5%;"><a href="#" class="logo">Car<span>Pool</span></a></h1>
                     </div>
                 </div>
                 <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">Information</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">About</a></li>
-                            <li><a href="#" class="py-2 d-block">Rides</a></li>
-                            <li><a href="#" class="py-2 d-block">Support</a></li>
-                        </ul>
+                    <div class="ftco-footer-widget">
+                        <h2 class="ftco-heading-2" style="text-align: center; margin-top:5%;margin-bottom:5%;margin-right: 10%;"><a href="#"><span style="font-size: 17px;
+                            color: white;">Contact us</span></a></h2>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Customer Support</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">How it works</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                        </ul>
+                <div class="col-md" style="text-align: right;
+                margin-right: 4%;">
+                    <div class="ftco-footer-widget">
+                        <h2 class="ftco-heading-2" style="margin-top:5%;margin-bottom:5%;"><a href="#"><span style="font-size: 17px;
+                            color: white;">Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script></span></a></h2>
                     </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">City stars complex-Omar Ibn EL Khattab street
-                                    Star Capital 8</span></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">carpooling-egy@orange.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-
-                    <p>
-                        Copyright &copy;
-                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-                        is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by Colorlib
-                    </p>
                 </div>
             </div>
         </div>

@@ -94,8 +94,35 @@ a {
 
 <script>
 
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
 
-$( document ).ready(function() {  $(".btn").hide();	$("#nrides").hide();
+$( document ).ready(function() {  
+    
+    
+    $(".btn").hide();	$("#nrides").hide();
+
+    if (window.location.href.indexOf("date") > -1) {
+        date_value = getUrlVars()["date"];
+        month = date_value.split("/")[0]
+        day = date_value.split("/")[1]
+        year = date_value.split("/")[2]
+        if(day.length==1){day = "0"+day}
+        if(month.length==1){month = "0"+month}
+        formatted_date_value = year +"-"+ month +"-"+ day;
+        $("#departure_date").val(formatted_date_value);
+        onChangeDate();
+    }
 
 
 
@@ -627,7 +654,7 @@ $option.appendTo('#areas');
                                             <li class="list-inline-item"><i class="mdi mdi-map-marker"></i> {{field.city}} , {{field.area}}</li>
                                         </ul>
 										<ul class="list-inline mb-0 text-muted">
-										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date |date:'Y-m-d'}} </span> at {{field.leave_time}} </li>
+										 <li class="list-inline-item" id="departure"><i class="mdi mdi-calendar-clock" ></i> Departure : <span id="form_Date"> {{field.date}} </span> at {{field.leave_time}} </li>
 
                                          {% if field.type != 'From Office' %}
                                          <li class="list-inline-item"><i class="mdi mdi-map-marker"></i>Pickup :  {{field.meeting_point}}</li>
