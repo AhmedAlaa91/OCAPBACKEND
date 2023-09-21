@@ -105,9 +105,9 @@
                                         {% if ride.creator.first_name == user.first_name %}
                                         <a class="btn btn-primary" id='link' href="/ride/{{ ride.id }}/passengers" style="width: 160px; margin-bottom: 5px;">Passengers</a>
                                         <a class="btn btn-primary" href="{% url 'pages.update_ride' ride.pk %}" style="width: 160px; margin-bottom: 5px;">Edit Ride</a>
-                                        <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" style="width: 160px;"  href="{% url 'pages.cancel.ride' ride.pk %}">Cancel Ride</a>
+                                        <span> <button class="btn btn-danger" type="button" id="register-submit" style="width: 160px;" onclick="show_confirmation_dialog('{{ ride.pk }}','ride','Are you sure you want to cancel your ride?','Cancel Ride Confirmation')">Cancel Ride</button></span>
                                         {% else %}
-                                        <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" style="width: 160px;" onclick="cancelFunction('{{ ride.id }}','{{ride.no_of_seats}')" >Cancel Request</button></span>
+                                        <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" style="width: 160px;" onclick="show_confirmation_dialog('{{ ride.pk }}','request','Are you sure you want to cancel your ride request?','Cancel Request Confirmation')" >Cancel Request</button></span>
                                         {% endif %}
                                     </li>
                                 </ul>
@@ -170,19 +170,6 @@
                                     {% endif %}
                                 </ul>
                             </div>
-                            <div class="col-lg-2" style="margin-left: 40px;text-align: right;">
-                                <ul class="list-inline mb-0 text-muted">
-                                    <li class="list" style="font-size:22px;color:black;">
-                                        {% if ride.creator.first_name == user.first_name %}
-                                        <a class="btn btn-primary" id='link' href="/ride/{{ ride.id }}/passengers" style="width: 160px; margin-bottom: 5px;">Passengers</a>
-                                        <a class="btn btn-primary" href="{% url 'pages.update_ride' ride.pk %}" style="width: 160px; margin-bottom: 5px;">Edit Ride</a>
-                                        <a class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this ride?')" style="width: 160px;"  href="{% url 'pages.cancel.ride' ride.pk %}">Cancel Ride</a>
-                                        {% else %}
-                                        <span> <button class="btn btn-danger" type="button" id="hidden{{ ride.pk }}" style="width: 160px;"  onclick="cancelFunction('{{ ride.id }}','{{ride.no_of_seats}')" >Cancel Request</button></span>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                            </div>
                         </div> 
                     </div>
                 </div>
@@ -218,22 +205,6 @@ $(document).ready(function(){
 });
 
 
-function cancelFunction(url,seats) {
-
-    if (seats == 0 ) {
-
-    confirm("No seats available ")}
-
-    else {
-
-    if (confirm("Are you sure you want to cancel this ride request?!")) {
-    window.location.href = '/cancelrides/'+url;
-    } else {
-    txt = "You pressed Cancel!";
-    }
-    }
-
-};
 
 
 function getCookie(name) {
@@ -299,6 +270,46 @@ location.href = response.redirect;
 
   // $('#link').click(grabLink)
 
+async function show_confirmation_dialog(ride_id,action,msg,label){
+    modal = $('#confirmation_modal')
+    modal.modal('show')
+    document.getElementById('content_msg').innerHTML = msg
+    document.getElementById('confirmation_modalLabel').innerHTML = label
+
+    await hide_modal();
+    if(action == "ride"){
+        window.location.href = window.location.origin + '/rides/'+ ride_id + '/cancel';
+    }
+    else{
+        window.location.href = window.location.origin + '/cancelrides/'+ride_id;
+    }
+}
+
+  function hide_modal() {
+    return new Promise((resolve) =>
+      $("#modal-btn-confirm").on("click", () => {
+        $(".modal").modal("hide");
+        resolve();
+      }),
+    );
+  }
 
 </script>
+
+<div id="confirmation_modal"  class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="confirmation_modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-top: 10px;">
+                <h3 class="modal-title" id="confirmation_modalLabel">Cancel Ride Confirmation</h3>
+            </div>
+            <div class="modal-body" style="font-size: 20px;" id="content_msg">
+            </div>
+            <div class="modal-footer" id="confirm">
+                <button type="button" class="btn btn-secondary" id="modal-btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary"   id="modal-btn-confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

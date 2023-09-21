@@ -270,35 +270,6 @@ function onChangeDate() {
     //alert(d);
 };
 
-function myFunction(url) {
-
-  if (confirm("Are you sure you want to Book This Ride ?!")) {
-     window.location.href = '/reqrides/'+url;
-  } else {
-    txt = "You pressed Cancel!";
-  }
-
-};
-
-
-function cancelFunction(url,seats) {
-
-  if (seats == 0 ) {
-
-  confirm("No seats available ")}
-
-  else {
-
-  if (confirm("Are you sure you want to cancel this ride request?!")) {
-     window.location.href = '/cancelrides/'+url;
-  } else {
-    txt = "You pressed Cancel!";
-  }
-  }
-
-};
-
-
 function cancel_rideRequest(ride_id) {
     window.location.href = '/cancelrides/'+ride_id;
 }
@@ -314,10 +285,13 @@ function book_ride(ride_id,seats) {
     }
 }
 
-async function show_confirmation_dialog(ride_id,no_of_seats,action,msg){
+async function show_confirmation_dialog(ride_id,no_of_seats,action,msg,label){
     modal = $('#confirmation_modal')
     modal.modal('show')
     document.getElementById('content_msg').innerHTML = msg
+    document.getElementById('confirmation_modalLabel').innerHTML = label
+
+    
     await hide_modal();
     if(action == "cancel"){
         cancel_rideRequest(ride_id);
@@ -732,8 +706,8 @@ $option.appendTo('#areas');
                             </div>
                             <div class="favorite-icon">
                                 
-                                <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}',{{field.no_of_seats}},'book','Are you sure you want to book this ride ?')">Book now</button></span>
-                                <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}','{{field.no_of_seats}}','cancel','Are you sure you want to cancel your ride request?')" >Cancel Request</button></span>
+                                <span> <button class="btn btn-primary" type="button" id="{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}',{{field.no_of_seats}},'book','Are you sure you want to book this ride ?','Book Ride confirmation')">Book now</button></span>
+                                <span> <button class="btn btn-danger" type="button" id="hidden{{ field.id }}" onclick="show_confirmation_dialog('{{ field.id }}','{{field.no_of_seats}}','cancel','Are you sure you want to cancel your ride request?','Cancel Request Confirmation')" >Cancel Request</button></span>
 
 
 							</div>
@@ -762,7 +736,7 @@ $option.appendTo('#areas');
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header" style="margin-top: 10px;">
-                    <h3 class="modal-title" id="confirmation_modalLabel">Cancel Ride Confirmation</h3>
+                    <h3 class="modal-title" id="confirmation_modalLabel"></h3>
                 </div>
                 <div class="modal-body" style="font-size: 20px;" id="content_msg">
                 </div>
