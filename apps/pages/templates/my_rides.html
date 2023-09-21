@@ -76,7 +76,7 @@
                                     <a class="primary-link" style="font-size:20px;">{{ ride.creator.first_name }} {{ ride.creator.last_name }}</a>
                                 </h5>
                                 <ul class="list-inline mb-0 text-muted">
-                                    <li class="list" title="Area, City"><i class="mdi mdi-map-marker"></i> {{ride.city}}, {{ride.area}}</li>
+                                    <li class="list" title="City, area"><i class="mdi mdi-map-marker"></i> {{ride.city}}, {{ride.area}}</li>
                                     <li class="list" title="Date"><i class="mdi mdi-calendar" ></i><span id="form_Date"> {{ride.date |date:'Y-m-d'}} </span></li>
                                     <li class="list" title="Leave time"><i class="mdi mdi-arrow-right-bold" style="color: green;"></i>{{ride.leave_time}}</li>
                                     {% if ride.return_time %}
@@ -147,7 +147,7 @@
                                     <a class="primary-link" style="font-size:20px;">{{ ride.creator.first_name }} {{ ride.creator.last_name }}</a>
                                 </h5>
                                 <ul class="list-inline mb-0 text-muted">
-                                    <li class="list" title="Area, City"><i class="mdi mdi-map-marker"></i> {{ride.city}}, {{ride.area}}</li>
+                                    <li class="list" title="City, area"><i class="mdi mdi-map-marker"></i> {{ride.city}}, {{ride.area}}</li>
                                     <li class="list" title="Date"><i class="mdi mdi-calendar" ></i><span id="form_Date"> {{ride.date |date:'Y-m-d'}} </span></li>
                                     <li class="list" title="Leave time"><i class="mdi mdi-arrow-right-bold" style="color: green;"></i>{{ride.leave_time}}</li>
                                     {% if ride.return_time %}
