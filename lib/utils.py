@@ -1,13 +1,12 @@
 # coding: utf-8
 """Utility functions"""
-from __future__ import annotations
-
 import os
 from datetime import datetime
 
 
-def Average(lst):
-    return sum(lst) / len(lst)
+def get_filename_without_ext(filename):
+    name = os.path.splitext(filename)[0]
+    return name
 
 
 def getenv(name: str, default: str = None) -> str:

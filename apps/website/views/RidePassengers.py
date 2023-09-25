@@ -38,6 +38,10 @@ class RequestsView(APIView):
         else:
             content = {"Message": "No passengers requested your ride yet."}
 
+        ride = Ride.objects.filter(id=request_ride_id).first()
+        if ride.creator != request.user:
+            content = {"Message": "You don't have access to this ride."}
+
         return Response(content, template_name="passengers.html")
 
     def post(self, request, *args, **kwargs):
@@ -77,7 +81,8 @@ class RequestsView(APIView):
         """
         # RidesBooked.objects.filter(RideRequested=rideid, Requestor=Requestor_id).delete()
         rideObj = Ride.objects.filter(id=rideid)
-        rideObj.update(no_of_seats=F("no_of_seats") + 1)
+        if (RideStatus == "Cancelled" or RideStatus == "Rejected" ):
+             rideObj.update(no_of_seats=F("no_of_seats") + 1)
         rideFields = rideObj.values()
 
         source = rideFields[0]["area"]

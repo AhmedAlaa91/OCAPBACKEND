@@ -9,14 +9,20 @@
 {% block extra_head %}
 
 <link rel="stylesheet" href="{% static 'home.css' %}" />
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"rel = "stylesheet">
+<script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+<script src="{% static '/js/profile.js' %}" ></script>
 
 {% endblock extra_head %}
-
-
-
-
 {% block content %}
 
+<title>Profile</title>
 <div class="container" id="regiseration-form">
 
     <div class="row">
@@ -94,13 +100,17 @@
            {% if request.user.profile.is_profile_uploaded %}
    <div class="form-group col-8">
           <img id="preview"  alt="Embedded Image"  style="width: 17rem;height:29vh;margin-inline: 3.3rem;padding:0;border:none;" src="data:image;base64,{{ request.user.profile.get_profile_picture_url | bin_2_img }}"  class="avatar-md img-thumbnail rounded-circle "/>
-
+ <div  id="loader" class="candidate-list-images" style='margin-left:20px;'>
+     <img src="{% static '../static/images/orange_circles.gif' %}"  alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;border:none; width: auto;">
+ </div>
          <label for="profile_picture">Profile Picture</label>
        <input id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;padding:5px" />
             {% else %}
                <div class="form-group col-8">
             <img id="preview" style="width: 17rem;height:29vh;margin-inline: 3.3rem;padding:0;border:none;" src="{% static 'images/male.jfif' %}" class="avatar-md img-thumbnail rounded-circle">
-
+<div  id="loader" class="candidate-list-images" style='margin-left:20px;'>
+     <img src="{% static '../static/images/orange_circles.gif' %}"  alt="" class="avatar-md img-thumbnail rounded-circle" style="padding:0;border:none; width: auto;">
+ </div>
          <label for="profile_picture">Profile Picture</label>
        <input required id="profile_picture" name="profile_picture" type="file" class="form-control" style="margin-bottom:2rem;padding:5px" />
    </div>
@@ -112,18 +122,7 @@
     </div>
 
 </div>
-<script>
-      const imgInp = document.getElementById("profile_picture");
-      const preview = document.getElementById("preview");
-
-imgInp.onchange = evt => {
-  const [file] = imgInp.files
-  if (file) {
-    preview.src = URL.createObjectURL(file)
-  }
-}
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/image_resize.js' %}"></script>
 
 <script>
     $(document).ready(function(){
