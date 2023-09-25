@@ -65,7 +65,7 @@ class AuthView(View):
                         img_resized, format_type = get_profile_picture_resized(img)
                         file_name = get_filename_without_ext(img.name)
                         client.upload_fileobj(
-                            img_resized.read(),
+                            img_resized,
                             settings.AWS_STORAGE_BUCKET_NAME,
                             f"{settings.AWS_S3_PREFIX}/{request.user.username}_{file_name}.{format_type.lower()}",
                         )
