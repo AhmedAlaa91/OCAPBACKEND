@@ -61,7 +61,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "bootstrap.settings.testing"
-python_files = ["tests/**/test*.py"]
+python_files = ["tests/test*.py"]
 addopts = "-v"
 
 

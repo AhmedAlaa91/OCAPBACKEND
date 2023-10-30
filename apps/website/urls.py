@@ -10,6 +10,7 @@ from apps.website.views.myRides import MyRidesListView
 from apps.website.views.ride import RideView
 from apps.website.views.RidePassengers import RequestsView
 from apps.website.views.UpdateCar import UpdateCar
+from apps.website.views.Cars import CarsView
 
 urlpatterns = [
     path("legal-disclaimer/", AuthView.legalDisclaimer, name="website.legalDisclaimer"),
@@ -32,4 +33,5 @@ urlpatterns = [
     path("rides/update/<pk>", EditRideView.as_view(), name="pages.update_ride"),
     path("ride/<pk>/passengers", RequestsView.as_view(), name="pages.update_requests"),
     path("ride/passengers", RequestsView.as_view(), name="pages.update_requests"),
+    path("cars/",CarsView.as_view(), name="cars"),
 ]
