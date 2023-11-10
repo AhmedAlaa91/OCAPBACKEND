@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from apps.website.managers import RideManager
-from .carregistration import Car
+from .CarRegistration import Car
 
 
 class Ride(models.Model):
