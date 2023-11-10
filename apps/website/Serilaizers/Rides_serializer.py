@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from apps.website.models.profile import *
 from apps.website.models.ride import *
-from apps.website.models.CarRegistration import *
+from apps.website.models.carregistration import *
 
 
 class Ride_serializer(serializers.ModelSerializer):

@@ -23,6 +23,7 @@ drf-yasg = {extras = ["validation"], version = "^1.21.7"}
 boto3 = "^1.28.27"
 pillow = "9.5.0"
 django-imagekit = "^4.1.0"
+coverage = "^7.3.2"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "~1.7"

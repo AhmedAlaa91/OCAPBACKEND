@@ -3,7 +3,7 @@ import logging
 from django.shortcuts import redirect, render
 
 from ..forms.CarRegistration import CarRegistrationForm , CarPlateForm
-from ..models.CarRegistration import Car , CarPlate
+from ..models.carregistration import Car , CarPlate
 
 log = logging.getLogger(__name__)
 

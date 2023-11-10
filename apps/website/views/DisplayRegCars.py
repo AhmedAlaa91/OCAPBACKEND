@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from ..models.CarRegistration import Car
+from ..models.carregistration import Car
 
 
 def DisplayRegCars(request):

@@ -1,20 +1,105 @@
 pipeline {
-  agent { docker { image 'python:3.7.2' } }
-  stages {
-    stage('poetry') {
-      steps {
-        bat 'pip install poetry'
-      }
-    }
+     
+     agent any 
+
+  
+   stages {
     stage('build') {
       steps {
-        bat 'poetry install'
+
+         bat 'pip install poetry'
+          bat 'poetry install --sync'
+      }
+    }
+    stage('test') {pipeline {
+     
+     agent any 
+
+  
+   stages {
+    stage('build') {
+      steps {
+
+         bat 'pip install poetry'
+          bat 'poetry install --sync'
       }
     }
     stage('test') {
-      steps {
-        bat 'python test.py'
+       steps {
+        bat 'python -m pytest --reuse-db --cov=apps\\website\\views --cov-fail-under=30 --junitxml=test-reports/report.xml tests'
+          bat' python -m coverage xml'
       }  
+       post {
+        always {
+          junit 'test-reports/*.xml'
+         step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage.xml'])
+        }
+      }    
+    }
+  }
+}
+       steps {
+        bat 'python -m pytest --reuse-db --cov=apps\\website\\views --cov-fail-under=30 --junitxml=test-reports/report.xml tests'
+          bat' python -m coverage xml'
+      }  
+       post {
+        always {
+          junit 'test-reports/*.xml'
+         step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage.xml'])
+        }
+      }    
+    }
+  }
+}pipeline {
+     
+     agent any 
+
+  
+   stages {
+    stage('build') {
+      steps {
+
+         bat 'pip install poetry'pipeline {
+     
+     agent any 
+
+  
+   stages {
+    stage('build') {
+      steps {
+
+         bat 'pip install poetry'
+          bat 'poetry install --sync'
+      }
+    }
+    stage('test') {
+       steps {
+        bat 'python -m pytest --reuse-db --cov=apps\\website\\views --cov-fail-under=30 --junitxml=test-reports/report.xml tests'
+          bat' python -m coverage xml'
+      }  
+       post {
+        always {
+          junit 'test-reports/*.xml'
+         step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage.xml'])
+        }
+      }    
+    }
+  }
+}
+          bat 'poetry install --sync'
+      }
+    }
+    stage('test') {
+       steps {
+        bat 'python -m pytest --reuse-db --cov=apps\\website\\views --cov-fail-under=30 --junitxml=test-reports/report.xml tests'
+          bat' python -m coverage xml'
+      }  
+       post {
+        always {
+          junit 'test-reports/*.xml'
+         step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage.xml'])
+        }
+      }    
     }
   }
 }

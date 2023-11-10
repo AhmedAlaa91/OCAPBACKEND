@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 
 from apps.website.forms.CarRegistration import CarRegistrationForm
-from apps.website.models.CarRegistration import Car
+from apps.website.models.carregistration import Car
 
 
 def DeleteCar(request, pk=None):
