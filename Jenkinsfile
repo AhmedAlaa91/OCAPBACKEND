@@ -5,7 +5,7 @@ pipeline {
    stages {
     stage('build') {
       steps {
-
+         sh 'python3 -m pip install django --break-system-packages'
          sh 'python3 -m venv .venv'
          sh '. .venv/bin/activate'
          sh 'python3 -m pip install poetry --break-system-packages'
