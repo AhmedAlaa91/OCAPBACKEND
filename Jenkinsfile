@@ -1,11 +1,6 @@
 pipeline {
      
-       agent {
-        docker {
-            image 'python:3.8'
-            args '-u root:root' // Set the user to root
-        }
-    }
+       agent any
      
    stages {
     stage('build') {
