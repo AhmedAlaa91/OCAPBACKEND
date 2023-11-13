@@ -11,7 +11,7 @@ pipeline {
          sh 'python3 -m pip install poetry --break-system-packages'
          sh 'python3 -m poetry install '
          sh 'python3 -m pip install pytest --break-system-packages'
-         sh 'python3 -Xutf8 manage.py loaddata data_dumped.json'
+        
         
       }
     }
