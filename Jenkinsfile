@@ -7,7 +7,7 @@ pipeline {
       steps {
 
          sh 'python3 -m venv .venv'
-         sh 'source .\\.venv\\bin\\activate'
+         sh '.venv\\bin\\activate'
          sh 'python3 -m pip install poetry'
          sh 'python3 -m poetry install '
          sh 'python3 -m pip install pytest'
