@@ -18,7 +18,7 @@ pipeline {
     }
     stage('test') {
        steps {
-        sh 'python3 -m pytest --reuse-db --cov=apps/website/views --cov-fail-under=30 --junitxml=test-reports/report.xml tests'
+        sh 'python3 -m pytest --reuse-db --cov=apps/website/views --cov-fail-under=30  tests'
           sh' python3 -m coverage xml'
       }  
        post {
